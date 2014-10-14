@@ -1,4 +1,5 @@
 #!/bin/sh
+# sorts all csv in current dir 
 for file in "."/*.csv ; do
 	if [ -f "$file" ]; then
 		if ! [[ $file == *.cfg.* ]]; then
