@@ -4,8 +4,8 @@ cd "%DIR%"
 set LANG=en_GB.UTF-8
 set NLS_LANG=ENGLISH
 java -version
-set JAVA_HOME=C:\Program Files\Java\jdk1.7.0_67
-set JDK_HOME=C:\Program Files\Java\jdk1.7.0_67
+set JAVA_HOME=C:\Program Files\Java\jdk1.7.0_71
+set JDK_HOME=C:\Program Files\Java\jdk1.7.0_71
 java -version sqldeveloper.log 2>&1
 set PATH=%JAVA_HOME%\bin;%PATH%
 java -version sqldeveloper.log 2>&1
