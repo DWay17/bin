@@ -7,3 +7,4 @@ start "" /B "C:\Program Files\totalcmd\TOTALCMD64.EXE" >> %LOGDIR%\totalcmd.log 
 pskill jEdit
 start "" /B "C:\Program Files\jEdit\jedit.exe" >> %LOGDIR%\jEdit.log 2>&1
 start "" /B /min /low "C:\Windows\System32\taskmgr.exe" >> %LOGDIR%\taskmgr.log 2>&1 
+start "" /B /min /low C:\cygwin64\bin\run.exe --quote /usr/bin/bash.exe -l -c "cd; /usr/bin/startxwin"
