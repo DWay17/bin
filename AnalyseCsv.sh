@@ -13,10 +13,12 @@ CLASSPATH="C:\develop\eclipse-ws\testProj\target\classes;C:\Users\t.richter\.m2\
 dir=$(cygpath -a -w $1)
 echo "dir=$dir"
 include='*.csv'
+include='*.tsv'
 exclude='*.cfg.*'
 ARGS="'$dir' '$include' '$exclude'"
 echo "ARGS=$ARGS"
 CLASS="de.uksh.zfdm.AnalyseCsv"
 CMD="$JAVA $D_OPTS -cp $CLASSPATH $CLASS $ARGS"
 echo "CMD="$CMD
+chmod -c u+rw descript.ion 
 $CMD
