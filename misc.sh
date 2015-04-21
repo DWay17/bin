@@ -18,3 +18,9 @@ mkdir -p 'w:\Freigegebene Dokumente\Projekte\Projektfortschritt'
 mkdir -p 'w:\Freigegebene Dokumente\Dokumente\Berichte'
 mkdir -p 'w:\Freigegebene Dokumente\Dokumente\Protokolle'
 mkdir -p 'w:\Freigegebene Dokumente\Dokumente\Vorlagen'
+perl -MCPAN -e shell
+grep :: < ~/cpan.log | sort -u | tr ' "();,*./$&_^?' '\n' | tr "\'" '\n' | sed -s 's/^-M//g' | grep :: | grep -v ^main:: | grep -v ::[a-i] | sort -u | fmt | sed 's/^/install /g'
+# repeated command execution
+watch -n 7 -d 
+find . -perm /u+x -maxdepth 1 -type f -exec ls -1 {} \; | grep "\." | sed -e 's#\./###g' | grep "\." | sed -e 's/.*\.//g' | sort | niq -c | sort -nr
+ 

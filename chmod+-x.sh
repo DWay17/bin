@@ -4,7 +4,7 @@ if [ -n "$1" ]; then
 else
 	MAXDEPTH=1
 fi
-find . -maxdepth $MAXDEPTH -type f -regextype posix-extended -regex '.*\.(asc|bak|cfg|csv|dat|db|ini|js|json|kdbx?|lock|log|mail|md|pdf|properties|rdf|sql|sqlite|txt|xlsx?|xml|xsl|xpi|zip|gitignore|project|TXT|MDB|CSV)' -exec chmod -c a-x {} \; 
+find . -maxdepth $MAXDEPTH -type f -regextype posix-extended -iregex '.*\.(apk|asc|bak|bash_.*|bashrc|bz2|cfg|crt|crx|csv|dat|db|diff|docx?|eps|gif|gitconfig|gitignore|gz|html?|ics|ini|inputrc|iso|jpe?g|js|json|kdbx?|lock|log|mail|md|mdb|muttrc|ods|owl|pdf|png|pptx?|profile|project|properties|rdf|reg|rtf|sql|sqlite|tar|tgz|tsv|txt|xlsx?|xml|xpi|xsl|zip)$' -exec chmod -c a-x {} \; 
 find . -maxdepth $MAXDEPTH -type f -regextype posix-extended -regex '.*/#.*#' -exec chmod -c a-x {} \; 
 find . -maxdepth $MAXDEPTH -type f -regextype posix-extended -regex '.*/.*~' -exec chmod -c a-x {} \; 
 find . -maxdepth $MAXDEPTH -type f -regextype posix-extended -regex '.*\.(sh|bash|cmd|bat)' -exec chmod -c ug+x {} \; 

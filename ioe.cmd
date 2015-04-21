@@ -1,7 +1,9 @@
 REM ioe.cmd
-DIR=C:\Programme\IDRT_IOE\de.umg.mi.idrt.product.id-win32.win32.x86_64\IOE.ini
+set DIR=C:\Programme\IDRT_IOE\de.umg.mi.idrt.product.id-win32.win32.x86_64\
+REM set EXENAME=IOE
+set EXENAME=IDRTImportTool
+set LOG_FILE=%EXENAME%.log
 cd "%DIR%"
-echo %DATE% %TIME% >> IOE.log
-REM start "ioe" /B IOE.exe >> IOE.log
-start "ioe" /B IOE.exe >> IOE.log 2>&1
-echo %DATE% %TIME% >> IOE.log
+echo %DATE% %TIME% >> %LOG_FILE%
+start "%EXENAME%" /B %EXENAME% >> %LOG_FILE% 2>&1
+echo %DATE% %TIME% >> %LOG_FILE%
