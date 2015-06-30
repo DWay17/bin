@@ -1,8 +1,9 @@
 REM 
-DIR=c:\Programme\mindterm\
+set DIR=%PROGRAMFILESMY%\mindterm\
 cd %DIR%
-echo %DATE% %TIME% >> mindterm.log
+set LOG_FILE=mindterm.log
+echo %DATE% %TIME% >> "%LOG_FILE%"
 sleep 1
-start "mindterm" /B javaw -jar mindterm.jar >> mindterm.log 2>&1
+start "mindterm" /B javaw -jar mindterm.jar >> %LOG_FILE% 2>&1
 sleep 1
-echo %DATE% %TIME% >> mindterm.log
+echo %DATE% %TIME% >> "%LOG_FILE%"
