@@ -1,6 +1,6 @@
 c:
 cd %PROGRAMFILESMY%\TOS\TOS_DI-20141207_1530-V5.6.1\
-
+REM    c:\Programme\TOS\TOS_DI-20141207_1530-V5.6.1\
 rem set LANG=en_GB.UTF-8 -nl en_EN in ini
 set JAVA_HOME=C:\Program Files\Java\jdk1.7.0_71
 set JDK_HOME=C:\Program Files\Java\jdk1.7.0_71
