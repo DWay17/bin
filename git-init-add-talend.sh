@@ -26,3 +26,7 @@ for dir in $dirs; do
 		git add "$dir/*"
 	fi
 done
+
+git add .gitignore
+git add .project
+git add talend.project
