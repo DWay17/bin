@@ -1,4 +1,5 @@
 set DIR=%PROGRAMFILESMY%\Eclipse\eclipse-standard-luna-SR1-win32-x86_64\
+set DIR=%PROGRAMFILESMY%\Eclipse\eclipse-jee-mars-R-win32-x86_64\
 set LOG_FILE=eclipse.log
 c:
 cd "%DIR%"

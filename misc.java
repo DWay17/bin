@@ -1,1 +1,1 @@
-@SuppressWarnings({ "unused", "unchecked", "serial", "rawtypes" })
+@SuppressWarnings({ "unused", "unchecked", "serial", "rawtypes", "null", "deprecation" })
