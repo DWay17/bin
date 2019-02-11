@@ -19,4 +19,5 @@ SET GNUPGHOME=C:\Users\t.richter\.gnupg\
 cd "c:\Program Files (x86)\GNU\GnuPG\"
 REM start "" /B /min /low "c:\Program Files (x86)\GNU\GnuPG\bin\kleopatra.exe"
 REM start "" /B /min /low "C:\Program Files (x86)\Bitrix24\BitrixDesktop.exe" >> %LOGDIR%\bitrix.log 2>&1
-start "" /B /min /low "C:\Programme\ClickOff\clickoff.exe" >> %LOGDIR%\clickoff.log 2>&1
+REM start "" /B /min /low "C:\Programme\ClickOff\clickoff.exe" >> %LOGDIR%\clickoff.log 2>&1
+REM runas /user:I-KMB\t.richter.lad  "C:\Program Files\totalcmd\TOTALCMD64.EXE"

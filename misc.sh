@@ -160,6 +160,7 @@ perl -p -i .bak -e "s/-t-mig16/-dev/g" /etc/host* /etc/ssh/*
 # file duplicates
 fdupes . | tr '\n' ' ' | sed -Ee 's/  /\n/g' | sed -Ee 's/^/mv -v /g' | sh
 
+# file statistics / dates
 stat * | grep -v Uid: | grep -iE '(File|Access|Modify|Change):' | tr '\n' '\t' | sed -Ee 's/  File: /\n  File: /g'
 
 setup-x86_64.exe -q -P git,make,gcc-core,gcc-g++,cmake
@@ -188,20 +189,164 @@ diff -u -B <(grep -vE '^\s*(#|$)' test1)  <(grep -vE '^\s*(#|$)' test2)
 
 cygpath -u 'C:\Users\t.richter\.grails\2.3.11\projects\transmart\plugins\xnat-viewer-16.2\lib\' | sed -Ee 's#((.*)/.*)#\1\n\2#' -e 's#((.*)/.*)#\1\n\2#' -e 's#((.*)/.*)#\1\n\2#' -e 's#((.*)/.*)#\1\n\2#' -e 's#((.*)/.*)#\1\n\2#' -e 's#((.*)/.*)#\1\n\2#' -e 's#((.*)/.*)#\1\n\2#' -e 's#((.*)/.*)#\1\n\2#' -e 's#((.*)/.*)#\1\n\2#' -e 's#((.*)/.*)#\1\n\2#' -e 's#((.*)/.*)#\1\n\2#' | sort -u | xargs ls -dl
 
+t.richter@ukshikmb-nw106 ~
+$ . hgtut.sh until | grep sysi.local | grep -v grep | grep ConnectTimeout=1 | sort -u
+until ssh -o ConnectTimeout=1 trichter@ukshsysi-dt001.sysi.local exit ; do :; done
+until ssh -o ConnectTimeout=1 trichter@ukshsysi-dt002.sysi.local exit ; do :; done
+until ssh -o ConnectTimeout=1 trichter@ukshsysi-pt001.sysi.local exit ; do :; done
+until ssh -o ConnectTimeout=1 trichter@ukshsysi-pt002.sysi.local exit ; do :; done
+until ssh -o ConnectTimeout=1 trichter@ukshsysi-tt001.sysi.local exit ; do :; done
+until ssh -o ConnectTimeout=1 trichter@ukshsysi-tt002.sysi.local exit ; do :; done
 
+until ssh -o ConnectTimeout=1 trichter@ukshsysi-do001.sysi.local exit ; do :; done
+until ssh -o ConnectTimeout=1 trichter@ukshsysi-do002.sysi.local exit ; do :; done
+until ssh -o ConnectTimeout=1 trichter@ukshsysi-po001.sysi.local exit ; do :; done
+until ssh -o ConnectTimeout=1 trichter@ukshsysi-po002.sysi.local exit ; do :; done
+until ssh -o ConnectTimeout=1 trichter@ukshsysi-to001.sysi.local exit ; do :; done
+until ssh -o ConnectTimeout=1 trichter@ukshsysi-to002.sysi.local exit ; do :; done
 
+until ssh -o ConnectTimeout=1 trichter@ukshsysi-di001.sysi.local exit ; do :; done
+until ssh -o ConnectTimeout=1 trichter@ukshsysi-di002.sysi.local exit ; do :; done
+until ssh -o ConnectTimeout=1 trichter@ukshsysi-pi001.sysi.local exit ; do :; done
+until ssh -o ConnectTimeout=1 trichter@ukshsysi-pi002.sysi.local exit ; do :; done
+until ssh -o ConnectTimeout=1 trichter@ukshsysi-ti001.sysi.local exit ; do :; done
+until ssh -o ConnectTimeout=1 trichter@ukshsysi-ti002.sysi.local exit ; do :; done
 
+/cygdrive/c/Windows/system32/ping -n 1 ukshsysi-dt001.sysi.local && (until ssh -o ConnectTimeout=1 trichter@ukshsysi-dt001.sysi.local exit ; do :; done )
+/cygdrive/c/Windows/system32/ping -n 1 ukshsysi-dt002.sysi.local && (until ssh -o ConnectTimeout=1 trichter@ukshsysi-dt002.sysi.local exit ; do :; done )
+/cygdrive/c/Windows/system32/ping -n 1 ukshsysi-pt001.sysi.local && (until ssh -o ConnectTimeout=1 trichter@ukshsysi-pt001.sysi.local exit ; do :; done )
+/cygdrive/c/Windows/system32/ping -n 1 ukshsysi-pt002.sysi.local && (until ssh -o ConnectTimeout=1 trichter@ukshsysi-pt002.sysi.local exit ; do :; done )
+/cygdrive/c/Windows/system32/ping -n 1 ukshsysi-tt001.sysi.local && (until ssh -o ConnectTimeout=1 trichter@ukshsysi-tt001.sysi.local exit ; do :; done )
+/cygdrive/c/Windows/system32/ping -n 1 ukshsysi-tt002.sysi.local && (until ssh -o ConnectTimeout=1 trichter@ukshsysi-tt002.sysi.local exit ; do :; done )
+/cygdrive/c/Windows/system32/ping -n 1 ukshsysi-do001.sysi.local && (until ssh -o ConnectTimeout=1 trichter@ukshsysi-do001.sysi.local exit ; do :; done )
 
+/cygdrive/c/Windows/system32/ping -n 1 ukshsysi-do002.sysi.local && (until ssh -o ConnectTimeout=1 trichter@ukshsysi-do002.sysi.local exit ; do :; done )
+/cygdrive/c/Windows/system32/ping -n 1 ukshsysi-po001.sysi.local && (until ssh -o ConnectTimeout=1 trichter@ukshsysi-po001.sysi.local exit ; do :; done )
+/cygdrive/c/Windows/system32/ping -n 1 ukshsysi-po002.sysi.local && (until ssh -o ConnectTimeout=1 trichter@ukshsysi-po002.sysi.local exit ; do :; done )
+/cygdrive/c/Windows/system32/ping -n 1 ukshsysi-to001.sysi.local && (until ssh -o ConnectTimeout=1 trichter@ukshsysi-to001.sysi.local exit ; do :; done )
+/cygdrive/c/Windows/system32/ping -n 1 ukshsysi-to002.sysi.local && (until ssh -o ConnectTimeout=1 trichter@ukshsysi-to002.sysi.local exit ; do :; done )
 
+/cygdrive/c/Windows/system32/ping -n 1 ukshsysi-di001.sysi.local && (until ssh -o ConnectTimeout=1 trichter@ukshsysi-di001.sysi.local exit ; do :; done )
+/cygdrive/c/Windows/system32/ping -n 1 ukshsysi-di002.sysi.local && (until ssh -o ConnectTimeout=1 trichter@ukshsysi-di002.sysi.local exit ; do :; done )
+/cygdrive/c/Windows/system32/ping -n 1 ukshsysi-pi001.sysi.local && (until ssh -o ConnectTimeout=1 trichter@ukshsysi-pi001.sysi.local exit ; do :; done )
+/cygdrive/c/Windows/system32/ping -n 1 ukshsysi-pi002.sysi.local && (until ssh -o ConnectTimeout=1 trichter@ukshsysi-pi002.sysi.local exit ; do :; done )
+/cygdrive/c/Windows/system32/ping -n 1 ukshsysi-ti001.sysi.local && (until ssh -o ConnectTimeout=1 trichter@ukshsysi-ti001.sysi.local exit ; do :; done )
+/cygdrive/c/Windows/system32/ping -n 1 ukshsysi-ti002.sysi.local && (until ssh -o ConnectTimeout=1 trichter@ukshsysi-ti002.sysi.local exit ; do :; done )
 
+## Aufräumen:
+sudo apt-get autoclean; sudo apt-get clean; sudo apt-get autoremove; 
+## Aufräumen:
+apt-get autoclean; apt-get clean; apt-get autoremove; 
 
+split --number l/50 --verbose --additional-suffix=.log transmart.log transmart.
 
+grep -R jquery.migrate.js transmart.log | grep -i error | - 's/.*[0-9]{3} (DEBUG|ERROR) //g' | gawk '!seen[$0]++'
 
+head -c 256 /dev/urandom > /c/var/tmp/test/`head -c 500 /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 8 | head -n 1`.data
+head -c 256 /dev/urandom > `head -c 500 /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 16 | head -n 1`.rsp.tsv
+od -vAn -N1 -td1 < /dev/urandom
 
+# owner permission tree
+namei -mo /var/spool/splitter_exchange/from/to/inProgress/done/
+namei -mo `pwd`
 
+#root@ukshsysi-pt002:/var/lib/tomcat7/webapps/transmart/js# 
+find ../ -regextype posix-extended -iregex '.*/jquery([0-9.-]+)?([.-]?min[.-]?)?\.js' -type f -size +0 | sed -Ee 's#(.*)/[^/]+$#\1/#g' | gawk '!seen[$0]++' | sed -Ee 's#^#ln -s *.js #g' | sh
 
+ls -1 transmart*.war | sed -Ee 's/(.*)/\1 \1/g' -e 's/^/mv -v /g' -e 's/$/_`date +%Y-%m-%dT%H.%M.%S`/g' | sh
 
+c:\develop\eclipse\testProj\target\classes>java VerbindungsTester -host web3-ths-ki.med.uni-greifswald.de
 
+su -l -s /bin/bash tomcat8
+head -c 256 /dev/urandom > `head -c 500 /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 16 | head -n 1`.rsp.tsv
+head -c 256 /dev/urandom > /var/spool/splitter_exchange/PopGen_PatientList/PopGen_DB/var_spool_`head -c 500 /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 16 | head -n 1`.rsp.tsv
+head -c 256 /dev/urandom > /home/exchange/var/spool/splitter_exchange/PopGen_PatientList/PopGen_DB/home_exchange_var_spool_`head -c 500 /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 16 | head -n 1`.rsp.tsv
+
+cd ~/MindTerm/ ; find . -iname 'ukshsysi-*t002*.mtp' -type f | grep -- "-[tp]t00" | sed -Ee 's#^#javaw -jar C:/Programme/mindterm/mindterm.jar --e --f #g' -e 's/$/ \&/g' | sh
+
+export PATH="/c/Program Files/Docker Toolbox:/c/Program Files/Oracle/VirtualBox":$PATH
+
+t.richter@ukshikmb-nw106 ~/AppData/Roaming/jEdit/modes (master)
+$ /c/Program\ Files/Git/usr/bin/winpty --help
+      5 [main] winpty (5376) C:\Program Files\Git\usr\bin\winpty.exe: *** fatal error - cygheap base mismatch detected - 0x1802FD410/0x180301410.
+This problem is probably due to using incompatible versions of the cygwin DLL.
+Search for cygwin1.dll using the Windows Start->Find/Search facility
+and delete all but the most recent version.  The most recent version *should*
+reside in x:\cygwin\bin, where 'x' is the drive on which you have
+installed the cygwin distribution.  Rebooting is also suggested if you
+are unable to find another cygwin DLL.
+Segmentation fault
+
+export PATH="/c/Users/t.richter/AppData/Local/Atlassian/SourceTree/git_local/usr/bin":$PATH
+
+echo -e "Ein \033[0;34mblaues Huhn\033[0m. Das ist wieder normaler Text."
+echo -e "Ein \e[0;34mblaues Huhn\e[0m. Das ist wieder normaler Text."
+echo "Ein ^[[0;34mblaues Huhn^[[0m. Das ist wieder normaler Text."
+echo -e "Ein \033[0;34m\033[41mblaues Huhn\033[0m sitzt gerne auf roten Sachen."
+
+#parent dir
+dirname .
+
+find /c/ -maxdepth 6 -mindepth 3 -iname .git -type d 2>/dev/null | xargs dirname | grep -Ev '~$|/tmp/|[0-9]{8,16}' | sed -Ee 's/^/cd /g' -e 's/$/ ; git pull/g' | sh
+
+echo '12345678|ABN\|XYZ MED CHEM PTY. LTD.|C||100.00|22|AB"C\|Corp|"XYZ|CDEF"|'| awk 'BEGIN{FS=OFS="|"}{print $1, $4, $2, $3, $7, $8, $9, $5, $6, $10, $11, $12}'
+seq 10 | | while read x; do    echo $RANDOM:$x done | sort -t: -k1 -n | sed 's/^[0-9]*://'
+
+alias beep="echo -ne '\007'"
+alias beep="echo -ne '\a'"
+
+mv -v tm_batch_done.log tm_batch_done.log~ ; sort < tm_batch_done.log~ | uniq > tm_batch_done.log
+history | grep tm_batch | cut -b8- | uniq | grep -Ev 'alias|grep|cat|diff|sort' | sort | sed -Ee 's#\|.*##g' -e 's#^time ##g' -e 's# $##g' | tee -a tm_batch_done.log
+find /home/sysinflame/data -iname '*.params' -type f | grep -E 'clinical|anno|expression|rna' | sed -s 's#^#tm_batch -p #g' | sort | tee tm_batch_todo.log
+alias tm_batch_n='java -jar -Xms1024m -Xmx4096m /home/sysinflame/transmart-batch/transmart-batch-16.2-capsule_INFO.jar -c /home/sysinflame/transmart-batch/batchdb.properties -n '
+alias tm_batch='java -jar -Xms1024m -Xmx4096m /home/sysinflame/transmart-batch/transmart-batch-16.2-capsule_INFO.jar -c /home/sysinflame/transmart-batch/batchdb.properties '
+
+# find broken symlinks
+find /home/ -xtype l -exec rm -vrf {} \;
+
+sdk ls grails | grep '\*' | sed -Ee 's# {2,}#\n#g' | grep '\*'
+sdk ls groovy | grep '\*' | sed -Ee 's# {2,}#\n#g' | grep '\*' | sed -Ee 's/^ ?> //g' | sort
+
+for f in `find ~/Downloads/ -mindepth 2 -iname '*.exe' | sed -Ee 's#(.*/).*#\1#g' | sort -u` ; do export PATH="$f:$PATH" ; done
+
+for d in `echo -e "sda2\nsdb1\nsdb2"` ; do echo "$d"; mkdir -vp /mnt/$d; mount /dev/$d /mnt/$d; done
+for d in `echo -e "sda2\nsdb1\nsdb2"` ; do echo "$d"; mkdir -vp /mnt/$d; mount /dev/$d /mnt/$d; done
+
+mount vm-site-dc01-flat.vmdk /tmp/test/ -o ro,loop=/dev/loop1,offset=32768 -t ntfs
+kpartx -av <image-flat.vmdk>; mount -o /dev/mapper/loop0p1 /mnt/vmdk
+
+find . -type f -name "*.csv" -print0 | while IFS= read -r -d '' file; do echo "file = $file" ; done
+
+############################
+SAVEIFS=$IFS
+IFS=$(echo -en "\n\b")
+for f in *
+do
+  echo "$f"
+done
+IFS=$SAVEIFS
+############################
+
+############################
+SAVEIFS=$IFS
+IFS=$(echo -en "\n\b")
+# set me
+FILES=/data/*
+for f in $FILES
+do
+  echo "$f"
+done
+# restore $IFS
+IFS=$SAVEIFS
+############################
+
+find -type f -iname '*.csv.orig.csv' -print0 | while IFS= read -r -d '' file; do echo "$file" | sed -Ee 's/^\.\/(.*).csv.orig.csv/sort -u < \1.csv.orig.csv > \1.csv/g'; done > tmp.sh
+
+find . -maxdepth 1 -regextype posix-extended -iregex '\./.+ .+\.(csv|tsv)' -type f | xargs scramble.sh
+find /var/ -maxdepth 8 -type f -mtime -2 2>/dev/null | xargs dirname | sort -u | xargs ls -ld
+find /home/sysinflame/data -iname '*.params' -type f | sed -Ee 's/^/time tm_batch_n -p /g' -e 's#(.* /home/sysinflame/data/(.*))#\1 | tee -a \2.log#g' -e 's###g'
+
+sdk ls | grep -P '(?<=\()\d+\..+(?=\))'
 
 
 

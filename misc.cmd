@@ -2,7 +2,7 @@ REM misc.cmd
 REM Richter, Thomas (t.richter@i-kmb.de)
 REM chmod für dos/windows:
 ICACLS . /grant t.richter@i-kmb.de:(OI)(CI)F /T
-ATTRIB /s /d -R * 
+ATTRIB /s /d -R "*" 
 "C:\Windows\system32\rundll32.exe" sysdm.cpl,EditEnvironmentVariables
 runDLL32 sysdm.cpl,EditEnvironmentVariables
 REM notepad++
@@ -35,7 +35,7 @@ cmd /c start /b cxcc
 REM shutdown /l = Log off and /f = force
 shutdown /l /f
 
-REM komprimieren
+REM komprimieren compress
 compact /c /a /s /i /q C:\Windows\winsxs\* >> %LOGDIR%/compact.log
 compact /c /a /s /i /q C:\Windows\winsxs\ >> %LOGDIR%/compact.log
 compact /c /a /i /q C:\Windows\winsxs\* >> %LOGDIR%/compact.log
@@ -79,3 +79,36 @@ C:\Windows\winsxs\amd64_microsoft-windows-sidebar_31bf3856ad364e35_6.1.7601.1751
 C:\Windows\winsxs\wow64_microsoft-windows-sidebar_31bf3856ad364e35_6.1.7601.17514_none_37575b7e71a86712\sidebar.exe
 
 mklink /D C:\Windows\Installer D:\C_DRIVE\Windows\Installer
+
+for %x in (a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z) do taskkill /T /FI "IMAGENAME eq %x*"
+cmd /c for %x in (a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z) do taskkill /T /FI "IMAGENAME eq %x*"
+
+C:\Users\t.richter>mklink /D symlink target
+Ihre Berechtigungen reichen nicht aus, um diesen Vorgang auszuführen.
+C:\Users\t.richter>mklink /H hardlink target
+Zugriff verweigert
+C:\Users\t.richter>mklink /J junktion target
+Verbindung erstellt für junktion <<===>> target
+
+Create JAVA_HOME system wide variable: setx.exe JAVA_HOME "C:\Program Files\Java\jre6" /M
+
+forfiles /p c:\var /s /m *.tsv /d -7 /C "cmd /c del /q @path"
+
+takeown /R /F "*"
+icacls * /T /Q /C /RESET
+
+REM Löschen kann man Snapshots mit
+vssadmin delete shadows /all /quiet /for=c:
+REM Dieser Befehl erfordert weitere Parameter: /shadow=‹GUID› löscht eine bestimmte Schatten­ko­pie, /oldest nur die älteste, /all alle. /quiet
+
+
+
+
+
+
+
+
+
+
+
+
