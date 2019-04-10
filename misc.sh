@@ -348,6 +348,11 @@ find /home/sysinflame/data -iname '*.params' -type f | sed -Ee 's/^/time tm_batc
 
 sdk ls | grep -P '(?<=\()\d+\..+(?=\))'
 
+# System settings Think!EHR makes heavy use of mmap. In order to have enough resources the following two settings need to be set:
+ulimit -m unlimited
+ulimit -v unlimited
+# Think!EHR index backend needs to open very many files. It is important to set maximum number of open files to 32k or even better, 64k:
+ulimit -n 65536
 
 
 

@@ -33,3 +33,5 @@ git update-index
 git prune
 git repack
 
+git push --set-upstream git@cau-git.rz.uni-kiel.de:suktm428/$(git rev-parse --show-toplevel | xargs basename).git $(git rev-parse --abbrev-ref HEAD)
+

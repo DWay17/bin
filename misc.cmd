@@ -101,8 +101,9 @@ REM Löschen kann man Snapshots mit
 vssadmin delete shadows /all /quiet /for=c:
 REM Dieser Befehl erfordert weitere Parameter: /shadow=‹GUID› löscht eine bestimmte Schatten­ko­pie, /oldest nur die älteste, /all alle. /quiet
 
-
-
+wmic netlogin list full
+REM seriennummer
+wmic csproduct list full | grep IdentifyingNumber | sed -e 's/.*=//g'
 
 
 
