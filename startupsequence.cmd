@@ -1,8 +1,9 @@
 REM startupsequence
 set LOGDIR="C:\Users\t.richter\logs\"
 start "" /B %PROGRAMFILESMY%\Capture2Text\Capture2Text.exe >> %LOGDIR%\Capture2Text.log 2>&1 
-start "" /B %PROGRAMFILESMY%\Sizer\sizer.exe >> %LOGDIR%\sizer.log 2>&1
-start "" /B "C:\Program Files (x86)\KeePass Password Safe 2\KeePass.exe" >> %LOGDIR%\KeePass.log 2>&1
+rem start "" /B %PROGRAMFILESMY%\Sizer\sizer.exe >> %LOGDIR%\sizer.log 2>&1
+REM start "" /B "C:\Program Files (x86)\KeePass Password Safe 2\KeePass.exe" >> %LOGDIR%\KeePass.log 2>&1
+start "" /B "I:\richter-th\database.kdbx" >> %LOGDIR%\KeePass.log 2>&1
 start "" /B "C:\Program Files\totalcmd\TOTALCMD64.EXE" >> %LOGDIR%\totalcmd.log 2>&1
 sleep 1
 pskill jEdit

@@ -35,3 +35,7 @@ git repack
 
 git push --set-upstream git@cau-git.rz.uni-kiel.de:suktm428/$(git rev-parse --show-toplevel | xargs basename).git $(git rev-parse --abbrev-ref HEAD)
 
+git config --system core.symlinks true
+
+# force pull
+git fetch --all && git reset --hard origin/master && git pull origin master

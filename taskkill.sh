@@ -1,6 +1,6 @@
 #!/bin/sh
 CMD="taskkill.exe"
-TREE="/F"
+TREE="/T"
 FORCE="/F"
 FILTER="/FI"
 IMAGE="/IM"

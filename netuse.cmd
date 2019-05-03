@@ -58,3 +58,5 @@ net use * "https://confluence.sysi.local:8090/plugins/servlet/confluence/default
 net use * "\\confluence.sysi.local@8090\plugins\servlet\confluence\default"
 \\confluence.sysi.local:8090\plugins\servlet\confluence\default
 
+net use * \\UKSHIKMB-nw106\c /PERSISTENT:YES
+

@@ -354,16 +354,25 @@ ulimit -v unlimited
 # Think!EHR index backend needs to open very many files. It is important to set maximum number of open files to 32k or even better, 64k:
 ulimit -n 65536
 
+true && echo "true" || echo "false"
+test -d current && echo "true" || echo "false"
 
+find ~/.sdkman/ -iname current | xargs cygpath -w | grep current | sed -Ee 's/(.*candidates\\([a-z]+)\\current)/setx \2_HOME \1/g'
 
+echo $PATH | tr ':' '\n' | xargs -d '\n' cygpath -w
+set | grep -E "^[A-Z].*_HOME=.*" | sed -e 's/=.*//g'
+set | grep -E "^[A-Z].*_HOME=.*" | sed -e 's/=.*//g' | sed -e 's/^/%/g' -e 's/$/%\\bin/g'| tr '\n' ';' | sed -e 's/^/HOMES_BINS=/g'
 
+setup.exe -q -n -N -d -R c:\cygwin -s http://yourFavoriteMirror -l c:\localPackageDir -P  <comma-separated list of packages to install>
+setup-x86_64 -q -n -N -d -P xhost
+setup-x86_64 -q -n -N -d -P wget,curl
+setup-x86_64 -q -n -N -d -f
+#repeat
+printf '[0-9a-fA-F]%.0s' {1..32}
 
+cat *.hl7 | tr '[\r\n\f]' '\n' | grep MSH | cut -d'|' -f9 | cut -d'^' -f3
 
-
-
-
-
-
+cygcheck -p perl-XML | grep -i perl | grep -v -- -src | sed -Ee 's/Found [0-9]+ matches for [a-z0-9A-Z -]+//g' -e 's/ - .*//g' -e 's/-[0-9.-]+$//g' | uniq2 | sed -e 's/$/,/g' | fmt -w 222 | sed -Ee 's/, /,/g' -e 's/,$//g' -e 's/^, ?//g' -e 's/^/setup-x86_64 -q -n -N -d -P /g'
 
 
 
