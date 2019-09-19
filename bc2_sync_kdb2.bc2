@@ -1,0 +1,6 @@
+# C:\Users\t.richter\bin\bc2_sync_kdb.bc2
+log normal bc2_sync_kdb2.log
+load <default>
+filter "*.kdb;*.kdbx;-.git\;-tmp\;-temp\;-cache\"
+load c:\Users\t.richter\Documents\ \\isilon01.zad.local\user\richter-th\
+sync visible update:all
