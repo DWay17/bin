@@ -2,6 +2,7 @@ REM misc.cmd
 REM Richter, Thomas (t.richter@i-kmb.de)
 REM chmod für dos/windows:
 ICACLS . /grant t.richter@i-kmb.de:(OI)(CI)F /T
+REM ATTRIB löscht Schreibschutz /s rekursiv /d ordner
 ATTRIB /s /d -R "*" 
 "C:\Windows\system32\rundll32.exe" sysdm.cpl,EditEnvironmentVariables
 runDLL32 sysdm.cpl,EditEnvironmentVariables
@@ -82,6 +83,14 @@ Create JAVA_HOME system wide variable: setx.exe JAVA_HOME "C:\Program Files\Java
 forfiles /p c:\var /s /m *.tsv /d -7 /C "cmd /c del /q @path"
 takeown /R /F "*"
 icacls * /T /Q /C /RESET
+
+icacls c:\Users\t.richter /reset /t
+icacls c:\Users\t.richter /T /grant "LAPTOP-FBFN60TK\t.richter":(OI)(CI)F
+REM takeown /R /U LAPTOP-FBFN60TK\t.richter /F *
+takeown /R /S LAPTOP-FBFN60TK /U LAPTOP-FBFN60TK\t.richter /F *
+secedit /configure /cfg %windir%\inf\defltbase.inf /db defltbase.sdb /verbose
+secedit /configure /cfg %windir%\inf\defltsv.inf /db defltbase.sdb /verbose
+
 REM Löschen kann man Snapshots mit
 vssadmin delete shadows /all /quiet /for=c:
 REM Dieser Befehl erfordert weitere Parameter: /shadow=‹GUID› löscht eine bestimmte Schatten­ko­pie, /oldest nur die älteste, /all alle. /quiet
@@ -104,3 +113,14 @@ set | find "_HOME"
 setx JDK_HOME "C:\Program Files\Java\jdk1.8.0_211"
 setx JRE_HOME "C:\Program Files\Java\jre1.8.0_211"
 setx JAVA_HOME "%JDK_HOME%"
+
+icacls c:\Users\t.richter /grant "LAPTOP-FBFN60TK\t.richter":(OI)(CI)F
+icacls c:\develop /grant "LAPTOP-FBFN60TK\t.richter":(OI)(CI)F
+icacls "c:\develop\*" /q /c /reset /t
+icacls "c:\Users\t.richter\*" /q /c /reset /t
+REM 650848 Dateien erfolgreich verarbeitet, bei 63 Dateien ist ein Verarbeitungsfehler aufgetreten.
+takeown /R /S LAPTOP-FBFN60TK /U LAPTOP-FBFN60TK\t.richter /F "My Web Sites"
+
+pushd \\server\share
+popd  \\server\share
+

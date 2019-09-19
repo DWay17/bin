@@ -1,5 +1,5 @@
 #!/bin/sh
-
+exit 0
 # --cap-add Add Linux capabilities
 # SYS_PTRACE	Trace arbitrary processes using ptrace
 # detached mode, you use -d=true or just -d option

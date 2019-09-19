@@ -25,7 +25,16 @@ echo HOME.USER=%HOME.USER%
 
 REM 
 REM  set java version in eclipse.ini with -vm 
-REM 
+REM
+
+REM -perspective perspectiveId The perspective to open in the active workbench window on startup. If this parameter
+REM is not specified, the perspective that was active on shutdown will be opened.
+REM
+REM -perspective (workbench) launch Eclipse and switch to the perspective with the given id. As an example, for
+REM JDT perspective, we read the JDT APIs, to find the ID_PERSPECTIVE is "org.eclipse.jdt.ui.JavaPerspective".
+REM org.eclipse.jdt.ui.JavaUI.ID_BROWSING_PERSPECTIVE (vari)
+REM org.eclipse.jdt.ui.JavaBrowsingPerspective
+set ARGS=-perspective org.eclipse.jdt.ui.JavaBrowsingPerspective
 
 java -version >> %LOG_FILE% 2>&1
 REM echo "set vari to  1.7" >> %LOG_FILE% 2>&1

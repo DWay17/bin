@@ -39,3 +39,6 @@ git config --system core.symlinks true
 
 # force pull
 git fetch --all && git reset --hard origin/master && git pull origin master
+
+git checkout --force feature/epic_FWA-15-XML_Verarbeitung --progress
+

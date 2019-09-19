@@ -374,6 +374,81 @@ cat *.hl7 | tr '[\r\n\f]' '\n' | grep MSH | cut -d'|' -f9 | cut -d'^' -f3
 
 cygcheck -p perl-XML | grep -i perl | grep -v -- -src | sed -Ee 's/Found [0-9]+ matches for [a-z0-9A-Z -]+//g' -e 's/ - .*//g' -e 's/-[0-9.-]+$//g' | uniq2 | sed -e 's/$/,/g' | fmt -w 222 | sed -Ee 's/, /,/g' -e 's/,$//g' -e 's/^, ?//g' -e 's/^/setup-x86_64 -q -n -N -d -P /g'
 
+usermod -a -G examplegroup exampleusername
+usermod -a -G group1,group2,group3 exampleusername
+usermod -a -G root,postgres,openbis,sysinflame trichter
+
+perl -p -i.bak -e 's/popgen.new.patient/popgenIDAT_to_tempPSN/g'
+# grep
+perl -wln -e "/RE/ and print;" foo.txt 
+# grep -v
+perl -wln -e "/RE/ or print;" foo.txt
+perl -wln -i.bak -e "/auth-method|port|private-key|server|sftpbridge-host|sftpbridge-hosttype|sftpbridge-port|username/ and print;"
+
+perl -ne 'print unless $seen{$_}++' data.txt # uniq
+perl -wln -i.bak -e 'print unless $seen{$_}++' ~/.bash_history # uniq
+awk '!seen[$0]++' # uniq
+
+find . -type d -empty -delete
+
+cat ORU.HL7 | tr '\n\r' '\n' | iconv -f iso-8859-1 -t UTF-8 | grep -a OBX | cut -d'|' -f4 | cut -d^ -f 1 | sort | uniq -c | sort -n
+
+ifconfig | grep -A4 eth | grep addr: | sed -Ee 's/\s{2,}/\n/g' | grep inet | egrep '[0-9]+(\.[0-9]+){3}'
+ifconfig | grep -A6 eth | grep addr: | egrep '[0-9]+(\.[0-9]+){3}' | tr '[:space:]' '\n' | grep addr
+
+aptitude search '~i postgres'
+
+ls *o00* | sed -e 's/\.mtp//g' | xargs -n1 nslookup | grep -A2 Name
+
+# use DISPLAY=:0.0, rather than DISPLAY=localhost:0.0, DISPLAY=127.0.0.1:0.0, DISPLAY=::1:0.0, etc
+export DISPLAY=:0.0 
+
+startxwin -- -listen tcp
+
+perl -wln -i.bak -e '/symlinks = / or print;' /c/develop/eclipse/fdm/.git/config
+find /c/develop/ -regextype posix-extended -iregex '.*/.git/config' -type f | xargs perl -wln -i.bak -e '/symlinks = / or print;' 
+
+
+cp xxx.log xxx.`date +%Y%m%d%H%M%S`.log
+cp xxx.log xxx.`date +%Y-%m-%dT%H.%M.%S`.log
+
+export PS1='\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
+
+sort -k2b,2 -k1,1 <people.txt
+sort -t $'\n' -k 1.8,1.11 infile
+. hgtut.sh java | grep -i mindterm | grep jar | grep -v find | grep o00 | sort -t $'\n' -rk 1.66,1.66 -nk 1.68,1.69
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
