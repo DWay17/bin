@@ -21,6 +21,7 @@ IFS=$'\n'
 JAVA_DIRS[0]="/c/Program Files/Java"
 JAVA_DIRS[1]="/c/Program Files (x86)/Java"
 JAVA_DIRS[2]="/c/Program Files (x86/Common Files/Oracle/Java"
+JAVA_DIRS[2]="/c/Users/t.richter/.sdkman/candidates/java"
 echo -ne "JAVA_DIRS *\t"
 echo ${JAVA_DIRS[*]}
 echo -ne "JAVA_DIRS @\t"

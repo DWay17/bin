@@ -419,6 +419,16 @@ sort -t $'\n' -k 1.8,1.11 infile
 . hgtut.sh java | grep -i mindterm | grep jar | grep -v find | grep o00 | sort -t $'\n' -rk 1.66,1.66 -nk 1.68,1.69
 
 
+BASENAME=`basename $FILE`
+echo $BASENAME
+DIRNAME=`dirname $FILE`
+echo $DIRNAME
+echo "${FILE#*.}"
+#tar.gz
+echo "${FILE##*.}"
+#gz
+mktemp
+
 
 
 
