@@ -428,14 +428,34 @@ echo "${FILE#*.}"
 echo "${FILE##*.}"
 #gz
 mktemp
+find jdk_dir -name "*.pack" -exec sh -c 'jdk_dir/bin/unpack200 -r "{}" "$(dirname "{}")/$(basename "{}" .pack).jar"' \;
+mv -v splitter.properties splitter.properties.old ; ((echo "# "$(pwd); cat splitter.properties.old ) | uniq ) > splitter.properties
 
+chown -cR tomcat8.tomcat8 /var/lib/tomcat8/
+sudo -u tomcat8 bash                                                                                                        
+export HOME=/var/lib/tomcat8/
 
+#root@splitter-test:/home/trichter# chown -cR tomcat8.tomcat8 /var/lib/tomcat8/
+#changed ownership of '/var/lib/tomcat8/work' from root:root to tomcat8:tomcat8
+#changed ownership of '/var/lib/tomcat8/bin/setenv.sh' from root:root to tomcat8:tomcat8
+#changed ownership of '/var/lib/tomcat8/bin' from root:root to tomcat8:tomcat8
+#changed ownership of '/var/lib/tomcat8/logs' from root:root to tomcat8:tomcat8
+#changed ownership of '/var/lib/tomcat8/conf' from root:root to tomcat8:tomcat8
+#changed ownership of '/var/lib/tomcat8/' from root:root to tomcat8:tomcat8
 
+openssl x509 -inform PEM -outform DER -in ca_cert.crt -out ca_cert_der.crt
+openssl x509 -inform PEM -outform DER -in isrgrootx1.pem -out isrgrootx1.crt
 
+java -Djavax.net.ssl.trustStore=643.jks \
+-Djavax.net.ssl.trustStorePassword=password \
+-Djavax.net.ssl.keyStore=1203.jks \
+-Djavax.net.ssl.keyStorePassword=password \
+-classpath bcmail-jdk16-1.46.jar:bcprov-jdk16-1.46.jar:commons-lang-2.4.jar:hapi-base-2.1-alpha1.jar:hapi-hl7overhttp-2.1-alpha1.jar:hapi-structures-v21-2.0.jar:hapi-structures-v22-2.0.jar:hapi-structures-v23-2.0.jar:hapi-structures-v231-2.0.jar:hapi-structures-v24-2.0.jar:hapi-structures-v25-2.0.jar:hapi-structures-v251-2.0.jar:hapi-structures-v26-2.0.jar:hapi-testpanel-2.0.1.jar:jsyntaxpane-0.9.6-hapi2.jar:log4j-1.2.16.jar:org-netbeans-swing-outline-RELEASE701.jar:org-openide-awt-RELEASE701.jar:org-openide-filesystems-RELEASE701.jar:org-openide-util-RELEASE701.jar:org-openide-util-lookup-RELEASE701.jar:slf4j-api-1.6.6.jar:slf4j-log4j12-1.6.6.jar \
+ca.uhn.hl7v2.testpanel.App
 
+dpkg -l | tail -n +6 | grep -E 'linux-image-[0-9]+' | grep -Fv $(uname -r) | grep ii
 
-
-
+openssl s_client -showcerts -connect $TARGET < /dev/null 2> /dev/null | sed -n '/^-----BEGIN CERTIFICATE-----$/,/^-----END CERTIFICATE-----$/{/BEGIN /h;/BEGIN /!H};${g;p}'
 
 
 

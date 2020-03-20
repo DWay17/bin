@@ -60,3 +60,9 @@ net use * "\\confluence.sysi.local@8090\plugins\servlet\confluence\default"
 
 net use * \\UKSHIKMB-nw106\c /PERSISTENT:YES
 
+REM https://cloud.rz.uni-kiel.de/index.php/apps/files
+REM https://cloud.rz.uni-kiel.de/remote.php/dav
+REM https://cloud.rz.uni-kiel.de/remote.php/dav/files/suktm428/
+REM net use Z: \\example.com@ssl\nextcloud\remote.php\dav /user:youruser yourpassword
+net use n: \\cloud.rz.uni-kiel.de@SSL\nextcloud\remote.php\dav /user:UNI_KIEL\suktm428 /PERSISTENT:YES /SAVECRED
+

@@ -124,3 +124,50 @@ takeown /R /S LAPTOP-FBFN60TK /U LAPTOP-FBFN60TK\t.richter /F "My Web Sites"
 pushd \\server\share
 popd  \\server\share
 
+for %%I IN (.\lib\*.jar) DO SET CP=!CP!;%%I
+
+ftype jarfileterm=cmd /s /k “”C:\Program Files\Java\jre7\bin\java.exe” -jar “%1″ %*”
+assoc .jar=jarfileterm 
+
+
+REM 134.245.4.72	255.255.255.255	134.245.228.36	134.245.228.35	9999	Indirect	Static Route	2.748	Fortinet SSL VPN Virtual Ethernet Adapter	00-09-0F-AA-00-01	19.02.2020 10:35:07	No	
+
+```
+route add 134.245.4.72 mask 255.255.255.255 172.21.90.1
+route change 134.245.4.72 mask 255.255.255.255 134.245.228.36 metric 9999
+```
+route CHANGE 157.0.0.0 MASK 255.0.0.0 157.55.80.5 METRIC 2 IF 2
+
+REM node.js
+REM To install a FHIR package with all dependencies, this gets you there. In this example we'll install package hl7.fhir.core.r4.
+npm create
+npm --registry https://packages.simplifier.net install hl7.fhir.core.r4
+npm --registry https://packages.simplifier.net install 
+REM Simplifier as default npm package server
+REM If you want to set Simplifier as your default package server, you can do that with NPM. We recommend you only do that if you don't need npm for .js packages.
+npm config set registry https://packages.simplifier.net/
+npm install hl7.fhir.core.r4
+npm install 
+npm --registry https://packages.simplifier.net install de.medizininformatikinitiative.kerndatensatz@0.0.1
+
+REM fhir
+dotnet tool install -g torinox 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
