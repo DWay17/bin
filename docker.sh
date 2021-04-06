@@ -88,6 +88,45 @@ cat /dev/zero > /mnt/sda1/zero.tmp ; sleep 1; sync; sleep 1; /bin/rm -f /mnt/sda
 cat /dev/zero >zero.fill; sleep 1; sync; sleep 1; /bin/rm -f zero.fill
 
 
+###########
+
+systemctl status docker
+systemctl edit docker
+cat /lib/systemd/system/docker.service 
+vim /etc/systemd/system/docker.service.d/override.conf 
+systemctl cat docker | grep ExecStart
+systemctl daemon-reload
+systemctl restart docker
+
+# !!!
+systemctl edit docker.service
+
+docker run -dp 80:80 docker/getting-started
+
+
+docker cp /usr/bin/busybox portainer:/
+docker exec -it portainer /busybox sh
+
+# avoid
+docker run -v /mnt/c/users:/users #(where /mnt/c is mounted from Windows).
+# Instead, from a Linux shell use a command like 
+docker run -v ~/my-project:/sources <my-image> # where ~ is
+docker run --name nifi -v /mnt/c/users:/mnt/users apache/nifi:latest
+docker run --name nifi -v ~:/mnt/home apache/nifi:latest
+
+docker run -d -p 9000:9000 -p 8000:8000 --name portainer --restart always -v /var/run/docker-fwd.sock:/var/run/docker.sock portainer/portainer
+docker run -d -p 9000:9000 -p 8000:8000 --name portainer --restart always -v ~/docker134.245.4.88.sock:/var/run/docker.sock portainer/portainer-ce
+
+## reset docker
+#Stop the container(s) using the following command: 
+docker-compose down
+#Delete all containers using the following command: 
+docker rm -f $(docker ps -a -q)
+#Delete all volumes using the following command: 
+docker volume rm $(docker volume ls -q)
+
+
+
 
 
 

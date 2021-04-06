@@ -43,7 +43,7 @@ Nicht verfgb W:        https://sharepoint.uni-kiel.de/websites/sysinflame/	Web C
 OK           Y:        \\ukshikmb-sl027.i-kmb.de\Alfresco					Microsoft Windows Network
 Nicht verfgb Z:        \\mucosasafe.mucosalab.de\Nutzer\t.richter			Microsoft Windows Network
 
-Fehler bei der erneuten Verbindungsherstellung von 5: mit https://sharepoint.uni—kie|.de/websites/Sysinf|ame2/ 
+Fehler bei der erneuten Verbindungsherstellung von 5: mit https://sharepoint.uni-kiel.de/websites/Sysinflame2/ 
 Web Client Network: Ein an das System angeschlossenes Gerät  funktioniert nicht.  Die Verbindung wurde nicht wiederhergestellt.
                          
 net use k: \\confluence.sysi.local:8090\webdav /PERSISTENT:YES
@@ -65,4 +65,7 @@ REM https://cloud.rz.uni-kiel.de/remote.php/dav
 REM https://cloud.rz.uni-kiel.de/remote.php/dav/files/suktm428/
 REM net use Z: \\example.com@ssl\nextcloud\remote.php\dav /user:youruser yourpassword
 net use n: \\cloud.rz.uni-kiel.de@SSL\nextcloud\remote.php\dav /user:UNI_KIEL\suktm428 /PERSISTENT:YES /SAVECRED
+
+REM https://sharepoint.uni-goettingen.de/medizin/UKEI/HGOEHD/
+net use G: "https://sharepoint.uni-goettingen.de/medizin/UKEI/HGOEHD/" /savecred /persistent:yes /user:Richter_Thomas
 

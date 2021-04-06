@@ -31,7 +31,7 @@ for JAVA_DIR in ${JAVA_DIRS[@]}; do
 	echo
 	echo "JAVA_DIR=$JAVA_DIR"
 	ls -d "$JAVA_DIR"
-	JAVA_EXES=$(find "$JAVA_DIR" -maxdepth 6 -mindepth 4 -regextype posix-extended -iregex '/c/.*javaw?\.exe' -type f 2>/dev/null)
+	JAVA_EXES=$(find "$JAVA_DIR" -maxdepth 6 -mindepth 3 -regextype posix-extended -iregex '/c/.*javaw?\.exe' -type f 2>/dev/null)
 	echo "JAVA_EXES=$JAVA_EXES"
 	for JAVA_EXE in $JAVA_EXES; do
 		echo "JAVA_EXE=$JAVA_EXE"

@@ -42,3 +42,11 @@ git fetch --all && git reset --hard origin/master && git pull origin master
 
 git checkout --force feature/epic_FWA-15-XML_Verarbeitung --progress
 
+git config --global user.name "Thomas Richter"
+git config --global user.email "richter@medinfo.uni-kiel.de"
+
+git config user.name "Thomas Richter"
+git config user.email "richter@medinfo.uni-kiel.de"
+
+
+

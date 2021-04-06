@@ -153,10 +153,11 @@ npm --registry https://packages.simplifier.net install de.medizininformatikiniti
 REM fhir
 dotnet tool install -g torinox 
 
+mvn archetype:generate -Dfilter=org.apache:nifi
 
-
-
-
+wsl --set-version Ubuntu 2
+wsl --set-version openSUSE-42 2
+wsl --set-version Debian 2
 
 
 

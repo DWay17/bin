@@ -15,7 +15,8 @@ pskill javaw
 sleep 1
 pskill java
 sleep 1
-start "" /B "I:\richter-th\database.kdbx" >> %LOGDIR%\KeePass.log 2>&1
+REM start "" /B "I:\richter-th\database.kdbx" >> %LOGDIR%\KeePass.log 2>&1
+start "" /B "C:\Users\t.richter\Documents\database.kdbx" >> %LOGDIR%\KeePass.log 2>&1
 start "" /B "C:\Program Files\totalcmd\TOTALCMD64.EXE" >> %LOGDIR%\totalcmd.log 2>&1
 start "" /B "C:\Program Files\jEdit\jedit.exe" >> %LOGDIR%\jEdit.log 2>&1
 REM cd "C:\Program Files\jEdit\"

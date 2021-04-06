@@ -457,12 +457,33 @@ dpkg -l | tail -n +6 | grep -E 'linux-image-[0-9]+' | grep -Fv $(uname -r) | gre
 
 openssl s_client -showcerts -connect $TARGET < /dev/null 2> /dev/null | sed -n '/^-----BEGIN CERTIFICATE-----$/,/^-----END CERTIFICATE-----$/{/BEGIN /h;/BEGIN /!H};${g;p}'
 
+# show tcp ports
+netstat -tulpn | grep LISTEN
+netstat -alpn | grep -i docker
+lsof -i -P -n | grep LISTEN
 
+ssh-keygen -t rsa
 
+mkdir -p ~/.ssh
+#Nun kopieren wir unseren, im ersten Schritt erstellten Schlüssel, auf den Server. Dazu wechseln wir wieder in unser lokales Linux Terminal
 
+cat ~/.ssh/id_rsa.pub | ssh root@server.de 'cat >> .ssh/authorized_keys'
+cat ~/.ssh/id_rsa.pub | ssh root@server.de 'cat >> ~/.ssh/authorized_keys'
 
+# random / entropy
+sudo apt install rng-tools 
+sudo apt install rng-tools5
+rngtest -c 1000 </dev/random
 
+apt update && apt -y upgrade
 
+apt --purge autoremove && apt clean
+
+#You can easily solve this using SSLPassPhraseDialog (apache)
+#  SSLPassPhraseDialog  exec:/etc/httpd/conf/pwf.sh
+# pwf.sh file contents
+# #!/bin/sh
+echo password
 
 
 

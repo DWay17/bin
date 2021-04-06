@@ -6,20 +6,28 @@ else
 	git init
 fi
 # setup .gitignore
-echo "*.screenshot" >> .gitignore
-echo "/.settings/org.eclipse.core.resources.prefs" >> .gitignore
-echo "/code/routines/system/" >> .gitignore
-echo "/sqlPatterns/" >> .gitignore
-echo "/temp" >> .gitignore
-echo "Copy_of_*" >> .gitignore
-sort -u < .gitignore > .gitignore
+cat << EOF >> .gitignore
+**/system/
+**/target/
+*.screenshot
+/.settings/org.eclipse.core.resources.prefs
+/poms/code/routines/
+/poms/jobs/process/
+/temp
+Copy_of_*
+EOF
+  
+mv -v .gitignore .gitignore.bak
+sort -u < .gitignore.bak > .gitignore
 
 dirs="businessProcess
 code
 context
+lib
 metadata
+poms
 process
-lib"
+sqlPatterns"
 
 for dir in $dirs; do
 	if [ -d $dir ]; then

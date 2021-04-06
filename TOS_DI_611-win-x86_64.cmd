@@ -8,6 +8,7 @@ set NLS_LANG=ENGLISH
 
 set LOG_FILE=TOS_DI-win-x86_64.log
 java -version >> "%LOG_FILE%" 2>&1
+set JAVA_HOME=c:\Users\t.richter\.sdkman\candidates\java\8.0.201-oracle\
 set PATH=%JAVA_HOME%\bin;%PATH%
 java -version >> "%LOG_FILE%" 2>&1
 
