@@ -1,5 +1,6 @@
 #!/bin/sh
 #misc.sh
+exit 0
 iconv -f "windows-1252" -t "UTF-8" labs_final_new.csv > labs_final_new_utf8.csv
 mkdir -vp 'w:\Freigegebene Dokumente\Projekte\CP1-AP\'
 mkdir -vp 'w:\Freigegebene Dokumente\Projekte\Unterprojekte\CP01'
@@ -123,7 +124,7 @@ find /var/ -maxdepth 4 -mindepth 4 -regextype posix-extended -iregex '.*/(spool|
 #dns
 nslookup ukshikmb-sl046 | grep -v '#53' | grep -iE '(Name|Address):' | tr '\n' '\t' | sed -Ee 's/\w+:\s//g'
 
-#uniq
+#uniq awk gawk
 awk '!seen[$0]++'
 
 net use | tr '\r\n' '\\n' | sed -Ee 's/ \\n +/\t/g' -e 's/\\n/\n/g'
@@ -476,14 +477,74 @@ sudo apt install rng-tools5
 rngtest -c 1000 </dev/random
 
 apt update && apt -y upgrade
-
-apt --purge autoremove && apt clean
+apt autoremove && apt clean
 
 #You can easily solve this using SSLPassPhraseDialog (apache)
 #  SSLPassPhraseDialog  exec:/etc/httpd/conf/pwf.sh
 # pwf.sh file contents
 # #!/bin/sh
 echo password
+
+#For example, this shell command will set the window to 100x50 characters: (resize)
+printf '\e[8;50;150t'
+echo -ne "\e[8;50;150t"
+
+# install ansible cyg dep
+lynx -source rawgit.com/transcode-open/apt-cyg/master/apt-cyg > apt-cyg
+install apt-cyg /bin
+python -m pip install -U pip wheel setuptools
+apt-cyg install binutils curl gcc-core gmp libffi-devel libgmp-devel make git nano openssh openssl openssl-devel
+
+#hen do pkcs8 with -topk8 to convert this key from traditional format to pkcs#8 format.
+openssl pkcs8 -topk8 -inform pem -in file.key -outform pem -nocrypt -out file.pem
+
+curl http://myip.dnsomatic.com
+
+openssl pkcs12 -export -out client_certificate.p12 -inkey private-key.pem -in certificate.pem -certfile ca_certificate.pem
+openssl pkcs12 -export -out dsf-bpe-test.p12 -inkey dsf-bpe-test.key -in cert-11549486750155167184402693899-dsf-bpe-test.pem
+
+# cygwin url
+cmd /c start "https://google.de/"
+cygstart "https://google.de/"
+
+curl http://myip.dnsomatic.com
+
+ssh -o ProxyCommand="ssh -W %h:%p trichter@172.26.240.133" 192.168.0.10
+ssh -o ProxyCommand="ssh -W %h:%p trichter@172.26.240.133" root@192.168.0.10
+ssh -J trichter@172.26.240.133 root@192.168.0.10
+
+zip -q -d log4j-core-*.jar org/apache/logging/log4j/core/lookup/JndiLookup.class
+
+traceroute -T -p 22 172.26.240.83
+traceroute -T -p 443 terminology-highmed.medic.medfak.uni-koeln.de
+
+apt install apt-file
+apt-file update
+apt-file search 50unattended-upgrades
+# unattended-upgrades: /usr/share/unattended-upgrades/50unattended-upgrades
+dpkg -S 50unattended-upgrades
+apt install --reinstall -o Dpkg::Options::="--force-confask,confnew,confmiss" unattended-upgrades
+apt-get -o Dpkg::Options::="--force-confmiss" install --reinstall unattended-upgrades
+
+wget --no-check-certificate --certificate=/home/ubuntu/cert-2022-03/dsf-bpe-test.medfdm.uni-kiel.de-geant-ov-rsa-ca-4.cer --private-key=/home/ubuntu/cert-2022-03/dsf-bpe-test.medfdm.uni-kiel.de-geant-ov-rsa-ca-4.pkcs8 https://terminology-highmed.medic.medfak.uni-koeln.de/fhir/metadata
+
+# line end newline cr
+tail -c 2 file | od -An -vtc
+
+# variab replace
+taskfile=task.data-send.xml
+id=$1
+sed -i -r "s;/fhir/Patient/([-[:alnum:]]+);/fhir/Patient/${id};" ${taskfile}
+
+
+
+
+
+
+
+
+
+
 
 
 

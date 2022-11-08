@@ -159,6 +159,8 @@ wsl --set-version Ubuntu 2
 wsl --set-version openSUSE-42 2
 wsl --set-version Debian 2
 
+cd \\wsl$\docker-desktop-data\version-pack-data\community\docker\volumes\
+wsl -u root
 
 
 

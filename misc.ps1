@@ -91,19 +91,58 @@ dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /nores
 # close stop kill end
 Get-Process MyProgram |   Foreach-Object { $_.CloseMainWindow() | Out-Null }
 Get-Process Myprogram |   Foreach-Object { $_.CloseMainWindow() | Out-Null } | stop-process –force
+Get-Process anything | ? { $_.CloseMainWindow() | Out-Null }
+# 
 Stop-Process -Name firefox
 Stop-Process -Name firefox -force
+# 
+$acl = Get-Acl 'C:\Program Files\jEdit\modes\'
+$AccessRule = New-Object System.Security.AccessControl.FileSystemAccessRule("t.richter","Write","Allow")
+$acl.SetAccessRule($AccessRule)
+$acl | Set-Acl 'C:\Program Files\jEdit\modes\'
 
+[system.Diagnostics.Process]::Start("chrome","https://debug.to")
+Start-Process "https://debug.to"
 
+Get-NetRoute -AddressFamily IPv4 -State Alive | Where-Object {$_.NextHop -ne '0.0.0.0'} | Sort-Object InterfaceAlias
+Get-NetRoute -AddressFamily IPv4 -State Alive | Where-Object {$_.NextHop -ne '0.0.0.0'} | Sort-Object InterfaceAlias | Select-Object -Property InterfaceAlias,DestinationAddress,DestinationPrefix,NextHop
+Get-NetRoute |  Where-Object {($_.Addressfamily -eq "IPv4")} | ft InterfaceAlias,AddressFamily,DestinationPrefix,NextHop,Routemetric -a
+Get-NetRoute -AddressFamily IPv4 -State Alive | Where-Object {$_.NextHop -ne '0.0.0.0'} | Sort-Object InterfaceAlias | Select-Object -Property InterfaceAlias,DestinationAddress,DestinationPrefix,NextHop,AddressFamily,Routemetric
 
+$device = Get-PnpDevice -class Bluetooth -friendlyname "WH-1000XM3"
+Disable-PnpDevice -InstanceId $device.InstanceId -Confirm:$false
+Start-Sleep -Seconds 10
+Enable-PnpDevice -InstanceId $device.InstanceId -Confirm:$false
 
+(($env:tsp100id = (Get-PnpDevice -FriendlyName 'WH-1000XM3').InstanceId[0]) -split '\\')[-1]
 
+# list show software
+Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\* |  Select-Object DisplayName, DisplayVersion, Publisher, InstallDate | Format-Table –AutoSize
+Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\* | Where-Object {$_.Publisher -notmatch 'microsoft|NVIDIA|intel'}|  Select-Object DisplayName, DisplayVersion, Publisher, InstallDate | Sort-Object DisplayName | Format-Table -AutoSize
+Get-ItemProperty HKLM:\Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\* | Where-Object {$_.Publisher -notmatch 'microsoft|NVIDIA|intel'}|  Select-Object DisplayName, DisplayVersion, Publisher, InstallDate | Sort-Object DisplayName | Format-Table -AutoSize
 
+Get-Content -Path (Get-PSReadlineOption).HistorySavePath | grep -i start | tac | awk '!seen[$0]++' | tac
 
+$MyApp = Get-WmiObject -Class Win32_Product | Where-Object{$_.Name -eq "Typora version 0.9.75"}
+$MyApp = Get-WmiObject -Class Win32_Product | Where-Object{$_.Name -like "Typora*"}
+$MyApp.Uninstall()
+$MyApp = Get-Package -Provider Programs -IncludeWindowsInstaller -Name "Typora version 0.9.75"
+Uninstall-Package -Name 'Typora version 0.9.75' 
+Get-Package -Provider Programs -IncludeWindowsInstaller -Name "Typora version 0.9.75" | Uninstall-Package
+Get-Software | Where-Object { $_.DisplayName -like "*Typora*" } | Format-Table
+Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\* | Where-Object {$_.DisplayName -like '*typora*'}
+Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\* | Where-Object {$_.DisplayName -like '*typora*'} |% { & $_.Meta.Attributes["UninstallString"]}
+# rocket
+Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\* | Where-Object {$_.DisplayName -like '*rocket*'}
+Get-Package -Provider Programs -IncludeWindowsInstaller | Where-Object {$_.Name -like '*rocket*'}
+##slow
+Get-WmiObject -Class Win32_Product | Where-Object{$_.Name -like "*rocket*"}
 
+# hexdump
+gc -encoding byte -TotalCount 100 ".\Napkon Dataset.kdbx" |% {write-host ("{0:x}" -f $_) -noNewline " "}; write-host
 
-
-
-
+# package manager
+winget source update
+winget upgrade –all
 
 
