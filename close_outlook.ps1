@@ -13,7 +13,7 @@ else {
             Write-Host "Outlook is Open.......Closing Outlook"
             $wshell = new-object -com wscript.shell
             $wshell.AppActivate("Microsoft Outlook")
-            $wshell.Sendkeys("%(Y)")
+            $wshell.Sendkeys("%(N)")
             $isOutlookOpen = Get-Process outlook*
         }
     }

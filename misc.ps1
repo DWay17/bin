@@ -145,4 +145,63 @@ gc -encoding byte -TotalCount 100 ".\Napkon Dataset.kdbx" |% {write-host ("{0:x}
 winget source update
 winget upgrade –all
 
+# talend project - build - shell settings
+$fileDir = Split-Path -Parent $MyInvocation.MyCommand.Path
+cd $fileDir
+java '-Dtalend.component.manager.m2.repository=%cd%/../lib' ${talend.job.jvmargs.ps1} -cp ${talend.job.ps1.classpath} ${talend.job.class} ${talend.job.bat.addition} $args
+
+### 
+$choco = (new-object net.webclient). DownloadString('https://chocolatey.org/install.ps1')
+Invoke-Expression $choco;
+#Optional ist es zudem möglich, die Umgebungsvariable "PATH" anzupassen:
+
+$ENV:PATH += ";$ENV:ALLUSERSPROFILE\chocolatey\bin"
+
+"`nNew-Alias which get-command" | add-content $profile
+
+Get-PSReadlineOption
+$Host.PrivateData.ErrorBackgroundColor.GetType()
+[System.Enum]::GetValues('ConsoleColor')
+[Console]::ResetColor()
+[System.Enum]::GetValues('ConsoleColor') | ForEach-Object { Write-Host $_ -ForegroundColor $_ }
+
+Set-PSReadLineOption -Colors @{
+ # Use a ConsoleColor enum
+ "Error" = [ConsoleColor]::DarkRed
+
+ # 24 bit color escape sequence
+ "String" = "$([char]0x1b)[38;5;100m"
+
+ # RGB value
+ "Command" = "#8181f7"
+}
+
+getmac /v /fo csv | ConvertFrom-Csv
+
+Start-Process xxx -RedirectStandardError xxx.log -RedirectStandardOutput xxx.log 
+Get-Process -Name pwsh | Out-String | Set-Content .\Process.txt
+Get-Process -Name pwsh | Out-File -Path C:\Foo\pwsh.txt
+Out-File -Append
+
+Get-Command -Module WindowsUpdateProvider # outdated
+# Anzeigen der Provider
+Get-WUServiceManager
+
+# Hinzufügen von Microsoft Updates 
+Add-WUServiceManager -ServiceID "7971f918-a847-4430-9279-4a52d1efe18d" -AddServiceFlag 7
+
+# Microsoft Updates auflisten
+Get-WUList -MicrosoftUpdate
+
+
+
+
+
+
+
+
+
+
+
+
 

@@ -162,8 +162,17 @@ wsl --set-version Debian 2
 cd \\wsl$\docker-desktop-data\version-pack-data\community\docker\volumes\
 wsl -u root
 
+REM Inkscape required an uninstallation before the latest update. Uninstalling Inkscape: 
+C:\WINDOWS\system32\msiexec.exe /X{81922150-317E-4BB0-A31D-FF1C14F707C5} /qb
 
 
+REM Equivalent of chmod 600 <filename> in windows will be:
+REM  Add explicit R+W permissions for current user.
+icacls <filename> /grant %username%:rw
+REM Disable inheritance from folders
+icacls <filename> /inheritance:d
+REM  Remove default groups (Authenticated Users, System, Administrators, Users)
+icacls <filename> /remove *S-1-5-11 *S-1-5-18 *S-1-5-32-544 *S-1-5-32-545
 
 
 
