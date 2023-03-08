@@ -7,3 +7,7 @@ echo "choco_outdated.ps1"
 choco_outdated.ps1
 echo "winget source update ; winget upgrade"
 winget source update ; winget upgrade
+
+Import-Module PSWindowsUpdate
+Get-WUList -MicrosoftUpdate
+Install-WindowsUpdate -MicrosoftUpdate -AcceptAll -IgnoreReboot
