@@ -35,10 +35,14 @@ Write-Host $array[0]
 $array.length
 $array | foreach { $_ }
 
+# environment variables
+# show environment variables
+dir env:
 echo ${env:ProgramFiles(x86)}
 echo $env:JAVA_HOME
 Remove-Item env:\test, env:\myVar
 $env:PATH += ";c:\test"
+$env:DISPLAY = 'localhost:0.0'
 
 # You can use the .NET Path class:
 [IO.Path]::Combine('C:\', 'Foo', 'Bar')
@@ -190,8 +194,32 @@ Get-WUServiceManager
 # Hinzufügen von Microsoft Updates 
 Add-WUServiceManager -ServiceID "7971f918-a847-4430-9279-4a52d1efe18d" -AddServiceFlag 7
 
-# Microsoft Updates auflisten
+# Microsoft Updates auflisten # Import-Module PSWindowsUpdate
 Get-WUList -MicrosoftUpdate
+
+# ? source ?
+Install-WUUpdates
+
+#? # Import-Module PSWindowsUpdate
+Install-WindowsUpdate -MicrosoftUpdate -AcceptAll -IgnoreReboot
+
+Import-Module PSWindowsUpdate
+
+ipconfig /flushdns /registerdns 
+ipconfig /release /renew
+
+ipconfig /flushdns
+ipconfig /registerdns
+
+ipconfig /displaydns
+
+# systemsteuerung
+start %windir%\system32\control.exe
+
+# lnk target link
+Get-ChildItem | ? Target | Select-Object FullName, Target
+
+
 
 
 

@@ -536,17 +536,60 @@ taskfile=task.data-send.xml
 id=$1
 sed -i -r "s;/fhir/Patient/([-[:alnum:]]+);/fhir/Patient/${id};" ${taskfile}
 
+ls *.log | sed -Ee 's/(.+)\.(.+)/mv -v \1.\2 \1.$(date +%Y%m%d%H%M%S).\2/g'
 
+curl -H "Accept: application/fhir+xml" -H "Content-Type: application/fhir+xml" -d @fhir_transaction_bundle_decentral.xml https://127.0.0.1:8081/fhir
 
+echo "n" | sdk upgrade | sed_removeesc_format.sh | grep -v java | grep local | col -bx | sed -Ee 's/[ \t].*/ ; /g' -e 's/^/echo y | sdk upgrade /g' | tr '\n' ' ' 
 
+'while /bin/true; do ; done'
 
+apt dist-upgrade 
+fuser -vki /var/lib/dpkg/lock #?
+apt purge snapd
+dpkg --configure -a
+apt update
+apt upgrade
+apt dist-upgrade # 
+apt install xxx
 
+# mailx
+apt update && apt install -y msmtp msmtp-mta bsd-mailx
+echo -e "root: th.richter@uksh.de\ndefault: th.richter@uksh.de\n" > /etc/aliases
+cat <<EOF > /etc/msmtprc
+account default
+host alfa3210.alfahosting-server.de
+port 587
+auth on
+tls  on
+tls_starttls on
+from sysmail+$HOSTNAME@mi-ki.eu
+user web25942223p11
+password (s. KEEPASS)
+aliases /etc/aliases
+syslog on
+EOF
+echo -e "set mta=/usr/bin/msmtp\n" >> /etc/mail.rc
+cat /etc/lsb-release | mail -s test th.richter@uksh.de
+mkdir -pv /root/bin/ && touch /root/bin/daily_report.sh && chmod -c u+x /root/bin/daily_report.sh
+0 */4 * * * * /root/bin/daily_report.sh | mailx -s "misc-Prod: Daily report" th.richter@uksh.de
 
+docker logs --details --since=7d -t fhir_proxy_1
 
+# remove escape seq
+ansifilter
+sed "s,\x1B\[[0-9;]*[a-zA-Z],,g"
 
+#
+#--data @start-ping.json \
+curl -vv --cert certs/client.crt --key certs/client.key -k --data @getOrCreatePseudonymFor01.xml https://psn01-test/gpas/gpasService?wsdl
 
+docker ps --format "table {{.Image}}\t{{.Status}}\t{{.RunningFor}}\t{{.Names}}\t{{.Ports}}"
 
-
+#timedatectl
+timedatectl
+sudo timedatectl set-timezone Europe/Berlin
+timedatectl
 
 
 
