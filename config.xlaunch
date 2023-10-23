@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<XLaunch WindowMode="MultiWindow"
+         ClientMode="StartProgram"
+         LocalClient="True"
+         Display="0"
+         RemoteProtocol=""
+         LocalProgram="~/.xinitrc"
+         RemoteProgram="xterm"
+         RemoteHost=""
+         RemoteUser=""
+         XDMCPHost=""
+         XDMCPBroadcast="False"
+         XDMCPIndirect="False"
+         Clipboard="True"
+         ExtraParams="-listen tcp"
+         Wgl="True"
+         DisableAC="False"
+         XDMCPTerminate="False"
+         SSHKeyChain="False"
+         SSHTerminal="True"
+         ExtraSSH=""/>
+         <!-- 
+         LocalProgram="xwin-xdg-menu"
+         RemoteProgram="xwin-xdg-menu"
+         -->
