@@ -39,3 +39,6 @@ scp ~/Downloads/merger.uksh.de.pfx trichter@172.21.98.218:/etc/tomcat8/
 
 scp ~/Downloads/splitter.uksh.de.pfx trichter@172.21.98.233:/home/trichter/
 scp ~/Downloads/merger.uksh.de.pfx trichter@172.21.98.218:/home/trichter/
+
+keytool -importkeystore -srckeystore splitter.uksh.de.pfx -srcstoretype pkcs12 -destkeystore splitter.uksh.de.jks -deststoretype JKS
+keytool -importkeystore -srckeystore merger.uksh.de.pfx -srcstoretype pkcs12 -destkeystore merger.uksh.de.jks -deststoretype JKS

@@ -9,4 +9,5 @@ echo "uksh"
 openssl pkcs12 -in Thomas_Richter_2019-09-30_uksh.p12 -clcerts -nokeys -out Thomas_Richter_2019-09-30_uksh-cert.pem
 openssl pkcs12 -in Thomas_Richter_2019-09-30_uksh.p12 -nocerts -out Thomas_Richter_2019-09-30_uksh-key.pem           
 openssl pkcs12 -export -in Thomas_Richter_2019-09-30_uksh-cert.pem -inkey Thomas_Richter_2019-09-30_uksh-key.pem -out Thomas_Richter_2019-09-30_uksh_new.p12
-
+# 2022 cert-12292350787986634833818807360.pem
+openssl pkcs12 -export -in cert-12292350787986634833818807360.pem -inkey Thomas_Richter_2019-09-30_uksh-key.pem -out cert-12292350787986634833818807360.p12 

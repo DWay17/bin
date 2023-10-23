@@ -219,7 +219,10 @@ start %windir%\system32\control.exe
 # lnk target link
 Get-ChildItem | ? Target | Select-Object FullName, Target
 
-
+# lock screen
+rundll32.exe user32.dll,LockWorkStation
+# exit log out
+logoff.exe
 
 
 

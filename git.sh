@@ -48,5 +48,13 @@ git config --global user.email "richter@medinfo.uni-kiel.de"
 git config user.name "Thomas Richter"
 git config user.email "richter@medinfo.uni-kiel.de"
 
+##
 
+
+git init --initial-branch=main
+git config user.email "richter@medinfo.uni-kiel.de"
+git remote add origin git@cau-git.rz.uni-kiel.de:MIKI/gpas-nginx.git
+git add .
+git commit -m "Initial commit"
+git push --set-upstream origin main
 

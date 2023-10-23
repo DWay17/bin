@@ -585,24 +585,51 @@ sed "s,\x1B\[[0-9;]*[a-zA-Z],,g"
 curl -vv --cert certs/client.crt --key certs/client.key -k --data @getOrCreatePseudonymFor01.xml https://psn01-test/gpas/gpasService?wsdl
 
 docker ps --format "table {{.Image}}\t{{.Status}}\t{{.RunningFor}}\t{{.Names}}\t{{.Ports}}"
+watch docker ps --format \"table {{.Image}}\\t{{.Status}}\\t{{.RunningFor}}\\t{{.Names}}\\t{{.Ports}}\"
+#"
 
 #timedatectl
 timedatectl
 sudo timedatectl set-timezone Europe/Berlin
 timedatectl
 
+# wirksam?
+export MSYS=winsymlinks:nativestrict
 
+tar --delete --wildcards -f gpas-v2023.1.0-compose-wildfly.tar '*/*.{war,ear}'
 
+#ntp date time
+timedatectl 
+sudo timedatectl set-ntp true
+systemctl status systemd-timesyncd.service
+sudo systemctl restart systemd-timesyncd.service
 
+usermod -a -G root,docker,fhir,bpe trichter
 
+echo quit | openssl s_client -showcerts -servername server -connect server:443 > cacert.pem
+echo quit | openssl s_client -showcerts -servername pseudonymize.distan.medicsh.de -connect pseudonymize.distan.medicsh.de:443 > ca_pseudonymize.distan.medicsh.de.pem
 
+systemctl stop msmtpd
+systemctl edit msmtpd
+systemctl cat msmtpd
+systemctl daemon-reload
+systemctl enable msmtpd
+#systemctl reload msmtpd
+#systemctl restart msmtpd
+systemctl start msmtpd
+systemctl status msmtpd
 
+find / -maxdepth 3 -iname docker-compose.yml -type f | xargs grep -i image | sed -Ee 's/    image: "?/docker pull /g' -e 's/:.*"?/:latest/g'
 
+# rename docker volume
+docker volume create --name new_volume && \
+  docker run --rm -it -v old_volume:/from -v new_volume:/to alpine ash -c 'cd /from ; cp -av . /to' && \
+  docker volume rm old_volume
 
+#Use the following command to truncate the log file of the specified Docker container.
+truncate -s 0 $(docker inspect --format='{{.LogPath}}' <container_name_or_id>) 
 
-
-
-
+curl 
 
 
 
