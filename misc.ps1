@@ -224,6 +224,8 @@ rundll32.exe user32.dll,LockWorkStation
 # exit log out
 logoff.exe
 
+Get-Process | Where-Object {$_.ProcessName -match ".*(opera|edge|firefox|launcher|browser_assistant).*" } | ForEach-Object { $_.kill() }
+
 
 
 
