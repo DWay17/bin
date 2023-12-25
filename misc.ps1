@@ -91,7 +91,7 @@ dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /nores
 # close stop kill end
 Get-Process MyProgram |   Foreach-Object { $_.CloseMainWindow() | Out-Null }
 Get-Process Myprogram |   Foreach-Object { $_.CloseMainWindow() | Out-Null } | stop-process –force
-Get-Process anything | ? { $_.CloseMainWindow() | Out-Null }
+Get-Process anything | Where-Object { $_.CloseMainWindow() | Out-Null }
 # 
 Stop-Process -Name firefox
 Stop-Process -Name firefox -force
