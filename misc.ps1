@@ -226,6 +226,7 @@ logoff.exe
 
 Get-Process | Where-Object {$_.ProcessName -match ".*(opera|edge|firefox|launcher|browser_assistant).*" } | ForEach-Object { $_.kill() }
 
+Get-Process | Where-Object {$_.ProcessName -notmatch "powerlauncher"} | Where-Object {$_.ProcessName -match ".*(iexplore|opera|edge|firefox|launcher|browser_assistant).*" } | ForEach-Object { $_.kill() }
 
 
 
