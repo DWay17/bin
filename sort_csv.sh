@@ -1,10 +1,11 @@
 #!/bin/sh
 # sorts all csv in current dir 
-for file in "."/*.csv ; do
+for file in "."/*.{csv,txt} ; do
 	if [ -f "$file" ]; then
 		if ! [[ $file == *.cfg.* ]]; then
 			newName=`echo "$file" | sed 's/.csv//g'`"_sorted.csv"
-			sort < "$file" > "$newName"
+			echo "sort $file"
+			sort -t, < "$file" > "$newName"
 		fi
 	fi
 done

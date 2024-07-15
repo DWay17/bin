@@ -94,7 +94,7 @@ dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /nores
 
 # close stop kill end
 Get-Process MyProgram |   Foreach-Object { $_.CloseMainWindow() | Out-Null }
-Get-Process Myprogram |   Foreach-Object { $_.CloseMainWindow() | Out-Null } | stop-process –force
+Get-Process Myprogram |   Foreach-Object { $_.CloseMainWindow() | Out-Null } | stop-process -force
 Get-Process anything | ? { $_.CloseMainWindow() | Out-Null }
 # 
 Stop-Process -Name firefox
@@ -121,7 +121,7 @@ Enable-PnpDevice -InstanceId $device.InstanceId -Confirm:$false
 (($env:tsp100id = (Get-PnpDevice -FriendlyName 'WH-1000XM3').InstanceId[0]) -split '\\')[-1]
 
 # list show software
-Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\* |  Select-Object DisplayName, DisplayVersion, Publisher, InstallDate | Format-Table –AutoSize
+Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\* |  Select-Object DisplayName, DisplayVersion, Publisher, InstallDate | Format-Table -AutoSize
 Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\* | Where-Object {$_.Publisher -notmatch 'microsoft|NVIDIA|intel'}|  Select-Object DisplayName, DisplayVersion, Publisher, InstallDate | Sort-Object DisplayName | Format-Table -AutoSize
 Get-ItemProperty HKLM:\Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\* | Where-Object {$_.Publisher -notmatch 'microsoft|NVIDIA|intel'}|  Select-Object DisplayName, DisplayVersion, Publisher, InstallDate | Sort-Object DisplayName | Format-Table -AutoSize
 
@@ -147,7 +147,9 @@ gc -encoding byte -TotalCount 100 ".\Napkon Dataset.kdbx" |% {write-host ("{0:x}
 
 # package manager
 winget source update
-winget upgrade –all
+winget upgrade --all
+winget upgrade --all --silent --accept-package-agreements --accept-source-agreements --logs winget.log
+winget upgrade --all --disable-interactivity --accept-package-agreements --accept-source-agreements --logs winget.log
 
 # talend project - build - shell settings
 $fileDir = Split-Path -Parent $MyInvocation.MyCommand.Path
@@ -227,6 +229,14 @@ logoff.exe
 Get-Process | Where-Object {$_.ProcessName -match ".*(opera|edge|firefox|launcher|browser_assistant).*" } | ForEach-Object { $_.kill() }
 
 Get-Process | Where-Object {$_.ProcessName -notmatch "powerlauncher"} | Where-Object {$_.ProcessName -match ".*(iexplore|opera|edge|firefox|launcher|browser_assistant).*" } | ForEach-Object { $_.kill() }
+
+C:\Program Files\PowerShell\7\pwsh.exe
+pwsh -command C:\Users\t.richter\bin\userlog.ps1 winlogon %* '$(SystemTime)' '$(Data)'
+
+"C:\Program Files\Mozilla Thunderbird\thunderbird" -profilemanager --allow-downgrade
+c:\ProgramData\Microsoft\Windows\Start Menu\Programs\Thunderbird.lnk -profile C:\Users\t.richter\AppData\Roaming\Thunderbird\Profiles\a0ogkwzo.default
+
+
 
 
 

@@ -630,11 +630,35 @@ docker volume create --name new_volume && \
 truncate -s 0 $(docker inspect --format='{{.LogPath}}' <container_name_or_id>) 
 
 curl 
+wget -v  --no-check-certificate --user=th.richter@uksh.de --password=$PW https://portal.popgen.de/transfer_requests/full_pdf/349.pdf
 
+curl -v --cert client_certificate.pem --key client_certificate_private_key.pem https://dsf-fhir-ext.medicsh.de/fhir/metadata
 
+diff -yW 240 --color bpe_0.9/docker-compose.yml bpe/docker-compose.yml | less
 
+sdk list java | grep -iE "zulu|open|oracle|amzn"
 
+#
+read PASS
+export PASS
+export USER=lkasjdlksa
+curl --user $USER:$PASS
 
+cat metadata | sed -Ee 's/,/,\n/g' | grep -iE '^"fhirversion"|^"status"|^"version"'
+
+ls *.log | grep -Ev '[0-9]{10,12}' | sed -Ee 's/(.+)\.(.+)/mv -v \1.\2 \1.$(date +%Y%m%d%H%M%S).\2/g' | sh
+
+while true; do docker compose logs -ft; done
+
+pip install --upgrade referencing --no-input --no-color --no-python-version-warning --no-cache
+
+# [notice] A new release of pip is available: 24.1 -> 24.1.1
+# [notice] To update, run: 
+python.exe -m pip install --upgrade pip
+
+pip-review --auto
+
+(pslist java; pslist TOS_) | grep : | grep -v information | gawk '{print $2}' | sed -Ee 's/^/jcmd /g' -e 's/$/ GC.run/g'  | sh
 
 
 

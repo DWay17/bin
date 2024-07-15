@@ -8,7 +8,7 @@ for fileName in "$@"; do
 		newName=`echo $fileName | sed -e "s/\.\([^.]*\)$/.$s2.\1/g"`
 		#echo $newName
 		mv -v "$fileName" "$newName"
-		touch "$fileName"
+		#touch "$fileName"
 	else
 		echo "doesn't exsist or is empty: "$fileName 
 	fi
