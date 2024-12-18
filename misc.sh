@@ -138,7 +138,8 @@ keytool -importkeystore -srckeystore splitter-test.uksh.de.pfx -srcstoretype pkc
 keytool -importkeystore -srckeystore merger-test.uksh.de.pfx -srcstoretype pkcs12 -destkeystore merger-test.uksh.de.jks -deststoretype JKS
 
 sort -t. -k 1,1n -k 2,2n -k 3,3n -k 4,4n
-
+cronnext -f -t `date +%s -d yesterday` -q `date +%s -d tomorrow` | grep nextstring | sed -Ee 's/ *nextstring: //g' \
+  | sort -k2M -k3n -k4
 sort -t: -k3n
 
 sudo -u tomcat8 for d in `find /var/spool/splitter -mindepth 1 -maxdepth 2 -type d` ; do echo "# $d" >> $d/splitter.properties; done
