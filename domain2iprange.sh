@@ -11,12 +11,15 @@ ip_to_cidr() {
   echo "$i1.$i2.$i3.0/24"
 }
 
+# Write a comment to the output file
+echo "# List of IP ranges for firewall" > "$OUTPUT_FILE"
+
 # Process each domain in the file
 while IFS= read -r domain; do
   echo "Processing domain: $domain"
   
-  # Get the list of IP addresses for the domain
-  ip_addresses=$(dig +short "$domain" | grep '^[0-9]\+\.[0-9]\+\.[0-9]\+\.[0-9]\+$')
+  # Get the list of IP addresses for the domain and its subdomains
+  ip_addresses=$(dig +short ANY "$domain" | grep '^[0-9]\+\.[0-9]\+\.[0-9]\+\.[0-9]\+$')
   
   # Convert IP addresses to CIDR notation and add to output file
   for ip in $ip_addresses; do
