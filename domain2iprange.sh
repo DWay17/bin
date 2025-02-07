@@ -4,6 +4,8 @@
 DOMAIN_FILE="domains.txt"
 # Output file to store the IP ranges
 OUTPUT_FILE="ip_ranges.txt"
+# Temporary file to accumulate unique IP ranges
+TEMP_FILE="temp_ip_ranges.txt"
 
 # Function to convert IP to CIDR notation
 ip_to_cidr() {
@@ -24,14 +26,22 @@ while IFS= read -r domain; do
   # Get the list of IP addresses for the domain and its subdomains
   ip_addresses=$(dig +short ANY "$domain" | grep '^[0-9]\+\.[0-9]\+\.[0-9]\+\.[0-9]\+$')
   
-  # Convert IP addresses to CIDR notation and add to output file
+  # Convert IP addresses to CIDR notation and add to temporary file
   for ip in $ip_addresses; do
     cidr=$(ip_to_cidr "$ip")
+    echo "$cidr" >> "$TEMP_FILE"
+  done
+  
+  # Append unique IP ranges to the output file
+  sort -u "$TEMP_FILE" | while IFS= read -r cidr; do
     echo "$cidr" >> "$OUTPUT_FILE"
   done
+
+  # Clear temporary file for the next domain
+  > "$TEMP_FILE"
 done < "$DOMAIN_FILE"
 
-# Remove duplicate CIDR entries
-sort -u "$OUTPUT_FILE" -o "$OUTPUT_FILE"
+# Clean up temporary file
+rm -f "$TEMP_FILE"
 
 echo "IP ranges collected and saved to $OUTPUT_FILE"
