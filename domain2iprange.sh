@@ -18,6 +18,9 @@ echo "# List of IP ranges for firewall" > "$OUTPUT_FILE"
 while IFS= read -r domain; do
   echo "Processing domain: $domain"
   
+  # Add a comment with the origin domain to the output file
+  echo "# Origin domain: $domain" >> "$OUTPUT_FILE"
+  
   # Get the list of IP addresses for the domain and its subdomains
   ip_addresses=$(dig +short ANY "$domain" | grep '^[0-9]\+\.[0-9]\+\.[0-9]\+\.[0-9]\+$')
   
