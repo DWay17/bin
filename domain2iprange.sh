@@ -1,4 +1,6 @@
 #!/bin/bash
+# replace whois with WHOIS_BIN
+WHOIS_BIN=/usr/bin/whois
 
 # File containing the list of domains
 DOMAIN_FILE="domains.txt"
@@ -11,7 +13,7 @@ TEMP_FILE="temp_ip_ranges.txt"
 query_ripe() {
   ip=$(dig +short "$1" | grep '^[0-9]\+\.[0-9]\+\.[0-9]\+\.[0-9]\+$' | head -n 1)
   if [ -n "$ip" ]; then
-    ripe_result=$(whois -h whois.ripe.net "$ip" | grep -i 'inetnum')
+    ripe_result=$($WHOIS_BIN -h whois.ripe.net "$ip" | grep -i 'inetnum')
     echo "$ripe_result"
   else
     echo "No IP address found for $1"
