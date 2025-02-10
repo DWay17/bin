@@ -36,12 +36,18 @@ range_to_cidr() {
 }
 
 # Main script
-if [ "$#" -ne 2 ]; then
-    echo "Usage: $0 ip1 ip2"
+if [ "$#" -eq 1 ]; then
+    if [[ "$1" == *-* ]]; then
+        IFS=- read -r ip1 ip2 <<< "$1"
+        range_to_cidr "$ip1" "$ip2"
+    else
+        echo "$1/32"
+    fi
+elif [ "$#" -eq 2 ]; then
+    ip1="$1"
+    ip2="$2"
+    range_to_cidr "$ip1" "$ip2"
+else
+    echo "Usage: $0 ip1-ip2 or $0 ip1 ip2 or $0 ip"
     exit 1
 fi
-
-ip1="$1"
-ip2="$2"
-
-range_to_cidr "$ip1" "$ip2"
