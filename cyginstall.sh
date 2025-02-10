@@ -15,10 +15,16 @@ echo $UNIQ_PACKAGES | tr '[:space:]' '\n' > $UNIQ_PACKAGES_FILE
 INSTALLED_PACKAGES=`cygcheck --check-setup --dump-only | gawk '{print $1}' | grep -i $QUERY | tr '[:space:]' '\n' | sort | uniq`
 echo "installed packages:"
 echo $INSTALLED_PACKAGES #| fmt -w 120
-echo $INSTALLED_PACKAGES | tr '[:space:]' '\n' > $INSTALLED_PACKAGES_FILE  
-cat $INSTALLED_PACKAGES_FILE | tr '[:space:]' '|' | sed -Ee 's/\|$//g' -e 's/^/\\b(/g' -e 's/$/)\\b/g' > $INSTALLED_PACKAGES_REGEX_FILE
+echo $INSTALLED_PACKAGES | tr '[:space:]' '\n' > $INSTALLED_PACKAGES_FILE
+if [ -z "${INSTALLED_PACKAGES}" ]; then
+	echo " ... empty ... skip ..."
+	echo "" > $INSTALLED_PACKAGES_REGEX_FILE
+	PACKAGES_TO_INSTALL="$UNIQ_PACKAGES"
+else
+	cat $INSTALLED_PACKAGES_FILE | tr '[:space:]' '|' | sed -Ee 's/\|$//g' -e 's/^/\\b(/g' -e 's/$/)\\b/g' > $INSTALLED_PACKAGES_REGEX_FILE
+	PACKAGES_TO_INSTALL=`cat $UNIQ_PACKAGES_FILE | tr '[:space:]' '\n' | grep -vf $INSTALLED_PACKAGES_FILE`
+fi
 
-PACKAGES_TO_INSTALL=`cat $UNIQ_PACKAGES_FILE | tr '[:space:]' '\n' | grep -vf $INSTALLED_PACKAGES_FILE`
 echo "packages to install "
 echo $PACKAGES_TO_INSTALL #| fmt -w 120
 echo $PACKAGES_TO_INSTALL | tr '[:space:]' '\n' > $PACKAGES_TO_INSTALL_FILE
