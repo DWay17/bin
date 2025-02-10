@@ -1,11 +1,26 @@
 #!/bin/sh
 # sorts all csv in current dir 
-for file in "."/*.{csv,txt} ; do
+function sortfile(){ 	
+	file="$1"
 	if [ -f "$file" ]; then
 		if ! [[ $file == *.cfg.* ]]; then
-			newName=`echo "$file" | sed 's/.csv//g'`"_sorted.csv"
-			echo "sort $file"
-			sort -t, < "$file" > "$newName"
+			if ! [[ $file == *_sorted.* ]]; then
+				newName=`echo "$file" | sed -Ee 's/.(csv|txt)$/_sorted.\1'/g`
+				echo "sort $file"
+				sort -t, < "$file" > "$newName"
+			fi
 		fi
 	fi
 done
+
+if [ -z "$1" ] ; then
+	echo " -z"
+	for file in "."/*.{csv,txt} ; do
+		sortfile "$file"
+	done
+else
+	echo " ! -z"
+	for file in "$@" ; do
+		sortfile "$file"
+	done
+fi

@@ -38,7 +38,9 @@ $array | foreach { $_ }
 # environment variables
 # show environment variables
 dir env:
+Get-ChildItem env:
 echo ${env:ProgramFiles(x86)}
+Write-Output ${env:ProgramFiles(x86)}
 echo $env:JAVA_HOME
 Remove-Item env:\test, env:\myVar
 $env:PATH += ";c:\test"
@@ -217,9 +219,12 @@ ipconfig /displaydns
 
 # systemsteuerung
 start %windir%\system32\control.exe
+Start-Process %windir%\system32\control.exe
+
 
 # lnk target link
 Get-ChildItem | ? Target | Select-Object FullName, Target
+Get-ChildItem | Where-Object Target | Select-Object FullName, Target
 
 # lock screen
 rundll32.exe user32.dll,LockWorkStation
@@ -236,6 +241,15 @@ pwsh -command C:\Users\t.richter\bin\userlog.ps1 winlogon %* '$(SystemTime)' '$(
 "C:\Program Files\Mozilla Thunderbird\thunderbird" -profilemanager --allow-downgrade
 c:\ProgramData\Microsoft\Windows\Start Menu\Programs\Thunderbird.lnk -profile C:\Users\t.richter\AppData\Roaming\Thunderbird\Profiles\a0ogkwzo.default
 
+Set-PSRepository -Name 'PSGallery' -InstallationPolicy Trusted
+
+winget source add --name https://www.powershellgallery.com/api/v2 --arg https://www.powershellgallery.com/api/v2 --accept-source-agreements --disable-interactivity --type Microsoft.Rest
+winget source add --name PSGalleryv2 --arg https://www.powershellgallery.com/api/v2 --accept-source-agreements --disable-interactivity --type Microsoft.Rest
+
+npm update -g -u
+
+npm install -g npm-check-updates
+ncu --upgrade
 
 
 

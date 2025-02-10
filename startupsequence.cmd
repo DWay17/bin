@@ -16,6 +16,7 @@ sleep 1
 pskill java
 sleep 1
 REM start "" /B "I:\richter-th\database.kdbx" >> %LOGDIR%\KeePass.log 2>&1
+REM Start-Process C:\Users\t.richter\Documents\database.kdbx # keepass
 start "" /B "C:\Users\t.richter\Documents\database.kdbx" >> %LOGDIR%\KeePass.log 2>&1
 start "" /B "C:\Program Files\totalcmd\TOTALCMD64.EXE" >> %LOGDIR%\totalcmd.log 2>&1
 start "" /B "C:\Program Files\jEdit\jedit.exe" >> %LOGDIR%\jEdit.log 2>&1
@@ -35,3 +36,4 @@ start "" /B /min "c:\Programme\nirsoft\PingInfoView.exe"
 REM start "" /B /min "C:\Program Files\DavMail\davmail64.exe" >> %LOGDIR%\davmail64.log 2>&1
 cd "C:\Program Files\DavMail\"
 start "" /B /min javaw -jar davmail.jar >> %LOGDIR%\davmail.jar.log 2>&1
+start "" /B /min pwsh -command "c:\Users\t.richter\bin\startupsrequence.ps1"

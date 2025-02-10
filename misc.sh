@@ -604,7 +604,9 @@ sudo timedatectl set-ntp true
 systemctl status systemd-timesyncd.service
 sudo systemctl restart systemd-timesyncd.service
 
-usermod -a -G root,docker,fhir,bpe trichter
+#usermod -a -G root,docker,fhir,bpe trichter
+usermod -a -G docker,fhir trichter
+usermod -a -G docker,bpe trichter
 
 echo quit | openssl s_client -showcerts -servername server -connect server:443 > cacert.pem
 echo quit | openssl s_client -showcerts -servername pseudonymize.distan.medicsh.de -connect pseudonymize.distan.medicsh.de:443 > ca_pseudonymize.distan.medicsh.de.pem
@@ -660,5 +662,74 @@ pip-review --auto
 
 (pslist java; pslist TOS_) | grep : | grep -v information | gawk '{print $2}' | sed -Ee 's/^/jcmd /g' -e 's/$/ GC.run/g'  | sh
 
+# update node
+npm update -g npm
+
+#  remove 52ec7a5f-dad6-11ee-a00d-0242ac120003 UUID
+sed -E -e 's/[0-9a-f-]{36}//g'
+# remove 2024-07-16 09:25:03,556
+sed -E -e 's/[0-9:,T -]{16,25}//g'
+# remove [pool-2-thread-103]
+sed -E -e 's/pool-[0-9]+-thread-[0-9]+//g'
+# remove 4/fhir/Measure/DEDNGRL2LJLJ65SO/$evaluate-measure?periodStart=1900-01-01&periodEnd=2100-01-01 
+sed -E -e 's#/fhir/Measure[^ ]+#/fhir/Measure#g'
+
+# sed newline
+sed '{:q;N;s/\n/\t/g;t q}' 
+# gnu sed
+sed ':a;N;$!ba;s/\n/ /g' file
+# cross platform
+sed -e ':a' -e 'N' -e '$!ba' -e 's/\n/ /g' file
 
 
+# od hex dump
+echo -e "kdsjfs\rlsdfj\n" | od -t x1 -c
+
+echo "331 354 438 453 476 484 492" | tr ' ' '\n' | sed -Ee 's#^#cygstart "https://portal.popgen.de/transfer_requests/#g' -e 's#$#/activities"#g' | sh
+
+grep $(date --iso-8601=date --date='yesterday') ~/logs/user.log
+grep $(date --iso-8601=date --date='2 days ago') ~/logs/user.log
+
+grep image docker-compose.yml | grep -v "#" | sed -Ee 's/ *image: //g' | xargs -n1 docker pull
+
+wget -O 10118339.pem "https://cert-manager.com/customer/DFN/ssl?action=download&sslId=10118339&format=x509CO"
+openssl x509 -text -in 10118339.pem | grep -iE "(subject|dns):"
+ls -1 *.pem | xargs -n1 -t openssl x509 -text -in | grep -iE "(subject|dns):"
+
+#An entirely different approach would be to use GNU parallel, and use its --header and --pipe options:
+cat input.csv | parallel --header : --pipe -N 10 'cat > output{#}.csv'
+
+# repeat
+for i in {1..10}; do command; done
+for i in `seq 10`; do command; done
+
+find /c/Programme/TOS/TOS_BD-20200219_1130-V7.3.1/workspace/TRANSFERSTELLE/process/Transferstelle/TryToPredict/ -iname '*.item' | grep -Ev '[0-9]{10,}' | xargs grep -R "contextParameter" | grep t2p | grep -v repositoryContextId
+
+# timestamp UUID [pool-2-thread-107]
+zcat bpe_2024-1* | grep FhirClientConnectionException | 
+sed -E -e 's/[-0-9:., ]{16,23}//g' -e 's/[-0-9a-fA-F]{36}/xxxx-xxxx/g' 
+-e 's/\[?pool.?[0-9]+(.?thread.?[0-9]+)?\]/pool-thread/g'
+
+# create empty zip file
+echo | zip -q > {{project}}.zip && zip -dq {{project}}.zip -
+echo | zip -q > dsf-fhir-ext.zip && zip -dq dsf-fhir-ext.zip -
+echo | zip -q > dsf-bpe.zip && zip -dq dsf-bpe.zip -
+
+Get-Process sizer | Format-List Path
+
+sort -t $'\n' -k 1.8,1.11 infile
+#-t $'\n' tells sort that the field separator is the newline character, i.e., every line consists of just one field.
+#-k 1.8,1.11 says to use characters 8 to 11 within field 1 to sort by.
+
+curl --user mii-fbt:$PASS https://mii-fbt.misc.medicsh.de:444/fhir/metadata | jq . | less | grep -i version\":
+
+curl http://mii-fhirserver.distan.medicsh.de:8080/fhir/metadata | jq . | grep -EC3 'version\":|status:'
+
+curl -v --user $USER:$PASS http://localhost:9091/createJson?scopes=covid,influenza,kiradar
+curl -v --user $USER:$PASS http://172.26.240.188:9091/createJson?scopes=covid,influenza,kiradar
+
+curl --cert secrets/client_certificate.pem --key secrets/client_certificate_private_key.pem -H "Accept: application/fhir+json" https://dsf-fhir-ext-test.medicsh.de/fhir/metadata | jq . | grep -E "(version|status).: "
+curl http://mii-fhirserver.distan.medicsh.de:8080/fhir/metadata | jq . | grep -E -C3 "(version|status).: "
+
+curl -d @
+curl -v --location --request POST "$URL" --header 'Content-Type: application/sq+json' --data-binary "@$FILE" > "$RES_NAME"

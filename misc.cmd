@@ -174,8 +174,13 @@ icacls <filename> /inheritance:d
 REM  Remove default groups (Authenticated Users, System, Administrators, Users)
 icacls <filename> /remove *S-1-5-11 *S-1-5-18 *S-1-5-32-544 *S-1-5-32-545
 
+REM FI filter FO format
+tasklist /FI "IMAGENAME eq size*"
+tasklist /FI "IMAGENAME eq sizer"
+wmic process where "name='sizer.exe'" get ProcessID, ExecutablePath
+wmic process get ProcessID,ExecutablePath
 
-
+"C:\Windows\System32\msiexec.exe" /qb /i 6.3.6.1079.msi
 
 
 
