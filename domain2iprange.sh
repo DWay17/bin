@@ -20,6 +20,18 @@ query_ripe() {
   fi
 }
 
+# Function to convert IP range to CIDR notation
+ip_range_to_cidr() {
+  IFS='-' read -r start_ip end_ip <<< "$1"
+  octet1=$(echo "$start_ip" | cut -d '.' -f 1)
+  octet2=$(echo "$start_ip" | cut -d '.' -f 2)
+  octet3=$(echo "$start_ip" | cut -d '.' -f 3)
+  octet4_start=$(echo "$start_ip" | cut -d '.' -f 4)
+  octet4_end=$(echo "$end_ip" | cut -d '.' -f 4)
+  subnet_size=$(($octet4_end - $octet4_start + 1))
+  echo "$octet1.$octet2.$octet3.$octet4_start/$subnet_size"
+}
+
 # Write a comment to the output file
 echo "# List of IP ranges for firewall" > "$OUTPUT_FILE"
 
@@ -33,8 +45,13 @@ while IFS= read -r domain; do
   # Get the IP range for the domain
   ripe_result=$(query_ripe "$domain")
   
-  # Add the IP range to the temporary file
-  echo "$ripe_result" >> "$TEMP_FILE"
+  # Convert IP range to CIDR notation and add to temporary file
+  if [[ $ripe_result == *"-"* ]]; then
+    cidr=$(ip_range_to_cidr "$ripe_result")
+    echo "$cidr" >> "$TEMP_FILE"
+  else
+    echo "No valid IP range found for $domain" >> "$TEMP_FILE"
+  fi
   
   # Append unique IP ranges to the output file
   sort -u "$TEMP_FILE" | while IFS= read -r cidr; do
