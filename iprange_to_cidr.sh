@@ -1,5 +1,7 @@
 #!/bin/bash
 
+exit 1 # doesn't work
+
 # Function to convert an IP address to binary
 ip_to_binary() {
   IFS=. read -r a b c d <<< "$1"
