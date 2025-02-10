@@ -13,21 +13,25 @@ int_to_ip() {
     echo "$((ip >> 24 & 255)).$((ip >> 16 & 255)).$((ip >> 8 & 255)).$((ip & 255))"
 }
 
-# Function to calculate the appropriate subnet size
+# Function to calculate CIDR notation
 range_to_cidr() {
-    local start end range size
+    local start end size
 
     start=$(ip_to_int "$1")
     end=$(ip_to_int "$2")
-    range=$((end - start + 1))
 
-    size=32
-    while (( range > 0 )); do
-        (( size-- ))
-        range=$((range >> 1))
+    while (( start <= end )); do
+        for size in {32..0}; do
+            local mask=$((0xFFFFFFFF << (32 - size) & 0xFFFFFFFF))
+            local masked_start=$((start & mask))
+            if (( masked_start != start || (start + (1 << (32 - size)) - 1 > end) )); then
+                (( size++ ))
+                break
+            fi
+        done
+        echo "$(int_to_ip "$start")/$size"
+        start=$((start + (1 << (32 - size))))
     done
-
-    echo "$1/$(32 - size)"
 }
 
 # Main script
