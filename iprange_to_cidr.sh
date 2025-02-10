@@ -20,18 +20,24 @@ range_to_cidr() {
     end=$(ip_to_int "$2")
 
     while [ "$start" -le "$end" ]; do
-        local max_size=32
-        while (( max_size > 0 )); do
-            local mask=$((0xFFFFFFFF << (32 - max_size) & 0xFFFFFFFF))
+        local size=32
+        while (( size > 0 )); do
+            local mask=$((0xFFFFFFFF << (32 - size) & 0xFFFFFFFF))
             local masked_ip=$((start & mask))
             if [ "$masked_ip" -ne "$start" ]; then
                 break
             fi
-            (( max_size-- ))
+            (( size-- ))
         done
-        local size=$((32 - max_size))
-        echo "$(int_to_ip "$start")/$size"
-        start=$((start + 2**(32 - size)))
+        size=$((32 - size))
+
+        if (( start + 2**(32 - size) - 1 >= end )); then
+            echo "$(int_to_ip "$start")/$size"
+            break
+        else
+            echo "$(int_to_ip "$start")/$size"
+            start=$((start + 2**(32 - size)))
+        fi
     done
 }
 
