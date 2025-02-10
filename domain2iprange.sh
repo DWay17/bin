@@ -7,10 +7,15 @@ OUTPUT_FILE="ip_ranges.txt"
 # Temporary file to accumulate unique IP ranges
 TEMP_FILE="temp_ip_ranges.txt"
 
-# Function to convert IP to CIDR notation
-ip_to_cidr() {
-  IFS=. read -r i1 i2 i3 i4 <<< "$1"
-  echo "$i1.$i2.$i3.0/24"  # Defaulting to /24 subnet
+# Function to query RIPE NCC database for IP range
+query_ripe() {
+  ip=$(dig +short "$1" | grep '^[0-9]\+\.[0-9]\+\.[0-9]\+\.[0-9]\+$' | head -n 1)
+  if [ -n "$ip" ]; then
+    ripe_result=$(whois -h whois.ripe.net "$ip" | grep -i 'inetnum')
+    echo "$ripe_result"
+  else
+    echo "No IP address found for $1"
+  fi
 }
 
 # Write a comment to the output file
@@ -23,14 +28,11 @@ while IFS= read -r domain; do
   # Add a comment with the origin domain to the output file
   echo "# Origin domain: $domain" >> "$OUTPUT_FILE"
   
-  # Get the list of IP addresses for the domain and its subdomains
-  ip_addresses=$(dig +short ANY "$domain" | grep '^[0-9]\+\.[0-9]\+\.[0-9]\+\.[0-9]\+$')
+  # Get the IP range for the domain
+  ripe_result=$(query_ripe "$domain")
   
-  # Convert IP addresses to CIDR notation and add to temporary file
-  for ip in $ip_addresses; do
-    cidr=$(ip_to_cidr "$ip")
-    echo "$cidr" >> "$TEMP_FILE"
-  done
+  # Add the IP range to the temporary file
+  echo "$ripe_result" >> "$TEMP_FILE"
   
   # Append unique IP ranges to the output file
   sort -u "$TEMP_FILE" | while IFS= read -r cidr; do
