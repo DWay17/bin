@@ -106,3 +106,24 @@ alert(blinky.augen); // 2 - blinky hat die Eigenschaft selbst nicht mehr, es sch
 
 /* ######################## */
 
+document.querySelectorAll('th').forEach(th => {
+  th.textContent = th.textContent.replace(/-/g, ' ');
+});
+document.querySelectorAll('th, td').forEach(cell => {
+  cell.textContent = cell.textContent.replace(/-/g, ' ');
+  cell.style.whiteSpace = 'normal';
+});
+
+document.querySelectorAll('th, td').forEach(cell => {
+  cell.textContent = cell.textContent.replace(/-/g, ' ');
+  cell.style.whiteSpace = 'normal';
+  
+  if (cell.tagName === 'TH' && cell.textContent.includes('UKSH')) {
+    const row = cell.parentElement; // Get the parent row of the matching <th>
+    row.querySelectorAll('th, td').forEach(siblingCell => {
+      siblingCell.style.fontWeight = 'bold';
+      siblingCell.style.textDecoration = 'underline';
+    });
+  }
+});
+

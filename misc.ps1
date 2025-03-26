@@ -251,7 +251,9 @@ npm update -g -u
 npm install -g npm-check-updates
 ncu --upgrade
 
+Get-Process | Get-Member | Out-String | grep -i path
 
+Get-Service | Where-Object { $_.DisplayName -match "drop|dbx" } | Stop-Service
 
 
 

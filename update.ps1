@@ -2,6 +2,7 @@
 #Start-Process "C:\Users\Public\Desktop\IObit Software Updater.lnk"
 Start-Process "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\IObit Software Updater\IObit Software Updater.lnk"
 Start-Process "$env:APPDATA\Microsoft\Windows\Start Menu\Programs\PatchMyPC.lnk"
+start "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Patch My PC Home Updater\Patch My PC Home Updater.lnk"
 #echo "choco outdated | sed -e 's/|/\t/g'"
 
 #echo "choco_outdated.ps1"

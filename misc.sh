@@ -721,15 +721,39 @@ sort -t $'\n' -k 1.8,1.11 infile
 #-t $'\n' tells sort that the field separator is the newline character, i.e., every line consists of just one field.
 #-k 1.8,1.11 says to use characters 8 to 11 within field 1 to sort by.
 
-curl --user mii-fbt:$PASS https://mii-fbt.misc.medicsh.de:444/fhir/metadata | jq . | less | grep -i version\":
+curl --user mii-fbt:$PASS https://host/fhir/metadata | jq . | less | grep -i version\":
 
-curl http://mii-fhirserver.distan.medicsh.de:8080/fhir/metadata | jq . | grep -EC3 'version\":|status:'
+curl http://host/fhir/metadata | jq . | grep -EC3 'version\":|status:'
+#'"\
 
 curl -v --user $USER:$PASS http://localhost:9091/createJson?scopes=covid,influenza,kiradar
-curl -v --user $USER:$PASS http://172.26.240.188:9091/createJson?scopes=covid,influenza,kiradar
+curl -v --user $USER:$PASS http://host/createJson?scopes=covid,influenza,kiradar
 
-curl --cert secrets/client_certificate.pem --key secrets/client_certificate_private_key.pem -H "Accept: application/fhir+json" https://dsf-fhir-ext-test.medicsh.de/fhir/metadata | jq . | grep -E "(version|status).: "
-curl http://mii-fhirserver.distan.medicsh.de:8080/fhir/metadata | jq . | grep -E -C3 "(version|status).: "
+curl --cert secrets/client_certificate.pem --key secrets/client_certificate_private_key.pem -H "Accept: application/fhir+json" https://host/fhir/metadata | jq . | grep -E "(version|status).: "
+curl http://host/fhir/metadata | jq . | grep -E -C3 "(version|status).: "
 
 curl -d @
 curl -v --location --request POST "$URL" --header 'Content-Type: application/sq+json' --data-binary "@$FILE" > "$RES_NAME"
+
+xmlstarlet ed -L -N x=http://host/POM/4.0.0 -s /x:project/x:properties -t elem -n signer.version -v 7.3.1 /c/Programme/TOS/TOS_BD-20200219_1130-V7.3.1/workspace/TRANSFERSTELLE/poms/pom.xml
+
+# do-release-upgrade
+## new ssh port
+iptables -I INPUT -p tcp --dport 1022 -j ACCEPT
+Some third party entries in your sources.list were disabled. You can 
+re-enable them after the upgrade with the 'software-properties' tool 
+or your package manager. 
+
+docker compose --project-name fhir logs -ft
+docker compose --project-name bpe logs -ft
+
+grep -EC3 "properties|project|signer.version" /c/Programme/TOS/TOS_BD-20200219_1130-V7.3.1/workspace/TRANSFERSTELLE/poms/pom.xml; xmlstarlet ed -L -N x=http://maven.apache.org/POM/4.0.0 -s /x:project/x:properties -t elem -n signer.version -v 7.3.1 /c/Programme/TOS/TOS_BD-20200219_1130-V7.3.1/workspace/TRANSFERSTELLE/poms/pom.xml; grep -EC3 "properties|project|signer.version" /c/Programme/TOS/TOS_BD-20200219_1130-V7.3.1/workspace/TRANSFERSTELLE/poms/pom.xml
+
+curl http://host/fhir/metadata | jq . | grep -E -C3 "(version|status).: "
+
+
+
+
+
+
+

@@ -5,7 +5,7 @@ else
 	MAXDEPTH=1
 fi
 REGEX_FILEMX1="(LICENSE|README|config|FETCH_HEAD|HEAD|index|ORIG_HEAD|packed-refs|sourcetreeconfig)"
-REGEX_FILEMX21="7z|apk|asc|bak|bash_.*|bashrc|bz2|cfg|classpath|conf|config|crt|crx|csv|dat|data|db|diff|docx?|eps|gpg"
+REGEX_FILEMX21="7z|apk|asc|bak|bash_.*|bashrc|bz2|cfg|classpath|conf|config|crt|crx|csv|dat|data|db|diff|docx?|eps|eml|gpg"
 REGEX_FILEMX21="$REGEX_FILEMX21|gif|gitconfig|gitignore|gz|html?|ics|index|ini|inputrc|ion|iso|jar|java|jks|jpe?g|js|jsp|json"
 REGEX_FILEMX21="$REGEX_FILEMX21|kdbx?|lnk|lock|log|mail|map|md|mf|mdb|mp3|mp4|mtp|muttrc|new|ods|old|owl|p12|pdf|ped|pem|pfx|phe|pig|png"
 REGEX_FILEMX21="$REGEX_FILEMX21|pptx?|profile|project|properties|prop|pub|rdf|reg|rtf|sql|sqlite|tar|tmp|tgz|tsv|txt|tiff?"
