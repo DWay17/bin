@@ -40,10 +40,11 @@ if (-not $found) {
     Write-Host "`n--- Durchsuche Startmenü- und Desktop-Verknüpfungen ---`n"
 
     $searchPaths = @(
-        "$env:ProgramData\Microsoft\Windows\Start Menu\Programs",
-        "$env:UserProfile\AppData\Roaming\Microsoft\Windows\Start Menu\Programs",
-        "$env:Public\Desktop",
+	    "$env:UserProfile\AppData\Roaming\Microsoft\Windows\Start Menu\Programs",
         "$env:UserProfile\Desktop"
+        "$env:ProgramData\Microsoft\Windows\Start Menu\Programs",
+        "$env:AppData\Microsoft\Windows\Start Menu\Programs",
+        "$env:Public\Desktop"
     )
 
     foreach ($searchPath in $searchPaths) {
@@ -98,7 +99,10 @@ if (-not $found) {
     $ConfiguredFolders = @(
         "C:\Programme",
         "C:\Programme (x86)",
-        "C:\Tools" # Hier weitere benutzerdefinierte Ordner hinzufügen
+        "C:\Programs",
+        "$env:UserProfile\AppData\Local\Programs"
+        #"$env:UserProfile\Downlaods"
+        # Hier weitere benutzerdefinierte Ordner hinzufügen
     )
 
     foreach ($ConfiguredFolder in $ConfiguredFolders) {
