@@ -57,6 +57,7 @@ if (-not $found) {
                         try {
                             # Verwende WScript.Shell zum Auflösen der .lnk-Datei
                             $Shell = New-Object -ComObject WScript.Shell
+                           
                             $Shortcut = $Shell.CreateShortcut($lnkFile.FullName)
                             $TargetPath = $Shortcut.TargetPath
 
@@ -65,8 +66,17 @@ if (-not $found) {
                             if ($Shortcut) { [System.Runtime.InteropServices.Marshal]::ReleaseComObject($Shortcut) | Out-Null }
 
                             if ($TargetPath -like "*$ProgramName*") {
+                                if ($lnkFile -like "*uninstall*") {
+                                    Write-Host "Verknüpfung gefunden: '$($lnkFile.FullName)' ... skip"
+                                    continue 
+                                }
                                 Write-Host "Programm gefunden in Verknüpfung: '$($lnkFile.FullName)'"
                                 Write-Host "Zielpfad der Verknüpfung: '$TargetPath'"
+                                # check for unins000
+                                if ($TargetPath -like "*unins*") {
+                                    Write-Host "uninst gefunden: '$TargetPath' ... skip"
+                                    continue
+                                }
                                 if (Start-ProgramIfExists -ExecutablePath $TargetPath) {
                                     $found = $true
                                     break
