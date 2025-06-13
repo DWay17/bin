@@ -1,5 +1,5 @@
 param(
-    [Parameter(Mandatory=$true)]
+    [Parameter(Mandatory = $true)]
     [string]$ProgramName
 )
 
@@ -31,7 +31,8 @@ if ($PathExecutables) {
             break
         }
     }
-} else {
+}
+else {
     Write-Host "Keine Programme im PATH mit Namen '$ProgramName' gefunden."
 }
 
@@ -40,7 +41,7 @@ if (-not $found) {
     Write-Host "`n--- Durchsuche Startmenü- und Desktop-Verknüpfungen ---`n"
 
     $searchPaths = @(
-	    "$env:UserProfile\AppData\Roaming\Microsoft\Windows\Start Menu\Programs",
+        "$env:UserProfile\AppData\Roaming\Microsoft\Windows\Start Menu\Programs",
         "$env:UserProfile\Desktop"
         "$env:ProgramData\Microsoft\Windows\Start Menu\Programs",
         "$env:AppData\Microsoft\Windows\Start Menu\Programs",
@@ -63,8 +64,13 @@ if (-not $found) {
                             # COM-Objekte freigeben
                             if ($Shell) { [System.Runtime.InteropServices.Marshal]::ReleaseComObject($Shell) | Out-Null }
                             if ($Shortcut) { [System.Runtime.InteropServices.Marshal]::ReleaseComObject($Shortcut) | Out-Null }
-
-                            if ($TargetPath -like "*$ProgramName*") {
+                            # skip unins000.exe
+                            #-like "*$ProgramName*"
+                            if ($TargetPath -imatch ".*$ProgramName.*") {
+                                if ($TargetPath -like "*unins*.exe") {
+                                    Write-Host "skip uninstall $lnkFile"
+                                    break
+                                }
                                 Write-Host "Programm gefunden in Verknüpfung: '$($lnkFile.FullName)'"
                                 Write-Host "Zielpfad der Verknüpfung: '$TargetPath'"
                                 if (Start-ProgramIfExists -ExecutablePath $TargetPath) {
@@ -72,20 +78,24 @@ if (-not $found) {
                                     break
                                 }
                             }
-                        } catch {
+                        }
+                        catch {
                             Write-Warning "Fehler beim Verarbeiten der Verknüpfungsdatei '$($lnkFile.FullName)': $($_.Exception.Message)"
                             continue
                         }
                     }
                     if ($found) { break }
-                } else {
+                }
+                else {
                     Write-Host "Keine .lnk-Dateien in '$searchPath' gefunden."
                 }
-            } catch {
+            }
+            catch {
                 Write-Warning "Fehler beim Durchsuchen von '$searchPath': $($_.Exception.Message)"
                 continue
             }
-        } else {
+        }
+        else {
             Write-Host "Pfad '$searchPath' konnte nicht gefunden oder geöffnet werden."
             continue
         }
@@ -121,14 +131,17 @@ if (-not $found) {
                         }
                     }
                     if ($found) { break }
-                } else {
+                }
+                else {
                     Write-Host "Keine Dateien mit Namen '$ProgramName' in '$ConfiguredFolder' gefunden."
                 }
-            } catch {
+            }
+            catch {
                 Write-Warning "Fehler beim Durchsuchen von '$ConfiguredFolder': $($_.Exception.Message)"
                 continue
             }
-        } else {
+        }
+        else {
             Write-Host "Ordner '$ConfiguredFolder' konnte nicht gefunden oder geöffnet werden."
             continue
         }
