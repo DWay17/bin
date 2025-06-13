@@ -752,9 +752,10 @@ grep -EC3 "properties|project|signer.version" /c/Programme/TOS/TOS_BD-20200219_1
 
 curl http://host/fhir/metadata | jq . | grep -E -C3 "(version|status).: "
 
+# format csv with tab as table
+csvstat.py SySkle-diag.csv | column -t -s $'\t'
 
-
-
+grep image docker-compose.yml | grep -v "#" | sed -Ee 's/ *image: //g' | sed -e 's/1.6.0/1.7.0/g' -e 's#^#docker pull #g' | sh
 
 
 
