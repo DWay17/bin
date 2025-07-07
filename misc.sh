@@ -757,5 +757,9 @@ csvstat.py SySkle-diag.csv | column -t -s $'\t'
 
 grep image docker-compose.yml | grep -v "#" | sed -Ee 's/ *image: //g' | sed -e 's/1.6.0/1.7.0/g' -e 's#^#docker pull #g' | sh
 
+# sed -i '' --in-place
+#image: ghcr.io/datasharingframework/bpe:1.8.0
+sed --in-place=.bak -Ee 's#^([ ]+image: ghcr.io/datasharingframework/[a-z]+:)[1].[0-9].[0-9]#\11.8.0#g' docker-compose.yml ; diff -u docker-compose.yml.bak docker-compose.yml
+
 
 
