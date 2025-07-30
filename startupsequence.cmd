@@ -37,3 +37,4 @@ REM start "" /B /min "C:\Program Files\DavMail\davmail64.exe" >> %LOGDIR%\davmai
 cd "C:\Program Files\DavMail\"
 start "" /B /min javaw -jar davmail.jar >> %LOGDIR%\davmail.jar.log 2>&1
 start "" /B /min pwsh -command "c:\Users\t.richter\bin\startupSequence.ps1"
+start "" /B /min N:\

@@ -761,5 +761,25 @@ grep image docker-compose.yml | grep -v "#" | sed -Ee 's/ *image: //g' | sed -e 
 #image: ghcr.io/datasharingframework/bpe:1.8.0
 sed --in-place=.bak -Ee 's#^([ ]+image: ghcr.io/datasharingframework/[a-z]+:)[1].[0-9].[0-9]#\11.8.0#g' docker-compose.yml ; diff -u docker-compose.yml.bak docker-compose.yml
 
+diff --new-line-format="" --unchanged-line-format="" <(sort file1) <(sort file2)
+comm -23 <(sort file1) <(sort file2)
+
+apt  install golang-go
+go install github.com/jesseduffield/lazydocker@latest
+~/go/bin/lazydocker
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

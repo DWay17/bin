@@ -12,7 +12,7 @@ for FILE in "$@" ; do
 	echo "EXT $EXT"
 	BASENAME=`basename -s ".""$EXT" "$FILENAME"`
 	echo "BASENAME $BASENAME"
-	GRP_F=$(echo $GRP | sed -Ee 's/[^A-Za-z0-9_.-]/./g')
+	GRP_F=$(echo $GRP | sed -Ee 's/[^A-Za-z0-9_.-]/./g' -e 's/\.+/./g' -e 's/^\.//g' -e 's/\.$//g')
 	echo "GRP_F $GRP_F"
 	NEW_FILE="$BASENAME.-v-$GRP_F.$EXT"
 	echo "NEW_FILE $NEW_FILE"
