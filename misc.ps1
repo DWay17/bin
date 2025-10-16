@@ -255,6 +255,9 @@ Get-Process | Get-Member | Out-String | grep -i path
 
 Get-Service | Where-Object { $_.DisplayName -match "drop|dbx" } | Stop-Service
 
+# reapit winget i unigetui
+
+"C:\WINDOWS\system32\windowspowershell\v1.0\powershell.exe" -ExecutionPolicy Bypass -NoLogo -NoProfile -Command "& {cmd.exe /C "rmdir /Q /S `"%temp%\WinGet`""; cmd.exe /C "`"%localappdata%\Microsoft\WindowsApps\winget.exe`" source reset --force"; taskkill /im winget.exe /f; taskkill /im WindowsPackageManagerServer.exe /f; Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force; Install-Module Microsoft.WinGet.Client -Force -AllowClobber; Import-Module Microsoft.WinGet.Client; Repair-WinGetPackageManager -Force -Latest; Get-AppxPackage -Name 'Microsoft.DesktopAppInstaller' | Reset-AppxPackage; }"
 
 
 
