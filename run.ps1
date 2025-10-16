@@ -9,7 +9,7 @@ function Start-ProgramIfExists {
         [string]$ExecutablePath
     )
     if (Test-Path $ExecutablePath) {
-        Write-Host "Programm gefunden und wird gestartet: $ExecutablePath"
+        Write-Host "Programm gefunden und wird gestartet: $ExecutablePath" -ForegroundColor Green
         Start-Process -FilePath $ExecutablePath
         return $true
     }
@@ -58,7 +58,7 @@ if (-not $found) {
                         try {
                             # Verwende WScript.Shell zum Auflösen der .lnk-Datei
                             $Shell = New-Object -ComObject WScript.Shell
-                           
+                            
                             $Shortcut = $Shell.CreateShortcut($lnkFile.FullName)
                             $TargetPath = $Shortcut.TargetPath
 
@@ -66,24 +66,38 @@ if (-not $found) {
                             if ($Shell) { [System.Runtime.InteropServices.Marshal]::ReleaseComObject($Shell) | Out-Null }
                             if ($Shortcut) { [System.Runtime.InteropServices.Marshal]::ReleaseComObject($Shortcut) | Out-Null }
                             # skip unins000.exe
-                            #-like "*$ProgramName*"
+                            # -like "*$ProgramName*"
                             
                             if ($TargetPath -like "*$ProgramName*") {
                                 if ($lnkFile -like "*uninstall*") {
                                     Write-Host "Verknüpfung gefunden: '$($lnkFile.FullName)' ... skip"
                                     continue 
                                 }
-                                Write-Host "Programm gefunden in Verknüpfung: '$($lnkFile.FullName)'"
+                                Write-Host "Programm gefunden in Verknüpfung: '$($lnkFile.FullName)'" -ForegroundColor DarkGreen
                                 Write-Host "Zielpfad der Verknüpfung: '$TargetPath'"
                                 # check for unins000
                                 if ($TargetPath -like "*unins*") {
-                                    Write-Host "uninst gefunden: '$TargetPath' ... skip"
+                                    Write-Host "uninst gefunden: '$TargetPath' ... skip"  -ForegroundColor Gray
                                     continue
                                 }
-                                if (Start-ProgramIfExists -ExecutablePath $TargetPath) {
+                                # run lnk file
+                                # Start-Process -FilePath "$($lnkFile)"
+                                # with and sign
+                                # Invoke-Item
+                                Write-Host  "try to run $lnkFile"
+                                #if (
+                                Invoke-Item "$($lnkFile)"
+                                #) {
+                                #    Write-Host "run call successful" -ForegroundColor Green
                                     $found = $true
                                     break
-                                }
+                                #} else {
+                                #    Write-Host "run call not succesfull" -ForegroundColor Red
+                                #}
+                                #if (Start-ProgramIfExists -ExecutablePath $TargetPath) {
+                                #    $found = $true
+                                #    break
+                                #}
                             }
                         }
                         catch {
@@ -94,16 +108,16 @@ if (-not $found) {
                     if ($found) { break }
                 }
                 else {
-                    Write-Host "Keine .lnk-Dateien in '$searchPath' gefunden."
+                    Write-Host "Keine .lnk-Dateien in '$searchPath' gefunden." -ForegroundColor Yellow
                 }
             }
             catch {
-                Write-Warning "Fehler beim Durchsuchen von '$searchPath': $($_.Exception.Message)"
+                Write-Warning "Fehler beim Durchsuchen von '$searchPath': $($_.Exception.Message)"  -ForegroundColor Yellow
                 continue
             }
         }
         else {
-            Write-Host "Pfad '$searchPath' konnte nicht gefunden oder geöffnet werden."
+            Write-Host "Pfad '$searchPath' konnte nicht gefunden oder geöffnet werden." -ForegroundColor Yellow
             continue
         }
     }
@@ -140,21 +154,21 @@ if (-not $found) {
                     if ($found) { break }
                 }
                 else {
-                    Write-Host "Keine Dateien mit Namen '$ProgramName' in '$ConfiguredFolder' gefunden."
+                    Write-Host "Keine Dateien mit Namen '$ProgramName' in '$ConfiguredFolder' gefunden."  -ForegroundColor Yellow
                 }
             }
             catch {
-                Write-Warning "Fehler beim Durchsuchen von '$ConfiguredFolder': $($_.Exception.Message)"
+                Write-Warning "Fehler beim Durchsuchen von '$ConfiguredFolder': $($_.Exception.Message)" -ForegroundColor Yellow
                 continue
             }
         }
         else {
-            Write-Host "Ordner '$ConfiguredFolder' konnte nicht gefunden oder geöffnet werden."
+            Write-Host "Ordner '$ConfiguredFolder' konnte nicht gefunden oder geöffnet werden." -ForegroundColor Yellow
             continue
         }
     }
 }
 
 if (-not $found) {
-    Write-Host "Programm '$ProgramName' nicht gefunden."
+    Write-Host "Programm '$ProgramName' nicht gefunden."  -ForegroundColor Red
 }
