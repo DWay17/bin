@@ -764,18 +764,30 @@ sed --in-place=.bak -Ee 's#^([ ]+image: ghcr.io/datasharingframework/[a-z]+:)[1]
 diff --new-line-format="" --unchanged-line-format="" <(sort file1) <(sort file2)
 comm -23 <(sort file1) <(sort file2)
 
-apt  install golang-go
+apt install golang-go -y
 go install github.com/jesseduffield/lazydocker@latest
 ~/go/bin/lazydocker
 
+git config credential.helper store
+git config credential.helper 'cache --timeout 7200'
+
+docker-compose      running(3)          
+/home/ubuntu/nginx/docker-compose/docker-compose.yaml
+/home/ubuntu/nginx/docker-compose/docker-compose.yml
+/home/ubuntu/gpas-26/docker-compose/docker-compose.yml
 
 
+git config credential.helper '!f() { sleep 1; echo "username=${GIT_USER}"; echo "password=${GIT_PASSWORD}"; }; f'
+read GIT_USER
+read GIT_PASSWORD
 
+export GIT_ASKPASS=true
 
+# --cert secrets/client_certificate.pem --key secrets/client_certificate_private_key.pem
+curl -H "Accept: application/fhir+json" http://127.0.0.1:8080/ttp-fhir/fhir/gpas/metadata | jq . | grep -E "(version|status).: "
 
-
-
-
+# variab of container
+docker exec compose-wildfly-nginx-1 env
 
 
 
