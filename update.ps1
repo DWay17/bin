@@ -21,5 +21,7 @@ run.ps1 UniGetUI
 #Start-Process 'WingetUI - admin.cmd'
 
 Import-Module PSWindowsUpdate
+echo "Get-WUList -MicrosoftUpdate"
 Get-WUList -MicrosoftUpdate
+echo "Install-WindowsUpdate -MicrosoftUpdate -AcceptAll -IgnoreReboot"
 Install-WindowsUpdate -MicrosoftUpdate -AcceptAll -IgnoreReboot
