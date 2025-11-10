@@ -20,6 +20,12 @@ run.ps1 UniGetUI
 #start "C:\Users\t.richter\AppData\Roaming\Microsoft\Windows\Start Menu\WingetUI.lnk"
 #Start-Process 'WingetUI - admin.cmd'
 
+# open windows update
+start ms-settings:windowsupdate
+
+# open store updates
+start ms-windows-store:updates
+
 Import-Module PSWindowsUpdate
 echo "Get-WUList -MicrosoftUpdate"
 Get-WUList -MicrosoftUpdate

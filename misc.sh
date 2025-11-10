@@ -789,6 +789,11 @@ curl -H "Accept: application/fhir+json" http://127.0.0.1:8080/ttp-fhir/fhir/gpas
 # variab of container
 docker exec compose-wildfly-nginx-1 env
 
+rsync -vv -u -t trichter@dashboarddataprocessor:/opt/t2pEncounters/trytopredict/export/*.zip ~/t2pEncounters/
+0      4       *       *       *       /usr/bin/scp -p trichter@dashboarddataprocessor:/opt/t2pEncounters/trytopredict/export/encounters*.zip /home/trichter/t2pEncounters/
+rsync -vv -u -t -P trichter@dashboarddataprocessor:/opt/t2pEncounters/trytopredict/export/*.zip ~/t2pEncounters/
+rsync -vv -u --size-only --inplace trichter@distan-jump-miki:/home/trichter/t2pEncounters/encounters*.zip /n/MIKI\ Dokumente/MeDIC/Datennutzungsanträge/TryToPredict/encounters
+touch_by_fnd.sh ~/Nextcloud/MIKI\ Dokumente/MeDIC/Datennutzungsanträge/TryToPredict/encounters/encounters-2025-*_2025-*.zip
 
 
 
