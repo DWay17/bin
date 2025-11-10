@@ -1,4 +1,5 @@
 # 
+
 param(
     [string[]] $Sources = @(
         'HKCU:\Software\Microsoft\Windows\CurrentVersion\Run',
@@ -8,6 +9,9 @@ param(
     [string] $Destination = 'AutorunsDisabled',
     [string] $regexpMatch = '.*(slack|teams).*'
 )
+
+Write-Host "Running script: $($MyInvocation.MyCommand.Name)`n"
+
 foreach ($Source in $Sources) {
     Write-Host "Processing entries in source key: $Source"
     Write-Host "=========================================="

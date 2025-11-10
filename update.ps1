@@ -1,4 +1,7 @@
 # update software
+
+Write-Host "Running script: $($MyInvocation.MyCommand.Name)`n"
+
 #Start-Process "C:\Users\Public\Desktop\IObit Software Updater.lnk"
 #Start-Process "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\IObit Software Updater\IObit Software Updater.lnk"
 run.ps1 "Software Updater"

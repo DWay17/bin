@@ -31,6 +31,8 @@ param(
     [switch]$Force
 )
 
+Write-Host "Running script: $($MyInvocation.MyCommand.Name)`n"
+
 Begin {
     function Assert-Admin {
         if (-not ([bool]([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltinRole]::Administrator))) {
