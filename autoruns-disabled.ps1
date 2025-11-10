@@ -9,7 +9,8 @@ param(
     [string] $regexpMatch = '.*(slack|teams).*'
 )
 foreach ($Source in $Sources) {
-    Write-Host "Processing source key: $Source"
+    Write-Host "Processing entries in source key: $Source"
+    Write-Host "=========================================="
     # create destination key if it doesn't exist
     if (-not (Test-Path "$Source\$Destination")) {
         New-Item -Path "$Source\$Destination" | Out-Null
@@ -28,13 +29,13 @@ foreach ($Source in $Sources) {
         # if name exists in destination overwrite it
         $existsInDest = Get-ItemProperty -Path "$Source\$Destination" -Name $entry.Name -ErrorAction SilentlyContinue
         if ($existsInDest) {
-            Write-Host "Overwriting existing entry in destination: $($entry.Name)"
+            Write-Host "Overwriting existing entry in destination: $($entry.Name) to disable it again."
             Move-ItemProperty -Path $Source -Name $entry.Name -Destination "$Source\$Destination" -Force
         } elseif ($entry.Name -match $regexpMatch) {
-            Write-Host -ForegroundColor White "Moving entry matching regex '$regexpMatch': $($entry.Name)"
+            Write-Host -ForegroundColor White "Moving entry matching regex '$regexpMatch': $($entry.Name) to disable it because of name."
             Move-ItemProperty -Path $Source -Name $entry.Name -Destination "$Source\$Destination"
         } else {
-            Write-Host -ForegroundColor Gray "Keeping entry in source: $($entry.Name)"
+            Write-Host -ForegroundColor Gray "Keeping entry in source: $($entry.Name) - keep as autorun."
         }
     }
     Write-Host "Finished processing source key: $Source`n"
