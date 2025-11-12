@@ -31,7 +31,6 @@ param(
     [switch]$Force
 )
 
-Write-Host "Running script: $($MyInvocation.MyCommand.Name)`n"
 
 Begin {
     function Assert-Admin {
@@ -55,6 +54,8 @@ Begin {
 }
 
 Process {
+    Write-Host "Running script: $($MyInvocation.MyCommand.Name)`n"
+
     if ($TaskName) { $names += $TaskName }
 
     foreach ($n in $names) {
@@ -74,8 +75,10 @@ Process {
                 try {
                     # Disable-ScheduledTask supports -InputObject in modern Windows PowerShell / PSCore
                     if ($Force) {
+                        Write-Host -ForegroundColor DarkGray "Forcing disable of task $target"
                         Disable-ScheduledTask -InputObject $task -ErrorAction Stop -Confirm:$false
                     } else {
+                        Write-Host -ForegroundColor DarkGray "Disabling of task $target"
                         Disable-ScheduledTask -InputObject $task -ErrorAction Stop
                     }
                     [PSCustomObject]@{

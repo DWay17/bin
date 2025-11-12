@@ -1,4 +1,7 @@
 # c:\Users\t.richter\bin\startupsrequence.ps1
+
+Write-Host "Running script: $($MyInvocation.MyCommand.Name)`n"
+
 ## sizer
 #Stop-Process -Name sizer.exe
 Get-Process | Where-Object {$_.ProcessName -match ".*(sizer).*" } | ForEach-Object { $_.kill() }
