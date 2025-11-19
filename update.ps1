@@ -24,13 +24,17 @@ run.ps1 UniGetUI
 #Start-Process 'WingetUI - admin.cmd'
 
 # open windows update
-start ms-settings:windowsupdate
+Start-Process ms-settings:windowsupdate
 
 # open store updates
-start ms-windows-store:updates
+Start-Process ms-windows-store:updates
 
 Import-Module PSWindowsUpdate
-echo "Get-WUList -MicrosoftUpdate"
-Get-WUList -MicrosoftUpdate
-echo "Install-WindowsUpdate -MicrosoftUpdate -AcceptAll -IgnoreReboot"
-Install-WindowsUpdate -MicrosoftUpdate -AcceptAll -IgnoreReboot
+#Write-Output "Get-WUList -MicrosoftUpdate"
+#Get-WUList -MicrosoftUpdate
+#Write-Output "Install-WindowsUpdate -MicrosoftUpdate -AcceptAll -IgnoreReboot"
+#Install-WindowsUpdate -MicrosoftUpdate -AcceptAll -IgnoreReboot
+
+Write-Output "Get-WUList -MicrosoftUpdate && Install-WindowsUpdate -MicrosoftUpdate -AcceptAll -IgnoreReboot"
+Start-Job Get-WUList -MicrosoftUpdate && Start-Job Install-WindowsUpdate -MicrosoftUpdate -AcceptAll -IgnoreReboot &
+

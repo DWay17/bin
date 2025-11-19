@@ -129,9 +129,12 @@ if (-not $found) {
 
     $ConfiguredFolders = @(
         "C:\Programme",
-        "C:\Programme (x86)",
+        "$env:UserProfile\AppData\Local\Programs\",
+        "$env:UserProfile\AppData\local\Microsoft\WinGet\Packages\"
+        "$env:UserProfile\AppData\Local\",
+        "$env:UserProfile\AppData\Roaming",
         "C:\Programs",
-        "$env:UserProfile\AppData\Local\Programs"
+        "C:\Programme (x86)"
         #"$env:UserProfile\Downlaods"
         # Hier weitere benutzerdefinierte Ordner hinzufügen
     )

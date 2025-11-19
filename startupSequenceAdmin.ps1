@@ -18,6 +18,6 @@ run.ps1 Capture2Text
 Get-Process | Where-Object {$_.ProcessName -match ".*(procexp).*" } | ForEach-Object { $_.kill() }
 run.ps1 procexp
 
-Disable-ScheduledTasks.ps1 -TaskListFile ~/Disable-ScheduledTasks.txt
+Disable-ScheduledTasks.ps1 -TaskListFile ~/Disable-ScheduledTasks.txt &
 
-autoruns-disabled.ps1
+autoruns-disabled.ps1 &

@@ -6,33 +6,106 @@ param (
         "$env:USERPROFILE\Documents\GitHub\PowerShell-Scripts\bin"
     ),
     [string[]]$SubDirectoriesToAdd = @(
-        "$env:USERPROFILE\AppData\Local\Microsoft\WinGet\Packages\"
+        "$env:USERPROFILE\AppData\Local\Microsoft\WinGet\Packages\",
+        "$env:USERPROFILE\AppData\Local\Programs",
+        "$env:USERPROFILE\AppData\Roaming\Programs",
+        "C:\Programme",
+        "C:\ProgrammsZiped",
+        "C:\ZipedPrograms",
+        "C:\Programs"
     )
 )
-SubDirectoriesToAdd
+# Enable debug output
+$debug = $false # $true
+Write-Host "Directories to add:`n$($DirectoriesToAdd -join "`n")`n"
+Write-Host "SubDirectories to add:`n$($SubDirectoriesToAdd -join "`n")`n"
+
 # extend DirectoriesToAdd with scanning for directories containing executables in SubDirectoriesToAdd
 foreach ($subDir in $SubDirectoriesToAdd) {
     # Get all directories in the specified subdirectory that contain executables
-    $foundDirs = Get-ChildItem -Path $subDir -Directory -Recurse | Where-Object {
+    if ($debug) {
+        Write-Host "Scanning subdirectory: $subDir"
+    }
+    # skip if $env:ProgramFiles
+    if ($subDir -eq $env:ProgramFiles -or $subDir -eq ${env:ProgramFiles(x86)} ) {
+        if ($debug) {
+            Write-Host "Skipping system Program Files directory: $subDir"
+        }
+        continue
+    }
+    # skip if too much direct entries
+    $directEntries = Get-ChildItem -Path $subDir -Directory -ErrorAction SilentlyContinue
+    if ($directEntries.Count -gt 42) {
+        if ($debug) {
+            Write-Host "Skipping $subDir due to large number of entries: $($directEntries.Count)"
+        }
+        continue
+    }
+    # skip if dir doesn't exist
+    if (-not (Test-Path -Path $subDir)) {
+        if ($debug) {
+            Write-Host "Subdirectory does not exist, skipping: $subDir"
+        }
+        continue
+    }
+    $foundDirs = Get-ChildItem -Path $subDir -Directory -Recurse -Depth 1 | Where-Object {
         $_.GetFiles("*.exe", [System.IO.SearchOption]::AllDirectories).Count -gt 0
     }
     foreach ($dir in $foundDirs) {
+        # skip if name contains ~
+        if ($dir.Name -match "~") {
+            if ($debug) {
+                Write-Host "Skipping directory with ~ in name: $($dir.FullName)"
+            }
+            continue
+        }
+        # skip if match [0-9]+(\.[0-9]+)+
+        if ($dir.Name -match "^[0-9]+(\.[0-9]+)+$") {
+            if ($debug) {
+                Write-Host "Skipping version-like directory: $($dir.FullName)"
+            }
+            continue
+        }
+        # skip xxx|yyy|zzz
+        if ($dir.Name -match "^(autoupdate|lib|dependencies|uninst|resources)$") {
+            if ($debug) {
+                Write-Host "Skipping directory: $($dir.FullName)"
+            }
+            continue
+        }
         $DirectoriesToAdd += $dir.FullName
     }
 }
+
 # Combine the main directories with the subdirectories
 # Get the current user's PATH environment variable
 $currentPath = [Environment]::GetEnvironmentVariable("Path", [EnvironmentVariableTarget]::User)
 # Split the current PATH into an array
 $pathArray = $currentPath -split ';'
+if ($debug) {
+    Write-Host "Current PATH:`n$currentPath`n"
+    Write-Host "PATH as array:`n$($pathArray -join "`n")`n"
+}
 # Add each directory to the PATH if it doesn't already exist
 foreach ($directory in $DirectoriesToAdd) {
     # check if directory exists
-    if (( (Test-Path -Path $directory)) && -not ($pathArray -contains $directory)) {
+    if ($debug) {
+        Write-Host "Processing directory: $directory"
+        Write-Host -NoNewline "exists:`t"
+        Test-Path -Path $directory
+        Write-Host -NoNewline "in path:`t"
+        $pathArray -contains $directory
+    } 
+    # skip if not exists
+    if (-not (Test-Path -Path $directory)) {
+        Write-Host "Directory $directory does not exist, skipping."
+        continue
+    }
+    if ( ($pathArray -contains $directory)) {
+        Write-Host "$directory is already in PATH, skipping."
+    } else {
         $pathArray += $directory
         Write-Host "Adding $directory to PATH."
-    } else {
-        Write-Host "$directory is already in PATH, skipping."
     }
 }
 # Join the updated array back into a single string
