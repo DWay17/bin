@@ -21,3 +21,5 @@ run.ps1 procexp
 Disable-ScheduledTasks.ps1 -TaskListFile ~/Disable-ScheduledTasks.txt &
 
 autoruns-disabled.ps1 &
+
+"postgres|pg_ctl|DbxSvc|dropbox|docker|VirtualBox|webex|CiscoSpark|dbupdate|dbupdatem|AdobeARMservice|nssm|grafana|slack|adobe" | Services-Manu-Stop.ps1 &
