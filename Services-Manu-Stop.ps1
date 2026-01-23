@@ -77,15 +77,13 @@ Process {
                 # ignore case when matching 
                 $regex = New-Object System.Text.RegularExpressions.Regex($n, [System.Text.RegularExpressions.RegexOptions]::IgnoreCase) 
                 Write-Host "Compiled regex: $regex"
-                $matchedServices = $allServices | 
-                  Where-Object { $regex.IsMatch($_.Name) }
+                $matchedServices = $allServices | Where-Object { $_.Name -imatch $n }
                 foreach ($ms in $matchedServices) {
                     Write-Host "Matched service by Name: $($ms.Name) (DisplayName: $($ms.DisplayName))"
                     $names2 += $ms.Name
                 }
-                $matchedServices = $allServices | 
-                  Where-Object { $regex.IsMatch($_.DisplayName) }
-                foreach ($ms in $matchedServices) {
+                $matchedServices = $allServices | Where-Object { $_.DisplayName -imatch $n } 
+                  foreach ($ms in $matchedServices) {
                     Write-Host "Matched service by DisplayName: $($ms.Name) (DisplayName: $($ms.DisplayName))"
                     $names2 += $ms.Name
                 }
