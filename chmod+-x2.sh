@@ -34,8 +34,8 @@ for dir in `find . -maxdepth $MAXDEPTHD -type d` ; do
 	find . -maxdepth $MAXDEPTH -mindepth 1 -type f -regextype posix-extended -regex '.*/#.*#$' -exec chmod -c a-x {} \; 
 	find . -maxdepth $MAXDEPTH -mindepth 1 -type f -regextype posix-extended -regex '.*/.*~$' -exec chmod -c a-x {} \;
 	echo "executable files +x"
-	find . -maxdepth $MAXDEPTH -mindepth 1 -type f -regextype posix-extended -regex '.*\.(sh|bash|cmd|bat|exe|com|pl|php)' -exec chmod -c g+rx {} \;
-	find . -maxdepth $MAXDEPTH -mindepth 1 -type f -regextype posix-extended -regex '.*\.(sh|bash|cmd|bat|exe|com|pl|php)' -exec chmod -c u+rwx {} \;
+	find . -maxdepth $MAXDEPTH -mindepth 1 -type f -regextype posix-extended -regex '.*\.(sh|bash|cmd|bat|exe|com|pl|php|py)' -exec chmod -c g+rx {} \;
+	find . -maxdepth $MAXDEPTH -mindepth 1 -type f -regextype posix-extended -regex '.*\.(sh|bash|cmd|bat|exe|com|pl|php|py)' -exec chmod -c u+rwx {} \;
 	echo "directories +x"
 	find . -maxdepth $MAXDEPTH -mindepth 1 -type d -exec chmod -c g+rx {} \; 
 	find . -maxdepth $MAXDEPTH -mindepth 1 -type d -exec chmod -c u+rxw {} \;

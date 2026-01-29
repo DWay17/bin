@@ -1,4 +1,5 @@
 #!/bin/sh
+# splits csv in all available cols
 function getSep() {
 	sep=$(echo "$1" | sed -E 's/(.)/\1\n/g' | grep -E $'[;,|\t]' | sort | uniq -c | sort -nr | head -n1 | awk '{print $2}')
 	if [ -z $sep ]; then

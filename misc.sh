@@ -795,8 +795,9 @@ rsync -vv -u -t -P trichter@dashboarddataprocessor:/opt/t2pEncounters/trytopredi
 rsync -vv -u --size-only --inplace trichter@distan-jump-miki:/home/trichter/t2pEncounters/encounters*.zip /n/MIKI\ Dokumente/MeDIC/Datennutzungsanträge/TryToPredict/encounters
 touch_by_fnd.sh ~/Nextcloud/MIKI\ Dokumente/MeDIC/Datennutzungsanträge/TryToPredict/encounters/encounters-2025-*_2025-*.zip
 
+openssl s_client dsf-fhir-ext.medicsh.de
 
 
 
 
-
+wget -v --user=$USER --password=$PASSWORD http://172.26.240.188:9091/createJson

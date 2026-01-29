@@ -1,5 +1,10 @@
 #!/bin/sh
 function chmodX {
+	# skip backup with ~
+	if [[ "$1" == *~ ]] ; then
+		chmod -c a-x "$1"
+		return
+	fi	
 	#ls -l "$1"
 	FT=$(file "$1")
 	case "$FT" in
