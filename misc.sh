@@ -623,6 +623,7 @@ systemctl start msmtpd
 systemctl status msmtpd
 
 find / -maxdepth 3 -iname docker-compose.yml -type f | xargs grep -i image | sed -Ee 's/    image: "?/docker pull /g' -e 's/:.*"?/:latest/g'
+find ~trichter/ -type f -name docker-compose.yml | xargs grep image | sed -Ee 's/.*    image: "?/docker pull /g' | sort -u | grep -v sha256
 
 # rename docker volume
 docker volume create --name new_volume && \
@@ -665,6 +666,11 @@ pip-review --auto
 
 # update node
 npm update -g npm
+npm install -g npm-check-updates
+ncu --upgrade -g
+npm install -g
+
+pnpm self-update
 
 #  remove 52ec7a5f-dad6-11ee-a00d-0242ac120003 UUID
 sed -E -e 's/[0-9a-f-]{36}//g'
@@ -797,7 +803,44 @@ touch_by_fnd.sh ~/Nextcloud/MIKI\ Dokumente/MeDIC/Datennutzungsanträge/TryToPre
 
 openssl s_client dsf-fhir-ext.medicsh.de
 
-
-
-
 wget -v --user=$USER --password=$PASSWORD http://172.26.240.188:9091/createJson
+
+find -maxdepth 1 -iname '*firewall*dsf*.xlsx' | xargs xlsxgrep bonn | column -t -s $'\t' -o';' | cut -d';' -f2-7,10- | sort | uniq
+
+find ~/Documents/gPAS -mtime -1 -iname '*list*.xml' | xargs xmllint --format | grep '<name>' | sort | sed -Ee 's#</?name>##g'
+
+cat PID-Sample-list_Ref.No.2025-133.cln.Fallnummer.uniq-mpi_id.MPI_ID.uniq.csv | sed -Ee 's#["; ]*##g' -e 's#(.*)#echo -n "\1;"; echo -n \1#g' -e 's#$# | sha224sum -#g' | sh | sed -Ee 's/;/;PV-/g' -e 's# \*-##g' > PID-Sample-list_Ref.No.2025-133.cln.Fallnummer.uniq-mpi_id.MPI_ID.uniq.hash.csv
+
+cat PID-Sample-list_Ref.No.2025-133.cln.Fallnummer.uniq.csv | sed -Ee 's#["; ]*##g' -e 's#(.*)#echo -n "\1;"; echo -n \1#g' -e 's#$# | sha224sum -#g' | sh | sed -Ee 's/;/;PV-/g' -e 's# \*-##g' > PID-Sample-list_Ref.No.2025-133.cln.Fallnummer.uniq.hash.csv
+
+
+tail PID-Sample-list_Ref.No.2025-133.cln.Fallnummer.uniq-mpi_id.MPI_ID.uniq.csv | sed -Ee 's#(.*)#echo \1#g' -e 's#$# | sha224sum -#g' | sh | sed -Ee 's# \*-##' -e 's#^# curl -H "Accept: application/fhir+json" "http://mii-fhirserver.distan.medicsh.de:8080/fhir/Encounter?subject=Patient/PID-#g' -e 's#$#\&_elements=subject,period,id,identifier&_count=1" | jq . #g'
+
+grep $(date --iso-8601=date) ~/logs/user.log | sed -Ee 's#:00.*##g' -e 's#userlog.*##g' -e 's#^#date "+%x %X" -d "#g' -e 's#$#"#g' | sh
+
+jq -Mrf script.jq <<<"$(cat input.json)"
+
+curl -v --cert client_certificate.pem --key client_certificate_private_key.pem https://dsf-fhir-ext.medicsh.de/fhir/metadata
+openssl s_client -cert client_certificate.pem -key client_certificate_private_key.pem dsf-fhir-ext.medicsh.de:443
+
+docker exec -it bpe-app-1 bash
+
+root@dsf-bpe:/opt/bpe# docker exec -it bpe-app-1 bash
+java@66ac4bb23980:/opt/bpe$ env | grep -i secr
+DEV_DSF_BPE_DB_USER_CAMUNDA_PASSWORD_FILE=/run/secrets/db_user_camunda.password
+DEV_DSF_BPE_DB_USER_PASSWORD_FILE=/run/secrets/db_user.password
+DEV_DSF_BPE_FHIR_CLIENT_CERTIFICATE=/run/secrets/app_client_certificate.pem
+DEV_DSF_BPE_DB_LIQUIBASE_PASSWORD_FILE=/run/secrets/db_liquibase.password
+DEV_DSF_BPE_FHIR_CLIENT_CERTIFICATE_PRIVATE_KEY=/run/secrets/app_client_certificate_private_key.pem
+java@66ac4bb23980:/opt/bpe$ cd /run/secrets/
+java@66ac4bb23980:/run/secrets$ curl -v --cert app_client_certificate.pem --key app_client_certificate_private_key.pemtus
+
+cd "$(docker compose ls | awk '{print $3}' | grep / | sed -Ee 's#(.*)/.*#\1#g')"
+
+choco install FoxitReader -y --notsilent --no-progress --NoShim /NoShim
+
+ls -1 Task_*.json | grep -vE '[0-9]{12,}' | grep -Ev 'anon|_test_' | grep -E '[0-9a-f]{12}' | xargs grep lastUpdated | sed -Ee 's/(Task_.*\.json)/mv -v \1 \1/g' -e 's/.json:    "lastUpdated": "/./g' -e 's/\.[0-9+:.,",]+$/.json/g' -e 's/([0-9]{4})-([0-9]{2})-([0-9]{2})T([0-9]{2}):([0-9]{2}):([0-9]{2})/\1\2\3\4\5\6/g' | sh
+
+
+
+

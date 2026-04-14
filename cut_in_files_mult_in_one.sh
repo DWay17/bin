@@ -94,11 +94,9 @@ for FILE in "$@" ; do
 	echo "fieldNos=$fieldNos"
 	fieldNos=$(echo $fieldNos | sed -Ee 's/^.//g')
 	echo "fieldNos=$fieldNos"
-	if [ -z $fieldNos ] ; 
+	if [ -z $fieldNos ] ; then
 		echo "no matching cols"
 		continue
-	else
-		;;
 	fi
 	fieldNames=$(echo $fieldNames | sed -Ee 's/^.//g')
 	NEW_FILE="$BASENAME.$fieldNames.$EXT"
