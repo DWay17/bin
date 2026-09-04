@@ -1,4 +1,4 @@
-#!/bin/env sh
+#!/bin/env bash
 # /cygdrive/c/Users/trichter/bin/remove_newer_dups.sh
 # use find to get files with same name in different subfolders
 # check for same content
