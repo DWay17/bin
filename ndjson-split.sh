@@ -1,7 +1,7 @@
 #!/bin/sh
 # /cygdrive/c/Users/trichter/bin/ndjson-split.sh
 
-function splitf () {
+function splitf() {
 	FILE="$1"
 	echo "FILE $FILE"
 	FILENAME=`basename "$FILE"`
