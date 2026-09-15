@@ -2,7 +2,7 @@ set DIR=%PROGRAMFILESMY%\Eclipse\eclipse-standard-luna-SR1-win32-x86_64\
 set DIR=%PROGRAMFILESMY%\Eclipse\eclipse-jee-mars-R-win32-x86_64\
 set DIR=%PROGRAMFILESMY%\eclipse\eclipse-jee-neon-3-win32-x86_64\
 set DIR=%PROGRAMFILESMY%\eclipse\current\
-set LOGDIR="C:\Users\t.richter\logs\"
+set LOGDIR="C:\Users\trichter\logs\"
 set LOG_FILE=%LOGDIR%\eclipse.log
 c:
 cd "%DIR%"
@@ -11,13 +11,13 @@ set NLS_LANG=ENGLISH
 
 REM SET HOME=%HOMEDRIVE%%HOMEPATH%
 REM SET HOMEDRIVE=C:
-REM SET HOMEPATH=\Users\t.richter
+REM SET HOMEPATH=\Users\trichter
 REM SET JAVA_HOME=c:\Program Files\Java\jdk1.8.0_131\
-REM SET JAVA_HOME=C:\Users\t.richter\.sdkman\candidates\java\11.0.12-open\
-SET JAVA_HOME=C:\Users\t.richter\.sdkman\candidates\java\current\
-REM SET USERNAME=t.richter
-REM SET USERPROFILE=C:\Users\t.richter
-REM SET HOME.USER=C:\Users\t.richter
+REM SET JAVA_HOME=C:\Users\trichter\.sdkman\candidates\java\11.0.12-open\
+SET JAVA_HOME=C:\Users\trichter\.sdkman\candidates\java\current\
+REM SET USERNAME=trichter
+REM SET USERPROFILE=C:\Users\trichter
+REM SET HOME.USER=C:\Users\trichter
 
 echo HOME=%HOME%
 echo HOMEDRIVE=%HOMEDRIVE%

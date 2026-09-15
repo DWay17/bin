@@ -1,5 +1,5 @@
 [string]$sOutput = ""
-[string]$sOutputFile = "C:\Users\t.richter\logs\user.log"
+[string]$sOutputFile = "C:\Users\trichter\logs\user.log"
 $sOutput = (get-date).ToShortDateString() + " " + (get-date).ToLongTimeString()
 $sOutput = Get-Date -Format "s"
 $sOutput += " "

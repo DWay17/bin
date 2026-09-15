@@ -8,14 +8,15 @@ OIFS="$IFS"
 IFS=$'\n'
 
 for f in $(find . -type f -name '*.*' | sort | gawk '!seen[$0]++' ); do
-    echo "check for file $f"
+    echo -n "check for file $f ... "
     # if filename end with ~ skip
     if [[ "$f" == *~ ]]; then
-        echo "skipping file $f"
+        echo "skipping file (backup)"
         continue
     fi
     for g in $(find . -type f -name "$(basename "$f")" | sort); do
-        echo "found for file $f also file $g"
+#        echo -n "found for file $f also file $g"
+        echo -ne "\n\tfound also file $g ... "
         if [ "$f" != "$g" ]; then
             if cmp -s "$f" "$g"; then
                 if [ "$f" -nt "$g" ]; then
@@ -31,7 +32,7 @@ for f in $(find . -type f -name '*.*' | sort | gawk '!seen[$0]++' ); do
                 echo "file $f and file $g are not equal"
             fi
         else
-            echo "filename is the same"
+            echo "filename+path is the same"
         fi
     done
     echo ""

@@ -1,6 +1,6 @@
 #!/bin/sh
-PROFILE_REGISTRY=/c/Users/t.richter/.p2/org.eclipse.equinox.p2.engine/profileRegistry/
-PROFILE_INFO=/c/Users/t.richter/.p2/profiles.info
+PROFILE_REGISTRY=/c/Users/trichter/.p2/org.eclipse.equinox.p2.engine/profileRegistry/
+PROFILE_INFO=/c/Users/trichter/.p2/profiles.info
 
 for EXE in $(find /c/Programme/eclipse/ -maxdepth 3 -mindepth 2 -type f -iname eclipse.exe) ; do
 	DIR=$(dirname $EXE)

@@ -1,6 +1,6 @@
 REM bc2_sync_kdb
-REM LAPTOP-FBFN60TK\t.richter
-cd C:\Users\t.richter\bin\
+REM LAPTOP-FBFN60TK\trichter
+cd C:\Users\trichter\bin\
 REM dir I:\richter-th\
 echo %DATE% %TIME%
 echo %DATE% %TIME% >> bc2_sync_kdb_bat2_2.log

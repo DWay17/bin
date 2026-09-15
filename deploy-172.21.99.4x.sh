@@ -3,7 +3,7 @@ APPS="splitter merger"
 declare -A HOSTS
 HOSTS["splitter"]=172.21.99.42
 HOSTS["merger"]=172.21.99.43
-DIR=/c/Users/t.richter/.m2/repository/de/cau/med/fdm
+DIR=/c/Users/trichter/.m2/repository/de/cau/med/fdm
 USER=trichter
 TOMCATV="tomcat8"
 REMOTEBASEDIR=/var/lib/$TOMCATV/webapps/

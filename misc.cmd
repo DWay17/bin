@@ -47,8 +47,8 @@ compact /c /a /i /q C:\Windows\installer >> %LOGDIR%/compact.log
 set CATALINA_OPTS=-Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=9010 -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.authenticate=false
 set JRE_HOME=c:\Program Files\Java\jdk1.7.0_79\
 set JAVA_HOME=c:\Program Files\Java\jdk1.7.0_79\
-set CATALINA_OPTS=%CATALINA_OPTS%-DproxySet=true -DproxyHost=127.0.0.1 -DproxyPort=8888 -Djavax.net.ssl.trustStore=C:\Users\t.richter\FiddlerKeystore -Djavax.net.ssl.trustStorePassword=Fiddler
-set JAVA_OPTS=-DproxySet=true -DproxyHost=127.0.0.1 -DproxyPort=8888 -Djavax.net.ssl.trustStore=C:\Users\t.richter\FiddlerKeystore -Djavax.net.ssl.trustStorePassword=Fiddler
+set CATALINA_OPTS=%CATALINA_OPTS%-DproxySet=true -DproxyHost=127.0.0.1 -DproxyPort=8888 -Djavax.net.ssl.trustStore=C:\Users\trichter\FiddlerKeystore -Djavax.net.ssl.trustStorePassword=Fiddler
+set JAVA_OPTS=-DproxySet=true -DproxyHost=127.0.0.1 -DproxyPort=8888 -Djavax.net.ssl.trustStore=C:\Users\trichter\FiddlerKeystore -Djavax.net.ssl.trustStorePassword=Fiddler
 set MVN_HOME=C:\Programme\maven\apache-maven-3.3.9\
 set PATH=%PATH%;%MVN_HOME%\bin
 REM set M2_HOME=%HOME%\.m2
@@ -58,11 +58,11 @@ taskkill /T /FI "IMAGENAME eq *e*"
 taskkill /T /FI "IMAGENAME eq explorer"
 taskkill /F /T /FI "IMAGENAME eq *e*"
 mvn dependency:purge-local-repository
-mvn --settings C:\Users\t.richter\.m2\settings.xml dependency:purge-local-repository | tee fdm_d_plr.log            
-mvn --settings C:\Users\t.richter\.m2\settings.xml dependency:purge-local-repository -DreResolve=false | tee fdm_d_plr.log
-mvn --settings C:\Users\t.richter\.m2\settings.xml dependency:purge-local-repository -DactTransitively=false -DreResolve=false | tee fdm_d_plr.log
+mvn --settings C:\Users\trichter\.m2\settings.xml dependency:purge-local-repository | tee fdm_d_plr.log            
+mvn --settings C:\Users\trichter\.m2\settings.xml dependency:purge-local-repository -DreResolve=false | tee fdm_d_plr.log
+mvn --settings C:\Users\trichter\.m2\settings.xml dependency:purge-local-repository -DactTransitively=false -DreResolve=false | tee fdm_d_plr.log
 forfiles /s /m *.txt /c "perl -pi -e s/Sitaram/Mohan/g @path"
-REM mstsc /domain p2n-sh /u t.richter /v:172.21.97.223
+REM mstsc /domain p2n-sh /u trichter /v:172.21.97.223
 taskkill /T /FI "IMAGENAME eq googledrive*"
 taskkill /T /FI "IMAGENAME eq dropbox*"
 taskkill /T /F /FI "IMAGENAME eq googledrive*"
@@ -73,21 +73,21 @@ C:\Windows\winsxs\wow64_microsoft-windows-sidebar_31bf3856ad364e35_6.1.7601.1751
 mklink /D C:\Windows\Installer D:\C_DRIVE\Windows\Installer
 for %x in (a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z) do taskkill /T /FI "IMAGENAME eq %x*"
 cmd /c for %x in (a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z) do taskkill /T /FI "IMAGENAME eq %x*"
-C:\Users\t.richter>mklink /D symlink target
+C:\Users\trichter>mklink /D symlink target
 Ihre Berechtigungen reichen nicht aus, um diesen Vorgang auszuführen.
-C:\Users\t.richter>mklink /H hardlink target
+C:\Users\trichter>mklink /H hardlink target
 Zugriff verweigert
-C:\Users\t.richter>mklink /J junktion target
+C:\Users\trichter>mklink /J junktion target
 Verbindung erstellt für junktion <<===>> target
 Create JAVA_HOME system wide variable: setx.exe JAVA_HOME "C:\Program Files\Java\jre6" /M
 forfiles /p c:\var /s /m *.tsv /d -7 /C "cmd /c del /q @path"
 takeown /R /F "*"
 icacls * /T /Q /C /RESET
 
-icacls c:\Users\t.richter /reset /t
-icacls c:\Users\t.richter /T /grant "LAPTOP-FBFN60TK\t.richter":(OI)(CI)F
-REM takeown /R /U LAPTOP-FBFN60TK\t.richter /F *
-takeown /R /S LAPTOP-FBFN60TK /U LAPTOP-FBFN60TK\t.richter /F *
+icacls c:\Users\trichter /reset /t
+icacls c:\Users\trichter /T /grant "LAPTOP-FBFN60TK\trichter":(OI)(CI)F
+REM takeown /R /U LAPTOP-FBFN60TK\trichter /F *
+takeown /R /S LAPTOP-FBFN60TK /U LAPTOP-FBFN60TK\trichter /F *
 secedit /configure /cfg %windir%\inf\defltbase.inf /db defltbase.sdb /verbose
 secedit /configure /cfg %windir%\inf\defltsv.inf /db defltbase.sdb /verbose
 
@@ -101,25 +101,25 @@ REM set environment variable
 setx MSYS winsymlinks:nativestrict
 setx CYGWIN winsymlinks:nativestrict
 git config --system core.symlinks true
-setx JAVA_HOME C:\Users\t.richter\.sdkman\candidates\java\current
-setx MAVEN_HOME c:\Users\t.richter\.sdkman\candidates\maven\current
-setx GRADLE_HOME C:\Users\t.richter\.sdkman\candidates\gradle\current
-setx GROOVY_HOME C:\Users\t.richter\.sdkman\candidates\groovy\current
-setx MAVEN_HOME C:\Users\t.richter\.sdkman\candidates\maven\current
-setx ANT_HOME C:\Users\t.richter\.sdkman\candidates\ant\current
-setx GRAILS_HOME C:\Users\t.richter\.sdkman\candidates\grails\current
+setx JAVA_HOME C:\Users\trichter\.sdkman\candidates\java\current
+setx MAVEN_HOME c:\Users\trichter\.sdkman\candidates\maven\current
+setx GRADLE_HOME C:\Users\trichter\.sdkman\candidates\gradle\current
+setx GROOVY_HOME C:\Users\trichter\.sdkman\candidates\groovy\current
+setx MAVEN_HOME C:\Users\trichter\.sdkman\candidates\maven\current
+setx ANT_HOME C:\Users\trichter\.sdkman\candidates\ant\current
+setx GRAILS_HOME C:\Users\trichter\.sdkman\candidates\grails\current
 
 set | find "_HOME"
 setx JDK_HOME "C:\Program Files\Java\jdk1.8.0_211"
 setx JRE_HOME "C:\Program Files\Java\jre1.8.0_211"
 setx JAVA_HOME "%JDK_HOME%"
 
-icacls c:\Users\t.richter /grant "LAPTOP-FBFN60TK\t.richter":(OI)(CI)F
-icacls c:\develop /grant "LAPTOP-FBFN60TK\t.richter":(OI)(CI)F
+icacls c:\Users\trichter /grant "LAPTOP-FBFN60TK\trichter":(OI)(CI)F
+icacls c:\develop /grant "LAPTOP-FBFN60TK\trichter":(OI)(CI)F
 icacls "c:\develop\*" /q /c /reset /t
-icacls "c:\Users\t.richter\*" /q /c /reset /t
+icacls "c:\Users\trichter\*" /q /c /reset /t
 REM 650848 Dateien erfolgreich verarbeitet, bei 63 Dateien ist ein Verarbeitungsfehler aufgetreten.
-takeown /R /S LAPTOP-FBFN60TK /U LAPTOP-FBFN60TK\t.richter /F "My Web Sites"
+takeown /R /S LAPTOP-FBFN60TK /U LAPTOP-FBFN60TK\trichter /F "My Web Sites"
 
 pushd \\server\share
 popd  \\server\share
@@ -194,9 +194,17 @@ REM Import-Module Microsoft.WinGet.Client
 REM Repair-WinGetPackageManager -Force -Latest
 REM Get-AppxPackage -Name 'Microsoft.DesktopAppInstaller' | Reset-AppxPackage
 
+net stop wuauserv
+net stop cryptSvc
+net stop bits
+net stop msiserver
 
+rm -force  C:\Windows\SoftwareDistribution\*
 
-
+net start wuauserv
+net start cryptSvc
+net start bits
+net start msiserver
 
 
 

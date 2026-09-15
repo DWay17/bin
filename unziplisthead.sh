@@ -1,6 +1,6 @@
 #!/bin/sh
 ### head in all csv in all zips
-basedir=/cygdrive/c/Users/t.richter/Dropbox/Caro_Knecht/
+basedir=/cygdrive/c/Users/trichter/Dropbox/Caro_Knecht/
 out_dir=/v/sysINFLAME/CP01/
 echo $out_dir
 desc_file="$out_dir"descript.ion
