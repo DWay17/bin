@@ -18,8 +18,10 @@
          XDMCPTerminate="False"
          SSHKeyChain="False"
          SSHTerminal="True"
-         ExtraSSH=""/>
-         <!-- 
+         ExtraSSH=""
+         />
+         <!--
          LocalProgram="xwin-xdg-menu"
          RemoteProgram="xwin-xdg-menu"
-         -->
+         
+         --> 
