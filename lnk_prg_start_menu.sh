@@ -2,7 +2,7 @@
 PRG=$1
 CYGWIN=winsymlinks:lnk
 PRGS=/c/Programme/
-LNK_P=/c/Users/t.richter/AppData/Roaming/Microsoft/Windows/Start\ Menu/Programs
+LNK_P=/c/Users/trichter/AppData/Roaming/Microsoft/Windows/Start\ Menu/Programs
 echo "searching for $PRG"
 CANDS=`find $PRGS -maxdepth 2 -iname "*$PRG*" -type d`
 echo "found candidates: $CANDS"

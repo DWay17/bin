@@ -112,7 +112,9 @@ if (-not $found) {
                 }
             }
             catch {
-                Write-Warning "Fehler beim Durchsuchen von '$searchPath': $($_.Exception.Message)"  -ForegroundColor Yellow
+                #Write-Warning "Fehler beim Durchsuchen von '$searchPath': $($_.Exception.Message)"  -ForegroundColor Yellow
+                Write-Warning "Fehler beim Durchsuchen von '$searchPath': $($_.Exception.Message)"
+                #Write-Host "Fehler beim Durchsuchen von '$searchPath': $($_.Exception.Message)"  -ForegroundColor Yellow
                 continue
             }
         }
@@ -133,6 +135,7 @@ if (-not $found) {
         "$env:UserProfile\AppData\local\Microsoft\WinGet\Packages\"
         "$env:UserProfile\AppData\Local\",
         "$env:UserProfile\AppData\Roaming",
+        "C:\Program Files\WindowsApps\",
         "C:\Programs",
         "C:\Programme (x86)"
         #"$env:UserProfile\Downlaods"
@@ -161,7 +164,9 @@ if (-not $found) {
                 }
             }
             catch {
-                Write-Warning "Fehler beim Durchsuchen von '$ConfiguredFolder': $($_.Exception.Message)" -ForegroundColor Yellow
+                #Write-Warning "Fehler beim Durchsuchen von '$ConfiguredFolder': $($_.Exception.Message)" -ForegroundColor Yellow
+                Write-Warning "Fehler beim Durchsuchen von '$ConfiguredFolder': $($_.Exception.Message)" 
+                #Write-Host "Fehler beim Durchsuchen von '$ConfiguredFolder': $($_.Exception.Message)" -ForegroundColor Yellow
                 continue
             }
         }

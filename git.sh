@@ -22,12 +22,12 @@ git status | grep "both modified" | gawk '{print $3}' | sed -e 's/^/git checkout
 git merge --strategy-option theirs
 git reset --hard HEAD
 
-git -c filter.lfs.smudge= -c filter.lfs.required=false -c diff.mnemonicprefix=false -c core.quotepath=false clone --branch master git@github.com:tmfev/Dockerbank.git C:\Users\t.richter\git\Dockerbank
+git -c filter.lfs.smudge= -c filter.lfs.required=false -c diff.mnemonicprefix=false -c core.quotepath=false clone --branch master git@github.com:tmfev/Dockerbank.git C:\Users\trichter\git\Dockerbank
 git clone --branch master git@github.com:tmfev/Dockerbank.git Dockerbank
 
 git --work-tree=where/my/code/is --git-dir=some/path/to/my/.git status
 
-git --work-tree=/cygdrive/c/Users/t.richter/AppData/Roaming/jEdit/modes --git-dir=/cygdrive/c/Users/t.richter/git/jedit-docker-mode/.git
+git --work-tree=/cygdrive/c/Users/trichter/AppData/Roaming/jEdit/modes --git-dir=/cygdrive/c/Users/trichter/git/jedit-docker-mode/.git
 
 git update-index
 git prune

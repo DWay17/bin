@@ -9,9 +9,9 @@ function chmodX {
 	FT=$(file "$1")
 	case "$FT" in
 	*script*|*batch*file*)
-		chmod -c a+x "$1" ;;
+		chmod -c ug+x "$1" ;;
 	*executable*)
-		chmod -c a+x "$1" ;;
+		chmod -c ug+x "$1" ;;
 	########################
 	*text*)
 		chmod -c a-x "$1" ;;
@@ -19,6 +19,10 @@ function chmodX {
 		chmod -c a-x "$1" ;;
 	*PEM*|*Certificate*)
 		chmod -c a-x "$1" ;;
+	*empty*)
+		chmod -c a-x "$1" ;;
+	*directory*)
+		chmod -c ug+x "$1" ;;
 	*)
 		echo "file $1 has a unknown filetype: $FT" ;;
 	esac

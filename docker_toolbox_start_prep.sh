@@ -4,7 +4,7 @@ echo ; set | grep -E "DOCKER|VBOX"
 echo ; echo $PATH | tr ':' '\n' | grep -Ei 'DOCKER|VBOX'
 #export DOCKER_TOOLBOX_INSTALL_PATH='C:\Program Files\Docker Toolbox'
 export PATH="/c/Program Files/Docker Toolbox:/c/Program Files/Oracle/VirtualBox":$PATH
-export PATH="/c/Users/t.richter/AppData/Local/Atlassian/SourceTree/git_local/usr/bin":$PATH
+export PATH="/c/Users/trichter/AppData/Local/Atlassian/SourceTree/git_local/usr/bin":$PATH
 
 echo ; echo $PATH | tr ':' '\n' | grep -Ei 'DOCKER|VBOX|VirtualBox'
 

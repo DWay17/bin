@@ -26,11 +26,11 @@ find . -perm /u+x -maxdepth 1 -type f -exec ls -1 {} \; | grep "\." | sed -e 's#
 dig 
 export CLASSPATH=$(echo $CLASSPATH | sed -e 's/;/\n/g' -e 's#/#\\#g' -e 's#\\\\#\\#g' | uniq2 | tr '\n' ';' | sed -e 's/^;//g' -e 's/;$//g')
 export CLASSPATH=$(echo "`find /c/develop/ -iname AnalyseCsv.class | sed -Ee 's#(.*/classes/).*#\1#g' | xargs cygpath -w`;"$CLASSPATH | sed -e 's/;/\n/g' -e 's#/#\\#g' -e 's#\\\\#\\#g' | uniq2 | tr '\n' ';' | sed -e 's/^;//g' -e 's/;$//g')
-find /c/Users/t.richter/.m2/repository -regextype posix-extended -iregex '.*/.*(opencsv).*\.jar' -type f | grep -iEv -- '-(javadoc|sources)\.jar'
+find /c/Users/trichter/.m2/repository -regextype posix-extended -iregex '.*/.*(opencsv).*\.jar' -type f | grep -iEv -- '-(javadoc|sources)\.jar'
 
 file -i * | sed -Ee 's/.*charset=(.*)/\1/g' | sort | uniq -c | sort -nr | head -n 2
 export LC_ALL=de_DE.ISO-8859-1 ; export LANG=de_DE.ISO-8859-1 ; locale
-(find /c/Users/t.richter/ -maxdepth 4 -iregex '.*\.log$' -type f -size +0 ; find /c/Programme/ -maxdepth 6 -regextype posix-extended -iregex '.*(tos|ioe|idrt|i2b2|eclipse|sql|imt).*\.log$' -type f -size +0  ; find /c/Programme/ -mindepth 2 -iname log.log -type f -size +0 )  | grep -ivE '\.[0-9]{14}\.' | grep -iv '/temp/' | sed -e 's/^\(.*\)$/"\1"/g' | xargs mv.date.sh
+(find /c/Users/trichter/ -maxdepth 4 -iregex '.*\.log$' -type f -size +0 ; find /c/Programme/ -maxdepth 6 -regextype posix-extended -iregex '.*(tos|ioe|idrt|i2b2|eclipse|sql|imt).*\.log$' -type f -size +0  ; find /c/Programme/ -mindepth 2 -iname log.log -type f -size +0 )  | grep -ivE '\.[0-9]{14}\.' | grep -iv '/temp/' | sed -e 's/^\(.*\)$/"\1"/g' | xargs mv.date.sh
 find /u/Downloads -maxdepth 1 -iname '*.jmx' -type f | grep -ivE '\.[0-9]{14}\.' | sed -e 's/^/mv.date.sh "/g' -e 's/$/"/g' | sh
 touch -d 2099-12-31T23:59:59 "C:\Users\t.richter\AppData\Local\Temp\TEMP_20991231T235959.tmp"
 apt-get install postgresql-client
@@ -46,15 +46,15 @@ IFS="$OIFS"
 unset IFS
 cd 'C:\Users\t.richter\AppData\Local\Temp\'
 cd ~/AppData/Local/Temp
-cd /cygdrive/c/Users/t.richter/AppData/Local/Temp
+cd /cygdrive/c/Users/trichter/AppData/Local/Temp
 nmap -p389,636 -oG - 10.140.223.101/24 | grep open
 #Host: 10.140.223.75 ()  Ports: 389/open/tcp//ldap///, 636/open/tcp//ldapssl///
 #Host: 10.140.223.97 (sbdclp01.zad.local)        Ports: 389/open/tcp//ldap///, 636/open/tcp//ldapssl///
 
 for $part in `split --verbose -l 400 --additional-suffix=.csv 99_20150928-syinflame-CED_Anamnese.csv 99_20150928-syinflame-CED_Anamnese_ | sed -Ee 's/.*„(.*)“.*/\1/g'` ; do cat <(head -n1 99_20150928-syinflame-CED_Anamnese.csv) $part > $part; done
-export CLASSPATH=$(echo "`find /c/Users/t.richter/.m2/repository -regextype posix-extended -iregex '.*/.*(opencsv|commons-csv-1.2).*\.jar' -type f | grep -iEv -- '-(javadoc|sources)\.jar' | xargs cygpath -w`;"$CLASSPATH | sed -e 's/;/\n/g' -e 's#/#\\#g' -e 's#\\\\#\\#g' | uniq2 | tr '\n' ';' | sed -e 's/^;//g' -e 's/;$//g')
-export CLASSPATH=$(echo "`find /c/Users/t.richter/.m2/repository -regextype posix-extended -iregex '.*/.*(slf4j|logback|logging|lang3).*\.jar' -type f | grep -iEv -- '-(javadoc|sources)\.jar' | xargs cygpath -w`;"$CLASSPATH | sed -e 's/;/\n/g' -e 's#/#\\#g' -e 's#\\\\#\\#g' | uniq2 | tr '\n' ';' | sed -e 's/^;//g' -e 's/;$//g')
-export CLASSPATH=$(echo "`find /c/Users/t.richter/.m2/repository -regextype posix-extended -iregex '.*/.*(oro).*\.jar' -type f | grep -iEv -- '-(javadoc|sources)\.jar' | xargs cygpath -w`;"$CLASSPATH | sed -e 's/;/\n/g' -e 's#/#\\#g' -e 's#\\\\#\\#g' | uniq2 | tr '\n' ';' | sed -e 's/^;//g' -e 's/;$//g')
+export CLASSPATH=$(echo "`find /c/Users/trichter/.m2/repository -regextype posix-extended -iregex '.*/.*(opencsv|commons-csv-1.2).*\.jar' -type f | grep -iEv -- '-(javadoc|sources)\.jar' | xargs cygpath -w`;"$CLASSPATH | sed -e 's/;/\n/g' -e 's#/#\\#g' -e 's#\\\\#\\#g' | uniq2 | tr '\n' ';' | sed -e 's/^;//g' -e 's/;$//g')
+export CLASSPATH=$(echo "`find /c/Users/trichter/.m2/repository -regextype posix-extended -iregex '.*/.*(slf4j|logback|logging|lang3).*\.jar' -type f | grep -iEv -- '-(javadoc|sources)\.jar' | xargs cygpath -w`;"$CLASSPATH | sed -e 's/;/\n/g' -e 's#/#\\#g' -e 's#\\\\#\\#g' | uniq2 | tr '\n' ';' | sed -e 's/^;//g' -e 's/;$//g')
+export CLASSPATH=$(echo "`find /c/Users/trichter/.m2/repository -regextype posix-extended -iregex '.*/.*(oro).*\.jar' -type f | grep -iEv -- '-(javadoc|sources)\.jar' | xargs cygpath -w`;"$CLASSPATH | sed -e 's/;/\n/g' -e 's#/#\\#g' -e 's#\\\\#\\#g' | uniq2 | tr '\n' ';' | sed -e 's/^;//g' -e 's/;$//g')
 pslist 2>/dev/null | gawk '{print $7" "$2" "$1}' | grep -v '0:00' | grep -v Idle | sed -e 's/[:.]//g' | sort -nr | head -n 1 | gawk '{print $2}' | xargs pskill
 pslist 2>/dev/null | gawk '{print $7" "$2" "$1}' | grep -v '0:00' | grep -v Idle | sed -e 's/[:.]//g' | sort -nr | grep -Evi 'eclipse|SearchIndexer|svchost|System' | head -n 2 | gawk '{print $2}' | xargs -n 1 pskill
 
@@ -279,7 +279,7 @@ installed the cygwin distribution.  Rebooting is also suggested if you
 are unable to find another cygwin DLL.
 Segmentation fault
 
-export PATH="/c/Users/t.richter/AppData/Local/Atlassian/SourceTree/git_local/usr/bin":$PATH
+export PATH="/c/Users/trichter/AppData/Local/Atlassian/SourceTree/git_local/usr/bin":$PATH
 
 echo -e "Ein \033[0;34mblaues Huhn\033[0m. Das ist wieder normaler Text."
 echo -e "Ein \e[0;34mblaues Huhn\e[0m. Das ist wieder normaler Text."
@@ -623,6 +623,7 @@ systemctl start msmtpd
 systemctl status msmtpd
 
 find / -maxdepth 3 -iname docker-compose.yml -type f | xargs grep -i image | sed -Ee 's/    image: "?/docker pull /g' -e 's/:.*"?/:latest/g'
+find ~trichter/ -type f -name docker-compose.yml | xargs grep image | sed -Ee 's/.*    image: "?/docker pull /g' | sort -u | grep -v sha256
 
 # rename docker volume
 docker volume create --name new_volume && \
@@ -665,6 +666,11 @@ pip-review --auto
 
 # update node
 npm update -g npm
+npm install -g npm-check-updates
+ncu --upgrade -g
+npm install -g
+
+pnpm self-update
 
 #  remove 52ec7a5f-dad6-11ee-a00d-0242ac120003 UUID
 sed -E -e 's/[0-9a-f-]{36}//g'
@@ -797,7 +803,74 @@ touch_by_fnd.sh ~/Nextcloud/MIKI\ Dokumente/MeDIC/Datennutzungsanträge/TryToPre
 
 openssl s_client dsf-fhir-ext.medicsh.de
 
-
-
-
 wget -v --user=$USER --password=$PASSWORD http://172.26.240.188:9091/createJson
+
+find -maxdepth 1 -iname '*firewall*dsf*.xlsx' | xargs xlsxgrep bonn | column -t -s $'\t' -o';' | cut -d';' -f2-7,10- | sort | uniq
+
+find ~/Documents/gPAS -mtime -1 -iname '*list*.xml' | xargs xmllint --format | grep '<name>' | sort | sed -Ee 's#</?name>##g'
+
+cat PID-Sample-list_Ref.No.2025-133.cln.Fallnummer.uniq-mpi_id.MPI_ID.uniq.csv | sed -Ee 's#["; ]*##g' -e 's#(.*)#echo -n "\1;"; echo -n \1#g' -e 's#$# | sha224sum -#g' | sh | sed -Ee 's/;/;PV-/g' -e 's# \*-##g' > PID-Sample-list_Ref.No.2025-133.cln.Fallnummer.uniq-mpi_id.MPI_ID.uniq.hash.csv
+
+cat PID-Sample-list_Ref.No.2025-133.cln.Fallnummer.uniq.csv | sed -Ee 's#["; ]*##g' -e 's#(.*)#echo -n "\1;"; echo -n \1#g' -e 's#$# | sha224sum -#g' | sh | sed -Ee 's/;/;PV-/g' -e 's# \*-##g' > PID-Sample-list_Ref.No.2025-133.cln.Fallnummer.uniq.hash.csv
+
+
+tail PID-Sample-list_Ref.No.2025-133.cln.Fallnummer.uniq-mpi_id.MPI_ID.uniq.csv | sed -Ee 's#(.*)#echo \1#g' -e 's#$# | sha224sum -#g' | sh | sed -Ee 's# \*-##' -e 's#^# curl -H "Accept: application/fhir+json" "http://mii-fhirserver.distan.medicsh.de:8080/fhir/Encounter?subject=Patient/PID-#g' -e 's#$#\&_elements=subject,period,id,identifier&_count=1" | jq . #g'
+
+grep $(date --iso-8601=date) ~/logs/user.log | sed -Ee 's#:00.*##g' -e 's#userlog.*##g' -e 's#^#date "+%x %X" -d "#g' -e 's#$#"#g' | sh
+
+jq -Mrf script.jq <<<"$(cat input.json)"
+
+curl -v --cert client_certificate.pem --key client_certificate_private_key.pem https://dsf-fhir-ext.medicsh.de/fhir/metadata
+openssl s_client -cert client_certificate.pem -key client_certificate_private_key.pem dsf-fhir-ext.medicsh.de:443
+
+docker exec -it bpe-app-1 bash
+
+root@dsf-bpe:/opt/bpe# docker exec -it bpe-app-1 bash
+java@66ac4bb23980:/opt/bpe$ env | grep -i secr
+DEV_DSF_BPE_DB_USER_CAMUNDA_PASSWORD_FILE=/run/secrets/db_user_camunda.password
+DEV_DSF_BPE_DB_USER_PASSWORD_FILE=/run/secrets/db_user.password
+DEV_DSF_BPE_FHIR_CLIENT_CERTIFICATE=/run/secrets/app_client_certificate.pem
+DEV_DSF_BPE_DB_LIQUIBASE_PASSWORD_FILE=/run/secrets/db_liquibase.password
+DEV_DSF_BPE_FHIR_CLIENT_CERTIFICATE_PRIVATE_KEY=/run/secrets/app_client_certificate_private_key.pem
+java@66ac4bb23980:/opt/bpe$ cd /run/secrets/
+java@66ac4bb23980:/run/secrets$ curl -v --cert app_client_certificate.pem --key app_client_certificate_private_key.pemtus
+
+cd "$(docker compose ls | awk '{print $3}' | grep / | sed -Ee 's#(.*)/.*#\1#g')"
+
+choco install FoxitReader -y --notsilent --no-progress --NoShim /NoShim
+
+ls -1 Task_*.json | grep -vE '[0-9]{12,}' | grep -Ev 'anon|_test_' | grep -E '[0-9a-f]{12}' | xargs grep lastUpdated | sed -Ee 's/(Task_.*\.json)/mv -v \1 \1/g' -e 's/.json:    "lastUpdated": "/./g' -e 's/\.[0-9+:.,",]+$/.json/g' -e 's/([0-9]{4})-([0-9]{2})-([0-9]{2})T([0-9]{2}):([0-9]{2}):([0-9]{2})/\1\2\3\4\5\6/g' | sh
+
+xmllint --noblanks
+
+# rust  / cargo
+# Installiert die MSVC-Toolchain
+rustup toolchain install stable-x86_64-pc-windows-msvc
+# Installiert die GNU-Toolchain
+rustup toolchain install stable-x86_64-pc-windows-gnu
+rustup default stable-x86_64-pc-windows-msvc
+rustup default stable-x86_64-pc-windows-gnu
+rustup toolchain list
+
+winget install --id Microsoft.VisualStudio.2022.BuildTools --override "--add Microsoft.VisualStudio.Workload.VCTools --add Microsoft.VisualStudio.Component.Windows11SDK.22000 --includeRecommended --passive"
+#winget install --id Microsoft.VisualStudio.2026.BuildTools --override "--add Microsoft.VisualStudio.Workload.VCTools --add Microsoft.VisualStudio.Component.Windows11SDK.22000 --includeRecommended --passive"
+#winget install --id Microsoft.VisualStudio.2026.BuildTools --override "--add Microsoft.VisualStudio.Workload.VCTools --add Microsoft.VisualStudio.Component.Windows11SDK.26100 --includeRecommended --passive"
+winget install --id Microsoft.VisualStudio.2022.BuildTools --override "--add Microsoft.VisualStudio.Workload.VCTools --add Microsoft.VisualStudio.Component.Windows11SDK.22000 --includeRecommended --passive"
+winget install --id Microsoft.VisualStudio.BuildTools --override "--add Microsoft.VisualStudio.Workload.VCTools --add Microsoft.VisualStudio.Component.Windows11SDK.26100 --includeRecommended --passive"
+
+export PATH="$PATH:$(find $(cd ~; pwd) -name bin -type d | grep -v pkg | tr '\n' ':' | sed -e 's#:$##g')"
+
+grep -Ei 'hash.?key' *.env .env dimp_dup_*.yaml | grep -v ':#' | sed -Ee 's#^(.+):#"\1": #g' -e 's#": #": "#g' -e 's#$#"#g'
+
+
+
+
+
+
+
+
+
+
+
+
+

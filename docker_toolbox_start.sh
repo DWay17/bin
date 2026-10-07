@@ -1,6 +1,6 @@
 #!/bin/bash
 export PATH="/c/Program Files/Docker Toolbox:/c/Program Files/Oracle/VirtualBox":$PATH
-export PATH="/c/Users/t.richter/AppData/Local/Atlassian/SourceTree/git_local/usr/bin":$PATH
+export PATH="/c/Users/trichter/AppData/Local/Atlassian/SourceTree/git_local/usr/bin":$PATH
 
 trap '[ "$?" -eq 0 ] || read -p "Looks like something went wrong in step ´$STEP´... Press any key to continue..."' EXIT
 

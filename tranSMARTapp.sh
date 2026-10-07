@@ -16,7 +16,7 @@ cd $FOLDER
 #USER_HOME=$FOLDER
 #grailsWorkDir=$FOLDER
 #GRAILS_WORK_DIR=$FOLDER
-mv -v /c/Users/t.richter/.grails /c/Users/t.richter/.grails_$(date "+%Y-%m-%dT%H.%M.%S")
+mv -v /c/Users/trichter/.grails /c/Users/trichter/.grails_$(date "+%Y-%m-%dT%H.%M.%S")
 pwd
 URL="git@github.com:$ACCOUNT/transmartApp.git"
 echo "clone url"
