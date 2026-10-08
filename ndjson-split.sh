@@ -23,7 +23,7 @@ splitf() {
 	len=${#lineNumbers}
 	echo "len $len"
 	echo split --lines=1 --elide-empty-files --verbose --numeric-suffixes \
-	  --additional-suffix=.json --suffix-length=$len "$FILE" "$BASENAME"
+	  --additional-suffix=.json --suffix-length=$len "$FILE" "$DIRNAME/""$BASENAME."
 	split --lines=1 --elide-empty-files --verbose --numeric-suffixes \
 	  --additional-suffix=.json --suffix-length=$len "$FILE" "$DIRNAME/""$BASENAME."
 }
