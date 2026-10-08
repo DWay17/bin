@@ -70,14 +70,24 @@ if (-not $found) {
                             
                             if ($TargetPath -like "*$ProgramName*") {
                                 if ($lnkFile -like "*uninstall*") {
-                                    Write-Host "Verknüpfung gefunden: '$($lnkFile.FullName)' ... skip"
+                                    Write-Host "Verknüpfung gefunden: '$($lnkFile.FullName)' ... skip (uninstall link)"
+                                    continue 
+                                }
+                                # check link for regexp with handbuch ...
+                                if ($lnkFile -match ".*(handbuch|manual|hilfe).*") {
+                                    Write-Host "Verknüpfung gefunden: '$($lnkFile.FullName)' ... skip (handbuch/manual/hilfe link)"
                                     continue 
                                 }
                                 Write-Host "Programm gefunden in Verknüpfung: '$($lnkFile.FullName)'" -ForegroundColor DarkGreen
                                 Write-Host "Zielpfad der Verknüpfung: '$TargetPath'"
                                 # check for unins000
                                 if ($TargetPath -like "*unins*") {
-                                    Write-Host "uninst gefunden: '$TargetPath' ... skip"  -ForegroundColor Gray
+                                    Write-Host "uninst gefunden: '$TargetPath' ... skip (unins target)"  -ForegroundColor Gray
+                                    continue
+                                }
+                                # check target for pdf
+                                if ($TargetPath -like "*.pdf") {
+                                    Write-Host "uninst gefunden: '$TargetPath' ... skip (pdf target)"  -ForegroundColor Gray
                                     continue
                                 }
                                 # run lnk file
