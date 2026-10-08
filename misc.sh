@@ -499,7 +499,7 @@ apt-cyg install binutils curl gcc-core gmp libffi-devel libgmp-devel make git na
 #hen do pkcs8 with -topk8 to convert this key from traditional format to pkcs#8 format.
 openssl pkcs8 -topk8 -inform pem -in file.key -outform pem -nocrypt -out file.pem
 
-curl http://myip.dnsomatic.com
+curl http://myip.dnsomatic.com ; echo
 
 openssl pkcs12 -export -out client_certificate.p12 -inkey private-key.pem -in certificate.pem -certfile ca_certificate.pem
 openssl pkcs12 -export -out dsf-bpe-test.p12 -inkey dsf-bpe-test.key -in cert-11549486750155167184402693899-dsf-bpe-test.pem
@@ -791,6 +791,7 @@ export GIT_ASKPASS=true
 
 # --cert secrets/client_certificate.pem --key secrets/client_certificate_private_key.pem
 curl -H "Accept: application/fhir+json" http://127.0.0.1:8080/ttp-fhir/fhir/gpas/metadata | jq . | grep -E "(version|status).: "
+curl -H "Accept: application/fhir+json" http://127.0.0.1:8080/ttp-fhir/fhir/gpas/metadata 2>/dev//null | jq . | grep -E "(version|status).: "
 
 # variab of container
 docker exec compose-wildfly-nginx-1 env
@@ -862,6 +863,9 @@ export PATH="$PATH:$(find $(cd ~; pwd) -name bin -type d | grep -v pkg | tr '\n'
 
 grep -Ei 'hash.?key' *.env .env dimp_dup_*.yaml | grep -v ':#' | sed -Ee 's#^(.+):#"\1": #g' -e 's#": #": "#g' -e 's#$#"#g'
 
+curl -4 https://ifconfig.me/ ; echo
+curl http://myip.dnsomatic.com ; echo
+curl -4 https://api.getpublicip.com/ip 2>/dev/null | grep IP | sed -Ee 's/.*: ?//g'
 
 
 
