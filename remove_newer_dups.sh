@@ -4,6 +4,40 @@
 # check for same content
 # keep the oldest one and remove newer file
 
+# MAXDEPTH
+# STARTDIR
+# EXT
+
+while getopts "mse:" option; do
+    case $option in
+        m)
+            MAXDEPTH="$OPTARG"
+            ;;
+        s)
+            STARTDIR="$OPTARG"
+            ;;
+        e)
+            EXT="$OPTARG"
+        ?)
+    esac
+done
+
+# check for empty and set default
+if [ -z "$MAXDEPTH" ]; then
+    MAXDEPTH=5
+fi
+# check for empty and set default
+if [ -z "$STARTDIR" ]; then
+    STARTDIR="."
+fi
+# check for empty and set default
+if [ -z "$EXT" ]; then
+    EXT="*"
+fi
+echo "MAXDEPTH $MAXDEPTH"
+echo "STARTDIR $STARTDIR"
+echo "EXT $EXT"
+
 OIFS="$IFS"
 IFS=$'\n'
 
@@ -38,3 +72,4 @@ for f in $(find . -type f -name '*.*' | sort | gawk '!seen[$0]++' ); do
     echo ""
 done
 IFS="$OIFS"
+
