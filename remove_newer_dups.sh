@@ -41,7 +41,7 @@ echo "EXT $EXT"
 OIFS="$IFS"
 IFS=$'\n'
 
-for f in $(find . -type f -name '*.*' | sort | gawk '!seen[$0]++' ); do
+for f in $(find "$STARTDIR" -maxdepth "$MAXDEPTH" -type f -name "*.$EXT" | sort | gawk '!seen[$0]++' ); do
     echo -n "check for file $f ... "
     # if filename end with ~ skip
     if [[ "$f" == *~ ]]; then
