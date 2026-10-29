@@ -8,7 +8,7 @@
 # STARTDIR
 # EXT
 
-while getopts "mse:" option; do
+while getopts "m:s:e:" option; do
     case $option in
         m)
             MAXDEPTH="$OPTARG"
@@ -18,7 +18,11 @@ while getopts "mse:" option; do
             ;;
         e)
             EXT="$OPTARG"
-        ?)
+            ;;
+        \?)
+            ;;
+        :)
+            ;;
     esac
 done
 
