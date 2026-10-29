@@ -608,6 +608,7 @@ sudo systemctl restart systemd-timesyncd.service
 #usermod -a -G root,docker,fhir,bpe trichter
 usermod -a -G docker,fhir trichter
 usermod -a -G docker,bpe trichter
+usermod -a -G root,docker,gpas trichter
 
 echo quit | openssl s_client -showcerts -servername server -connect server:443 > cacert.pem
 echo quit | openssl s_client -showcerts -servername pseudonymize.distan.medicsh.de -connect pseudonymize.distan.medicsh.de:443 > ca_pseudonymize.distan.medicsh.de.pem
@@ -770,9 +771,13 @@ sed --in-place=.bak -Ee 's#^([ ]+image: ghcr.io/datasharingframework/[a-z]+:)[1]
 diff --new-line-format="" --unchanged-line-format="" <(sort file1) <(sort file2)
 comm -23 <(sort file1) <(sort file2)
 
-apt install golang-go -y
+apt update && apt install golang-go -y
+snap install go
+
 go install github.com/jesseduffield/lazydocker@latest
 ~/go/bin/lazydocker
+cd ~/lazydocker.git && git pull && go install
+
 
 git config credential.helper store
 git config credential.helper 'cache --timeout 7200'
@@ -867,11 +872,20 @@ curl -4 https://ifconfig.me/ ; echo
 curl http://myip.dnsomatic.com ; echo
 curl -4 https://api.getpublicip.com/ip 2>/dev/null | grep IP | sed -Ee 's/.*: ?//g'
 
+find . -iname 'docker*' -type f | xargs grep -E 'FROM|image' | grep -v "#" | sed -Ee 's/.*(image: |FROM )//g' | sed -E -e 's#^#docker pull #g' | gawk '!seen[$0]++' 
 
+grep -iE 'keywords' *.eml | sed -Ee 's#.*: ##g' | tr ',' '\n' | trim | sort | uniq -c | sort -nr | head -n 23 | cut -b9- | trim | sed -Ee 's#^(.*)$#\1,\1#g' -e 's#^,(.*)#\1,\1#g' -e 's#((.*) (.*)),()#\2\3,\4#g' -e 's#((.*) (.*)),()#\2\3,\4#g' -e 's#((.*) (.*)),()#\2\3,\4#g' -e 's#((.*) (.*)),()#\2\3,\4#g' -e 's%(.+),(.+)%user_pref("mailnews.tags.\1.color", "#777777");user_pref("mailnews.tags.\1.tag", "\2");%g' | grep user_pref | tr ';' '\n' | grep user_pref | grep -Ev 'merken|autotodo|calendar|demn|lesen|prod|test' | sort
 
+openssl verify -verbose -show_chain \
+    -purpose sslclient \
+    -CAfile /etc/nginx/certs/ca.crt \
+    /etc/nginx/certs/client.crt
 
+openssl x509 -noout -subject -issuer -serial -dates -fingerprint -sha256 -in client.crt
 
-
+du
+duf
+ncdu ggic # (NCurses Disk Usage
 
 
 
