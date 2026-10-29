@@ -13,6 +13,7 @@ $logFile = "C:\Users\trichter\logs\chat.log"
 
 run.ps1 Rocket.Chat
 
-run.ps1 zulip
-run.ps1 slack
-run.ps1 element
+run.ps1 zulip &
+run.ps1 slack &
+run.ps1 element &
+run.ps1 Mattermost &

@@ -17,10 +17,13 @@ run.ps1 Capture2Text
 ## procexp
 Get-Process | Where-Object {$_.ProcessName -match ".*(procexp).*" } | ForEach-Object { $_.kill() }
 run.ps1 procexp
+pslist procexp64 || run.ps1 procexp
 
 ## Screenpresso
 Get-Process | Where-Object {$_.ProcessName -match ".*(procexp).*" } | ForEach-Object { $_.kill() }
 Start-Process "C:\Users\trichter\AppData\Local\Learnpulse\Screenpresso\Screenpresso.exe"
+
+pslist procexp64 || run.ps1 procexp
 
 Disable-ScheduledTasks.ps1 -TaskListFile ~/Disable-ScheduledTasks.txt &
 

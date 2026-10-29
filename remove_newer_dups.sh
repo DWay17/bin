@@ -47,14 +47,14 @@ IFS=$'\n'
 
 for f in $(find "$STARTDIR" -maxdepth "$MAXDEPTH" -type f -name "*.$EXT" | sort | gawk '!seen[$0]++' ); do
     echo -n "check for file $f ... "
-    # if filename end with ~ skip
+    # if filename ends with ~ skip
     if [[ "$f" == *~ ]]; then
         echo "skipping file (backup)"
         continue
     fi
-    for g in $(find . -type f -name "$(basename "$f")" | sort); do
-#        echo -n "found for file $f also file $g"
-        echo -ne "\n\tfound also file $g ... "
+    for g in $(find "$STARTDIR" -maxdepth "$MAXDEPTH" -type f -name "$(basename "$f")" | sort); do
+        # echo -n "found for file $f also file $g"
+        # echo -ne "\n\tfound also file $g ... "
         if [ "$f" != "$g" ]; then
             if cmp -s "$f" "$g"; then
                 if [ "$f" -nt "$g" ]; then
@@ -70,7 +70,8 @@ for f in $(find "$STARTDIR" -maxdepth "$MAXDEPTH" -type f -name "*.$EXT" | sort 
                 echo "file $f and file $g are not equal"
             fi
         else
-            echo "filename+path is the same"
+            true
+            # echo "filename+path is the same"
         fi
     done
     echo ""
