@@ -887,6 +887,29 @@ du
 duf
 ncdu ggic # (NCurses Disk Usage
 
+find . -regextype posix-extended -iregex ".*((.*compose.*\.y.?ml)|(Dockerfile)).*" -type f | xargs grep -E 'FROM|image' | grep -v "#" | sed -Ee 's/.*(FROM|image:) //g' | sed -E -e 's#^#docker pull #g' | gawk '!seen[$0]++'
+12
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
