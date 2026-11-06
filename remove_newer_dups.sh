@@ -19,7 +19,13 @@ while getopts "m:s:e:" option; do
         e)
             EXT="$OPTARG"
             ;;
-        \?)
+        # help ? h
+        h|\?)
+            echo "Usage: $0 [-m maxdepth] [-s startdir] [-e ext]"
+            echo "  -m maxdepth: maximum depth for find (default: 5)"
+            echo "  -s startdir: starting directory for find (default: .)"
+            echo "  -e ext: file extension to search for (default: *)"
+            exit 0
             ;;
         :)
             ;;
