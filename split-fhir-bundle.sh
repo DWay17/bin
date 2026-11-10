@@ -1,6 +1,19 @@
 #!/bin/sh
 # /cygdrive/c/Users/trichter/bin/fhir-bundle-split.sh
-
+function add2fn () {
+	IN="$1"
+    echo "add2fn  IN $IN" >&2
+	ADD="$2"
+    echo "add2fn ADD $ADD" >&2
+	ADD2=$(echo "$ADD" | sed -Ee 's#[^A-Za-z0-9._-]#-#g')
+	if [[ $IN == *"$ADD"* ]] ; then
+		OUT="${IN}";
+	else
+		OUT="${IN}_${ADD2}"
+	fi
+    echo "add2fn OUT $OUT" >&2
+	echo "$OUT"
+}
 function splt() {
 	echo -ne "splt $1\t"
 	FILE="$1"
@@ -19,6 +32,9 @@ function splt() {
 	# return 1 if no file
 	FILETYPE=$(file -b -- "$FILE")
 	echo -ne "$FILETYPE\t"
+    if [[ "$FILETYPE" != *"JSON"* ]]; then
+        echo "no JSON"
+    fi
 	# grep for bundle
     if ! grep -Eiq '"resourceType": ?"Bundle"' "$FILE" ; then
 		echo "no bundle"
@@ -26,12 +42,19 @@ function splt() {
     fi
 	echo "found bundle"
 	# split bundle into files
+    COUNT=0
 	jq -c '.entry[] | .resource' "$FILE" | while read -r RESOURCE ; do
+        # increase COUNT
+        COUNT=$((COUNT+1))
 		# get resourceType and id
 		RTYPE=$(echo "$RESOURCE" | jq -r .resourceType)
 		RID=$(echo "$RESOURCE" | jq -r .id)
 		# create filename
-		FNAME="${DIRNAME}/${BASENAME}_${RTYPE}_${RID}.json"
+		#FNAME="${DIRNAME}/${BASENAME}_${RTYPE}_${RID}.json"
+		#FNAME="${DIRNAME}/${BASENAME}_${COUNT}_${RTYPE}.json"
+		FNAME="${DIRNAME}/${BASENAME}_${COUNT}"
+		FNAME=$(add2fn "$FNAME" "$RTYPE")
+		FNAME="${FNAME}.json"
 		echo "writing $FNAME"
 		echo "$RESOURCE" > "$FNAME"
     	echo

@@ -28,14 +28,28 @@ splitf() {
 	  --additional-suffix=.json --suffix-length=$len "$FILE" "$DIRNAME/""$BASENAME."
 }
 
-if [ -z "$1" ] ; then
-	#echo " -z"
-	for file in "."/*.ndjson ; do
-		splitf "$file"
-	done
+STARTDIR="."
+EXTENSION="ndjson"
+MAXDEPTH=1
+
+# 
+# take file names from 
+# * commandline or 
+# * pipe and call for each file 
+# * or find files in STARTDIR with EXTENSION and call for each file
+if [ "$#" -gt 0 ] ; then
+    for FILE in "$@" ; do
+        echo "FILE $FILE"
+        splitf "$FILE"
+    done
+elif [ ! -t 0 ] ; then
+    while IFS= read -r FILE; do
+        echo "FILE $FILE"
+        splitf "$FILE"
+    done
 else
-	#echo " ! -z"
-	for file in "$@" ; do
-		splitf "$file"
-	done
+    for FILE in $(find "$STARTDIR" -maxdepth "$MAXDEPTH" -type f -name "*.$EXTENSION" ) ; do
+        echo "FILE $FILE"
+        splitf "$FILE"
+    done
 fi
