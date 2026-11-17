@@ -1,7 +1,7 @@
 #!/bin/sh
 for fileName in "$@"; do
 	if [ -s "$fileName" ]; then
-		s1=`ls --full-time "$fileName" | gawk '{print $6 "T" $7}'`
+		s1=`ls -d --full-time -- "$fileName" | gawk '{print $6 "T" $7}'`
 		#echo $s1
 		s2=`date -d "$s1" +%Y%m%d%H%M%S`
 		#echo $s2

@@ -4,12 +4,16 @@ chmodX() {
 		printf 'file not found: %s\n' "$1" >&2
 		return 1
 	fi
-
+ 	# backup *~ and #*#
 	case "$1" in
-	*~)
-		chmod -c a-x -- "$1"
-		return
-		;;
+		*~)
+			chmod -c a-x -- "$1"
+			return
+			;;
+		\#*#)
+			chmod -c a-x -- "$1"
+			return
+			;;
 	esac
 
 	#ls -l "$1"
